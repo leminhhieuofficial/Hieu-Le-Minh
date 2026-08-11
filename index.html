@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-   :root{
+  :root{
     --paper:#F6F4EE;
     --paper-alt:#EDEAE1;
     --ink:#1B1A17;
@@ -228,9 +228,27 @@
   .top-btn:hover{background:var(--stamp);}
   .top-btn svg{width:16px;height:16px;}
 
+  /* ---------- SCROLL REVEAL ---------- */
+  [data-reveal]{
+    opacity:0;
+    transform:translateY(32px);
+    transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+  }
+  [data-reveal].is-visible{opacity:1;transform:translateY(0);}
+  [data-reveal="left"]{transform:translateX(-32px);}
+  [data-reveal="left"].is-visible{transform:translateX(0);}
+  [data-reveal="right"]{transform:translateX(32px);}
+  [data-reveal="right"].is-visible{transform:translateX(0);}
+  [data-reveal][data-delay="1"]{transition-delay:.1s;}
+  [data-reveal][data-delay="2"]{transition-delay:.2s;}
+  [data-reveal][data-delay="3"]{transition-delay:.3s;}
+  [data-reveal][data-delay="4"]{transition-delay:.4s;}
+  [data-reveal][data-delay="5"]{transition-delay:.5s;}
+  @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none;}}
+
   @media (max-width:880px){
     .hero-grid,.about-grid,.travel-grid{grid-template-columns:1fr;}
-    .hero-art{order:-1;max-width:360px;margin:0 auto;}
+    .hero-art{order:-1;max-width:360px;margin:0 auto;min-height:320px;}
     .feature-grid,.project-grid{grid-template-columns:1fr 1fr;}
     .blog-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:110px;}
@@ -278,15 +296,15 @@
 <section class="hero" id="home">
   <div class="wrap hero-grid">
     <div>
-      <div class="role">SALES ADMIN <span>·</span> TRAVEL <span>·</span> TECHNOLOGY</div>
-      <h1>Le Minh<br>Hieu</h1>
-      <p class="desc" style="margin-top:22px;">Tôi xây dựng hệ thống, chia sẻ hành trình và tạo ra những trải nghiệm số đơn giản.</p>
-      <div class="hero-actions">
+      <div class="role" data-reveal data-delay="1">SALES ADMIN <span>·</span> TRAVEL <span>·</span> TECHNOLOGY</div>
+      <h1 data-reveal data-delay="2">Le Minh<br>Hieu</h1>
+      <p class="desc" style="margin-top:22px;" data-reveal data-delay="3">Tôi xây dựng hệ thống, chia sẻ hành trình và tạo ra những trải nghiệm số đơn giản.</p>
+      <div class="hero-actions" data-reveal data-delay="4">
         <a href="#projects" class="btn btn-primary">KHÁM PHÁ</a>
         <a href="#contact" class="btn btn-ghost">LIÊN HỆ</a>
       </div>
     </div>
-    <div class="hero-art">
+    <div class="hero-art" data-reveal="right">
       <div class="frame">
          <img src="IMG1.jpeg" alt="Le Minh Hieu" style="width:100%;height:100%;object-fit:cover;">
       </div>
@@ -310,7 +328,7 @@
 <!-- ABOUT -->
 <section class="section" id="about">
   <div class="wrap about-grid">
-    <div class="about-art">
+    <div class="about-art" data-reveal="left">
       <svg viewBox="0 0 200 220" width="60%" fill="none" stroke="#2C3A54" stroke-width="1">
         <rect x="30" y="20" width="140" height="180" rx="2" opacity=".4"/>
         <line x1="50" y1="60" x2="150" y2="60" opacity=".35"/>
@@ -320,7 +338,7 @@
         <path d="M92 160 l6 6 l12 -14" stroke="#B34632" opacity=".8"/>
       </svg>
     </div>
-    <div class="about">
+    <div class="about" data-reveal="right">
       <div class="eyebrow">ABOUT</div>
       <h2>Xin chào, mình là Hiếu.</h2>
       <p class="lead">Hiện đang làm Sales Admin, đồng thời yêu thích công nghệ, du lịch và xây dựng các hệ thống giúp công việc trở nên đơn giản hơn.</p>
@@ -352,42 +370,42 @@
 <!-- PROJECTS -->
 <section class="section section-alt" id="projects">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       <div>
         <div class="eyebrow">PROJECTS</div>
         <h2>Dự án nổi bật</h2>
       </div>
     </div>
     <div class="project-grid">
-      <div class="project-card">
+      <div class="project-card" data-reveal data-delay="1">
         <span class="idx">01</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
         <h3>Travel Manager</h3>
         <p>Quản lý kế hoạch, chi phí và lịch trình du lịch.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-reveal data-delay="2">
         <span class="idx">02</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         <h3>Personal Website</h3>
         <p>Website cá nhân được xây dựng với NextJS &amp; Tailwind.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-reveal data-delay="3">
         <span class="idx">03</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
         <h3>Movie Library</h3>
         <p>Quản lý danh sách phim đã xem và muốn xem.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-reveal data-delay="1">
         <span class="idx">04</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="10" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <h3>Password Manager</h3>
         <p>Lưu trữ và quản lý mật khẩu an toàn, mã hóa.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
-      <div class="project-card">
+      <div class="project-card" data-reveal data-delay="2">
         <span class="idx">05</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         <h3>Expense Tracker</h3>
@@ -401,7 +419,7 @@
 <!-- TRAVEL -->
 <section class="section" id="travel">
   <div class="wrap travel-grid">
-    <div>
+    <div data-reveal="left">
       <div class="eyebrow">TRAVEL</div>
       <h2 style="font-size:clamp(28px,3.4vw,38px);margin-bottom:28px;">Những nơi mình đã đi qua</h2>
       <div class="travel-map">
@@ -430,7 +448,7 @@
         </svg>
       </div>
     </div>
-    <ul class="travel-list">
+    <ul class="travel-list" data-reveal="right">
       <li>
         <span class="city">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
@@ -490,10 +508,10 @@
 <!-- BLOG -->
 <section class="section" id="blog">
   <div class="wrap">
-    <div class="eyebrow">BLOG</div>
-    <h2 style="font-size:clamp(28px,3.4vw,38px);margin-bottom:36px;">Bài viết mới nhất</h2>
+    <div class="eyebrow" data-reveal>BLOG</div>
+    <h2 style="font-size:clamp(28px,3.4vw,38px);margin-bottom:36px;" data-reveal data-delay="1">Bài viết mới nhất</h2>
     <div class="blog-grid">
-      <div class="blog-card">
+      <div class="blog-card" data-reveal data-delay="1">
         <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="blog-body">
           <h3>Kinh nghiệm du lịch tự túc</h3>
@@ -501,7 +519,7 @@
           <a href="#" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
-      <div class="blog-card">
+      <div class="blog-card" data-reveal data-delay="2">
         <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="blog-body">
           <h3>Xây website với NextJS</h3>
@@ -509,7 +527,7 @@
           <a href="#" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
-      <div class="blog-card">
+      <div class="blog-card" data-reveal data-delay="3">
         <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="blog-body">
           <h3>Quản lý công việc với Notion</h3>
@@ -524,11 +542,11 @@
 <!-- CONTACT -->
 <section class="section section-alt" id="contact">
   <div class="wrap contact-wrap">
-    <div>
+    <div data-reveal>
       <div class="eyebrow">CONTACT</div>
       <h2>Kết nối với mình</h2>
     </div>
-    <div class="social-row">
+    <div class="social-row" data-reveal data-delay="2">
       <a class="social-pill" href="mailto:hieulm.contact@gmail.com">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
         hieulm.contact@gmail.com
@@ -567,6 +585,25 @@
 </footer>
 
 <script>
+  // ---------- SCROLL REVEAL ----------
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+  // Hero items visible immediately on load
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.hero [data-reveal]').forEach(el => {
+      setTimeout(() => el.classList.add('is-visible'), parseInt(el.dataset.delay || 0) * 120);
+    });
+  });
+
   const navtoggle = document.getElementById('navtoggle');
   const navlinks = document.getElementById('navlinks');
   navtoggle.addEventListener('click', () => navlinks.classList.toggle('open'));
