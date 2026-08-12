@@ -165,7 +165,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 
 /* ---- MOBILE NAV ---- */
 @media(max-width:900px){
-  .navlinks{position:fixed;inset:0;background:var(--paper);z-index:200;flex-direction:column;justify-content:center;align-items:center;gap:30px;font-size:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease;}
+  .navlinks{position:fixed;top:0;left:0;right:0;height:100vh;background:var(--paper);z-index:200;flex-direction:column;justify-content:center;align-items:center;gap:30px;font-size:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease;}
   .navlinks.open{opacity:1;visibility:visible;pointer-events:all;}
   .navlinks a{color:var(--ink-soft);}
   .navlinks a:hover,.navlinks a.active{color:var(--ink);}
@@ -532,7 +532,17 @@ window.addEventListener('scroll', () => {
 const navtoggle = document.getElementById('navtoggle');
 const navlinks = document.getElementById('navlinks');
 let savedScrollY = 0;
+
+function syncNavHeight(){
+  const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  navlinks.style.height = vh + 'px';
+}
+window.visualViewport && window.visualViewport.addEventListener('resize', syncNavHeight);
+window.addEventListener('resize', syncNavHeight);
+syncNavHeight();
+
 function setNavOpen(open){
+  if (open) syncNavHeight();
   navlinks.classList.toggle('open', open);
   if (open) {
     savedScrollY = window.scrollY;
