@@ -159,31 +159,33 @@ header.scrolled .navlinks a.active{color:var(--ink);}
 
 /* ---- FLOATING SOCIAL ---- */
 .social-float{
-  position:fixed;right:22px;top:50%;transform:translateY(-50%);
+  position:fixed;right:16px;bottom:90px;
   display:flex;flex-direction:column;gap:10px;z-index:99;
 }
 .social-float a{
-  width:44px;height:44px;border-radius:50%;
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.2);
-  color:var(--white);
+  width:42px;height:42px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  transition:background .2s,transform .2s,border-color .2s;
-  position:relative;
+  box-shadow:0 3px 12px rgba(0,0,0,0.22);
+  transition:transform .2s,box-shadow .2s;
+  position:relative;border:none;
 }
-.social-float a:hover{background:var(--stamp);border-color:var(--stamp);transform:scale(1.1);}
-.social-float a svg{width:20px;height:20px;}
+.social-float a:hover{transform:scale(1.08);box-shadow:0 5px 18px rgba(0,0,0,0.3);}
+.social-float a.zalo-btn{background:#0078F0;}
+.social-float a.tiktok-btn{background:#1a1a1a;}
+.social-float a svg{width:42px;height:42px;}
 .social-float .tooltip{
-  position:absolute;right:52px;
+  position:absolute;right:50px;
   background:var(--ink);color:var(--white);
   font-family:'JetBrains Mono',monospace;font-size:11px;
   padding:5px 10px;border-radius:var(--radius);white-space:nowrap;
   opacity:0;pointer-events:none;transition:opacity .15s;
 }
 .social-float a:hover .tooltip{opacity:1;}
-.social-float.scrolled a{
-  background:var(--navy);border-color:transparent;
+@media(max-width:480px){
+  .social-float{right:12px;bottom:80px;gap:8px;}
+  .social-float a{width:38px;height:38px;}
+  .social-float a svg{width:38px;height:38px;}
+  .social-float .tooltip{display:none;}
 }
 
 /* ---- SECTIONS COMMON ---- */
@@ -365,14 +367,19 @@ footer{
 /* ---- MOBILE NAV ---- */
 @media(max-width:900px){
   .navlinks{
-    position:fixed;inset:0;background:var(--paper);z-index:98;
+    position:fixed;top:0;left:0;right:0;bottom:0;
+    background:var(--paper);z-index:98;
     flex-direction:column;justify-content:center;align-items:center;
-    gap:32px;font-size:22px;display:none;
+    gap:32px;font-size:22px;
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease;
   }
-  .navlinks.open{display:flex;}
+  .navlinks.open{
+    opacity:1;pointer-events:all;
+  }
   .navlinks a{color:var(--ink-soft);}
-  .navlinks a.active{color:var(--ink);}
-  .navlinks a.active::after{background:var(--stamp);}
+  .navlinks a:hover,.navlinks a.active{color:var(--ink);}
+  .navlinks a.active::after{background:var(--stamp);bottom:-6px;}
   .navtoggle{display:flex !important;}
 }
 
@@ -448,15 +455,15 @@ footer{
 
 <!-- FLOATING SOCIAL -->
 <div class="social-float" id="socialFloat">
-  <a href="https://zalo.me/0918050556" target="_blank" rel="noopener" aria-label="Zalo">
+  <a href="https://zalo.me/0918050556" target="_blank" rel="noopener" aria-label="Zalo" class="zalo-btn">
     <span class="tooltip">Zalo</span>
-    <svg viewBox="0 0 48 48" fill="currentColor">
-      <path d="M24 4C12.95 4 4 12.95 4 24c0 4.08 1.17 7.88 3.18 11.09L4 44l9.18-3.1A19.88 19.88 0 0 0 24 44c11.05 0 20-8.95 20-20S35.05 4 24 4zm.6 28.3l-3.6-3.87-7.02 3.87 7.7-8.2 3.6 3.86 6.98-3.86-7.66 8.2zm5.14-12.46a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zm-11.48 0a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/>
+    <svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+      <text x="21" y="26" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="white" letter-spacing="-0.3">Zalo</text>
     </svg>
   </a>
-  <a href="https://www.tiktok.com/@leminhhieu.official" target="_blank" rel="noopener" aria-label="TikTok">
+  <a href="https://www.tiktok.com/@leminhhieu.official" target="_blank" rel="noopener" aria-label="TikTok" class="tiktok-btn">
     <span class="tooltip">TikTok</span>
-    <svg viewBox="0 0 24 24" fill="currentColor">
+    <svg viewBox="0 0 24 24" fill="white">
       <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
     </svg>
   </a>
@@ -694,7 +701,7 @@ footer{
           0918 05 05 56
         </a>
         <a class="contact-pill" href="https://zalo.me/0918050556" target="_blank">
-          <svg viewBox="0 0 48 48" width="16" height="16" fill="currentColor"><path d="M24 4C12.95 4 4 12.95 4 24c0 4.08 1.17 7.88 3.18 11.09L4 44l9.18-3.1A19.88 19.88 0 0 0 24 44c11.05 0 20-8.95 20-20S35.05 4 24 4zm.6 28.3l-3.6-3.87-7.02 3.87 7.7-8.2 3.6 3.86 6.98-3.86-7.66 8.2zm5.14-12.46a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zm-11.48 0a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/></svg>
+          <svg viewBox="0 0 24 10" width="28" height="16" fill="currentColor"><text x="0" y="9" font-family="Arial,sans-serif" font-weight="900" font-size="10" letter-spacing="0.2">Zalo</text></svg>
           Zalo
         </a>
         <a class="contact-pill" href="https://www.tiktok.com/@leminhhieu.official" target="_blank">
