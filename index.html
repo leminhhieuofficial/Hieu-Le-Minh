@@ -165,7 +165,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 
 /* ---- MOBILE NAV ---- */
 @media(max-width:900px){
-  .navlinks{position:fixed;inset:0;background:#F5F2EC;z-index:98;flex-direction:column;justify-content:center;align-items:center;gap:30px;font-size:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease;}
+  .navlinks{position:fixed;inset:0;background:var(--paper);z-index:200;flex-direction:column;justify-content:center;align-items:center;gap:30px;font-size:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s ease,visibility .25s ease;}
   .navlinks.open{opacity:1;visibility:visible;pointer-events:all;}
   .navlinks a{color:var(--ink-soft);}
   .navlinks a:hover,.navlinks a.active{color:var(--ink);}
@@ -206,7 +206,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 
 /* ---- PROMO POPUP ---- */
 .promo-overlay{
-  position:fixed;inset:0;z-index:200;
+  position:fixed;inset:0;z-index:250;
   background:rgba(15,13,10,.72);
   display:flex;align-items:center;justify-content:center;
   padding:24px;
@@ -531,9 +531,24 @@ window.addEventListener('scroll', () => {
 
 const navtoggle = document.getElementById('navtoggle');
 const navlinks = document.getElementById('navlinks');
+let savedScrollY = 0;
 function setNavOpen(open){
   navlinks.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
+  if (open) {
+    savedScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = -savedScrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  } else {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedScrollY);
+  }
 }
 navtoggle.addEventListener('click', () => setNavOpen(!navlinks.classList.contains('open')));
 navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNavOpen(false)));
