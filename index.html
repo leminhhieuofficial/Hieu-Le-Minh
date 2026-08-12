@@ -6,380 +6,430 @@
 <title>Le Minh Hieu — Sales Admin · Travel · Technology</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#F6F4EE;
-    --paper-alt:#EDEAE1;
-    --ink:#1B1A17;
-    --ink-soft:#6E6A5E;
-    --navy:#2C3A54;
-    --stamp:#B34632;
-    --line:#D8D3C5;
-    --radius:2px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    font-size:16px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  img,svg{display:block;max-width:100%;}
-  a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--stamp);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:14px;
-  }
-  .eyebrow::before{
-    content:"";
-    width:22px;height:1px;
-    background:var(--stamp);
-  }
-  h1,h2,h3{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    letter-spacing:-.01em;
-  }
-  .section{padding:96px 0;border-bottom:1px dashed var(--line);}
-  .section:last-of-type{border-bottom:none;}
-  .section-alt{background:var(--paper-alt);}
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:13px;
-    letter-spacing:.04em;
-    padding:14px 22px;
-    border-radius:var(--radius);
-    transition:transform .15s ease, background .15s ease, color .15s ease;
-    cursor:pointer;
-  }
-  .btn-primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
-  .btn-primary:hover{background:var(--stamp);border-color:var(--stamp);transform:translateY(-2px);}
-  .btn-ghost{border:1px solid var(--ink);color:var(--ink);}
-  .btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px);}
+:root{
+  --paper:#F5F2EC;
+  --paper-alt:#EDEAE1;
+  --ink:#1A1917;
+  --ink-soft:#6B6760;
+  --white:#FFFFFF;
+  --stamp:#C04B2A;
+  --stamp-light:rgba(192,75,42,0.15);
+  --navy:#2C3A54;
+  --line:rgba(255,255,255,0.2);
+  --line-dark:#D8D3C5;
+  --radius:3px;
+  --header-h:72px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1160px;margin:0 auto;padding:0 40px;}
 
-  /* ---------- NAV ---------- */
-  header{
-    position:sticky;top:0;z-index:50;
-    background:rgba(246,244,238,.88);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  nav.wrap{
-    display:flex;align-items:center;justify-content:space-between;
-    padding-top:22px;padding-bottom:22px;
-  }
-  .logo{
-    font-family:'JetBrains Mono',monospace;
-    font-weight:600;font-size:14px;letter-spacing:.1em;
-    display:flex;align-items:center;gap:8px;
-  }
-  .logo .dot{width:7px;height:7px;background:var(--stamp);border-radius:50%;display:inline-block;}
-  .navlinks{display:flex;gap:34px;font-size:14px;}
-  .navlinks a{position:relative;color:var(--ink-soft);transition:color .15s ease;}
-  .navlinks a:hover, .navlinks a.active{color:var(--ink);}
-  .navlinks a.active::after{
-    content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--stamp);
-  }
-  .navtoggle{display:none;background:none;border:none;cursor:pointer;color:var(--ink);}
+/* ---- HEADER ---- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:var(--header-h);
+  display:flex;align-items:center;
+  padding:0 40px;
+  transition:background .3s ease, box-shadow .3s ease;
+}
+header.scrolled{
+  background:rgba(245,242,236,0.94);
+  backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 var(--line-dark);
+}
+header.scrolled .logo{color:var(--ink);}
+header.scrolled .navlinks a{color:var(--ink-soft);}
+header.scrolled .navlinks a:hover{color:var(--ink);}
+header.scrolled .nav-btns button{color:var(--ink);}
+.header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.logo{
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;
+  letter-spacing:.1em;color:var(--white);
+  display:flex;align-items:center;gap:8px;
+  transition:color .3s;
+}
+.logo .dot{width:7px;height:7px;background:var(--stamp);border-radius:50%;}
+.navlinks{display:flex;gap:36px;}
+.navlinks a{
+  font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.8);font-weight:400;
+  position:relative;transition:color .2s;
+}
+.navlinks a:hover,.navlinks a.active{color:var(--white);}
+.navlinks a.active::after{
+  content:"";position:absolute;bottom:-4px;left:0;right:0;
+  height:1.5px;background:var(--stamp);
+}
+header.scrolled .navlinks a.active{color:var(--ink);}
+.nav-btns{display:flex;align-items:center;gap:16px;}
+.nav-btns button{
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,.85);width:36px;height:36px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s;
+}
+.nav-btns button:hover{background:rgba(255,255,255,.12);}
+.nav-btns svg{width:20px;height:20px;}
+.navtoggle{display:none !important;}
 
-  /* ---------- HERO ---------- */
-  .hero{padding:88px 0 96px;border-bottom:1px dashed var(--line);}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;}
-  .hero h1{font-size:clamp(40px,6vw,66px);line-height:1.02;margin-bottom:14px;}
-  .hero .role{
-    font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--navy);
-    letter-spacing:.03em;margin-bottom:22px;
-  }
-  .hero .role span{color:var(--stamp);}
-  .hero p.desc{color:var(--ink-soft);max-width:440px;margin-bottom:32px;font-size:16px;}
-  .hero-actions{display:flex;gap:14px;}
-  .hero-art{position:relative;aspect-ratio:1/0.92;}
-  .hero-art .frame{
-    position:absolute;inset:0;border:1px solid var(--line);border-radius:var(--radius);
-    background:
-      repeating-linear-gradient(135deg, rgba(44,58,84,0.05) 0px, rgba(44,58,84,0.05) 1px, transparent 1px, transparent 14px),
-      var(--paper-alt);
-    overflow:hidden;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .hero-art .frame img{
-    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  }
-  .stamp-badge{
-    position:absolute;top:-18px;right:-18px;width:118px;height:118px;
-    background:var(--paper);border:1px solid var(--stamp);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    transform:rotate(-6deg);
-    box-shadow:0 6px 18px rgba(27,26,23,0.08);
-  }
-  .stamp-badge svg{width:96px;height:96px;}
+/* ---- HERO ---- */
+.hero{
+  position:relative;height:100vh;min-height:600px;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:#2a2a2a;
+}
+.hero-bg img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  opacity:.85;
+}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.15) 0%,
+    rgba(0,0,0,.05) 30%,
+    rgba(0,0,0,.4) 70%,
+    rgba(0,0,0,.75) 100%
+  );
+}
+.hero-content{
+  position:relative;z-index:2;
+  width:100%;padding:0 40px 60px;
+}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(255,255,255,.7);
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.hero-eyebrow span{color:var(--stamp);}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(52px,8vw,96px);
+  font-weight:700;line-height:.95;
+  color:var(--white);letter-spacing:-.02em;
+  margin-bottom:24px;
+}
+.hero-desc{
+  color:rgba(255,255,255,.75);
+  font-size:16px;max-width:460px;
+  margin-bottom:36px;line-height:1.65;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-hero-primary{
+  background:var(--stamp);color:var(--white);
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:15px 28px;border-radius:var(--radius);
+  transition:background .2s,transform .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-hero-primary:hover{background:#a83d22;transform:translateY(-2px);}
+.btn-hero-ghost{
+  border:1px solid rgba(255,255,255,.45);color:var(--white);
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:15px 28px;border-radius:var(--radius);
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.btn-hero-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08);transform:translateY(-2px);}
+.hero-bottom{
+  position:absolute;bottom:32px;left:40px;right:40px;
+  z-index:2;display:flex;justify-content:space-between;align-items:flex-end;
+}
+.scroll-hint{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;color:rgba(255,255,255,.55);
+  font-family:'JetBrains Mono',monospace;letter-spacing:.06em;
+}
+.scroll-hint svg{width:22px;height:22px;animation:scrollBounce 2s ease-in-out infinite;}
+@keyframes scrollBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+.hero-counter{
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:rgba(255,255,255,.55);letter-spacing:.06em;
+}
+.hero-counter strong{color:var(--white);font-size:18px;font-weight:400;}
 
-  /* ---------- ABOUT ---------- */
-  .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:start;}
-  .about-art{
-    aspect-ratio:4/5;border:1px solid var(--line);border-radius:var(--radius);
-    background:var(--paper-alt);position:relative;overflow:hidden;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .about h2{font-size:clamp(28px,3.4vw,38px);margin-bottom:16px;}
-  .about p.lead{color:var(--ink-soft);max-width:520px;margin-bottom:36px;}
-  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .feature{background:var(--paper);padding:26px 22px;}
-  .feature svg{width:22px;height:22px;color:var(--navy);margin-bottom:14px;}
-  .feature h3{font-family:'Inter',sans-serif;font-weight:600;font-size:15px;margin-bottom:6px;}
-  .feature p{font-size:13.5px;color:var(--ink-soft);}
-  .cv-btn{margin-top:22px;}
+/* ---- FLOATING SOCIAL ---- */
+.social-float{
+  position:fixed;right:22px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;z-index:99;
+}
+.social-float a{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.2);
+  color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .2s,border-color .2s;
+  position:relative;
+}
+.social-float a:hover{background:var(--stamp);border-color:var(--stamp);transform:scale(1.1);}
+.social-float a svg{width:20px;height:20px;}
+.social-float .tooltip{
+  position:absolute;right:52px;
+  background:var(--ink);color:var(--white);
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  padding:5px 10px;border-radius:var(--radius);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s;
+}
+.social-float a:hover .tooltip{opacity:1;}
+.social-float.scrolled a{
+  background:var(--navy);border-color:transparent;
+}
 
-  /* ---------- PROJECTS ---------- */
-  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;flex-wrap:wrap;gap:16px;}
-  .section-head h2{font-size:clamp(28px,3.4vw,38px);}
-  .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .project-card{background:var(--paper);padding:30px 26px;transition:background .15s ease;}
-  .project-card:hover{background:var(--paper-alt);}
-  .project-card .idx{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--stamp);margin-bottom:18px;display:block;}
-  .project-card svg{width:24px;height:24px;color:var(--navy);margin-bottom:16px;}
-  .project-card h3{font-family:'Inter',sans-serif;font-weight:600;font-size:17px;margin-bottom:8px;}
-  .project-card p{font-size:13.5px;color:var(--ink-soft);margin-bottom:18px;min-height:52px;}
-  .more-link{
-    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink);
-    display:inline-flex;align-items:center;gap:6px;
-  }
-  .more-link svg{width:14px;height:14px;color:var(--ink);margin:0;}
-  .project-card:hover .more-link{color:var(--stamp);}
-  .project-card:hover .more-link svg{color:var(--stamp);}
+/* ---- SECTIONS COMMON ---- */
+.section{padding:100px 0;}
+.section-alt{background:var(--paper-alt);}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--stamp);
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--stamp);}
+.section-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(30px,4vw,46px);
+  font-weight:600;letter-spacing:-.02em;line-height:1.1;
+  margin-bottom:20px;
+}
 
-  /* ---------- TRAVEL ---------- */
-  .travel-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;align-items:center;}
-  .travel-map{
-    border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);
-    aspect-ratio:16/10;position:relative;overflow:hidden;
-  }
-  .travel-map svg{width:100%;height:100%;}
-  .travel-list{list-style:none;}
-  .travel-list li{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:16px 0;border-bottom:1px dashed var(--line);
-    font-size:15px;
-  }
-  .travel-list li:first-child{padding-top:0;}
-  .travel-list .city{display:flex;align-items:center;gap:10px;}
-  .travel-list svg{width:15px;height:15px;color:var(--stamp);}
-  .travel-list .coord{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-soft);}
+/* ---- ABOUT ---- */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-left{}
+.about-left p{color:var(--ink-soft);line-height:1.75;margin-bottom:16px;font-size:15.5px;}
+.about-tags{display:flex;flex-direction:column;gap:0;margin:32px 0;border:1px solid var(--line-dark);}
+.about-tag{
+  display:flex;align-items:center;gap:14px;padding:16px 20px;
+  border-bottom:1px solid var(--line-dark);font-size:14px;font-weight:500;
+}
+.about-tag:last-child{border-bottom:none;}
+.about-tag svg{width:17px;height:17px;color:var(--stamp);flex-shrink:0;}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--ink);color:var(--ink);
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:14px 24px;border-radius:var(--radius);
+  transition:background .2s,color .2s,transform .2s;
+}
+.btn-outline:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px);}
+.about-right{position:relative;}
+.about-img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;
+  border-radius:4px;display:block;
+  background:var(--paper-alt);
+}
+.about-img-placeholder{
+  width:100%;aspect-ratio:3/4;background:var(--paper-alt);
+  border:1px solid var(--line-dark);border-radius:4px;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+}
+.about-img-placeholder svg{width:36px;height:36px;color:var(--ink-soft);opacity:.4;}
+.about-img-placeholder p{font-size:12px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;}
+.about-badge{
+  position:absolute;bottom:-20px;left:-20px;
+  background:var(--white);border:1px solid var(--line-dark);
+  padding:18px 22px;border-radius:4px;
+  box-shadow:0 8px 28px rgba(0,0,0,.08);
+  min-width:180px;
+}
+.about-badge p{font-size:11px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;margin-bottom:4px;}
+.about-badge strong{font-size:28px;font-family:'Fraunces',serif;font-weight:600;color:var(--stamp);}
 
-  /* ---------- GALLERY ---------- */
-  .gallery-grid{
-    display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:150px;gap:1px;
-    background:var(--line);border:1px solid var(--line);
+/* ---- PROJECTS ---- */
+.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);}
+.project-card{
+  background:var(--paper);padding:32px 28px;
+  transition:background .2s;cursor:pointer;
+}
+.project-card:hover{background:var(--paper-alt);}
+.project-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stamp);letter-spacing:.1em;margin-bottom:20px;display:block;}
+.project-card svg{width:24px;height:24px;color:var(--navy);margin-bottom:18px;}
+.project-card h3{font-size:17px;font-weight:600;margin-bottom:8px;}
+.project-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:20px;min-height:44px;}
+.more-link{
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  letter-spacing:.06em;color:var(--ink);
+  display:inline-flex;align-items:center;gap:6px;
+  text-transform:uppercase;
+}
+.more-link svg{width:13px;height:13px;transition:transform .2s;}
+.project-card:hover .more-link{color:var(--stamp);}
+.project-card:hover .more-link svg{transform:translate(3px,-3px);}
+
+/* ---- TRAVEL ---- */
+.travel-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:center;}
+.travel-map{
+  border:1px solid var(--line-dark);border-radius:4px;
+  aspect-ratio:16/10;overflow:hidden;background:var(--paper);
+}
+.travel-map svg{width:100%;height:100%;}
+.travel-list{list-style:none;}
+.travel-list li{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 0;border-bottom:1px solid var(--line-dark);font-size:15px;
+}
+.travel-list li:first-child{padding-top:0;}
+.city-name{display:flex;align-items:center;gap:10px;}
+.city-name svg{width:15px;height:15px;color:var(--stamp);}
+.coord{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);}
+
+/* ---- GALLERY ---- */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:200px 160px;
+  gap:4px;
+}
+.gallery-tile{
+  background:var(--paper-alt);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:2px;
+}
+.gallery-tile svg{width:24px;height:24px;color:var(--ink-soft);opacity:.4;}
+.gallery-tile.wide{grid-column:span 2;}
+.gallery-tile.tall{grid-row:span 2;}
+
+/* ---- BLOG ---- */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.blog-card{border-radius:4px;overflow:hidden;border:1px solid var(--line-dark);background:var(--paper);}
+.blog-thumb{
+  aspect-ratio:16/9;background:var(--paper-alt);
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--line-dark);overflow:hidden;
+}
+.blog-thumb svg{width:22px;height:22px;color:var(--ink-soft);opacity:.5;}
+.blog-body{padding:24px;}
+.blog-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--stamp);letter-spacing:.08em;margin-bottom:10px;}
+.blog-body h3{font-size:16px;font-weight:600;margin-bottom:8px;line-height:1.4;}
+.blog-body p{font-size:13.5px;color:var(--ink-soft);margin-bottom:18px;line-height:1.6;}
+
+/* ---- CONTACT ---- */
+.contact-inner{
+  max-width:680px;margin:0 auto;text-align:center;
+}
+.contact-inner .section-title{font-size:clamp(32px,5vw,54px);margin-bottom:14px;}
+.contact-inner p{color:var(--ink-soft);font-size:15.5px;margin-bottom:44px;}
+.contact-pills{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.contact-pill{
+  display:flex;align-items:center;gap:10px;
+  border:1px solid var(--line-dark);padding:14px 22px;border-radius:var(--radius);
+  font-family:'JetBrains Mono',monospace;font-size:13px;
+  transition:border-color .2s,transform .2s,color .2s,background .2s;
+}
+.contact-pill svg{width:16px;height:16px;color:var(--navy);}
+.contact-pill:hover{border-color:var(--stamp);color:var(--stamp);transform:translateY(-2px);background:var(--stamp-light);}
+.contact-pill:hover svg{color:var(--stamp);}
+
+/* ---- FOOTER ---- */
+footer{
+  border-top:1px solid var(--line-dark);padding:28px 0;
+}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;}
+.foot-inner p{font-size:12px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;}
+.top-btn{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.top-btn:hover{background:var(--stamp);}
+.top-btn svg{width:15px;height:15px;}
+
+/* ---- SCROLL REVEAL ---- */
+[data-reveal]{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);
+}
+[data-reveal].is-visible{opacity:1;transform:none;}
+[data-reveal="left"]{transform:translateX(-28px);}
+[data-reveal="left"].is-visible{transform:none;}
+[data-reveal="right"]{transform:translateX(28px);}
+[data-reveal="right"].is-visible{transform:none;}
+[data-reveal][data-delay="1"]{transition-delay:.1s;}
+[data-reveal][data-delay="2"]{transition-delay:.2s;}
+[data-reveal][data-delay="3"]{transition-delay:.3s;}
+[data-reveal][data-delay="4"]{transition-delay:.4s;}
+[data-reveal][data-delay="5"]{transition-delay:.5s;}
+@media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none;}}
+
+/* ---- MOBILE NAV ---- */
+@media(max-width:900px){
+  .navlinks{
+    position:fixed;inset:0;background:var(--paper);z-index:98;
+    flex-direction:column;justify-content:center;align-items:center;
+    gap:32px;font-size:22px;display:none;
   }
-  .gallery-tile{
-    background:
-      repeating-linear-gradient(135deg, rgba(44,58,84,.045) 0px, rgba(44,58,84,.045) 1px, transparent 1px, transparent 12px),
-      var(--paper);
-    display:flex;align-items:center;justify-content:center;
-  }
-  .gallery-tile svg{width:26px;height:26px;color:var(--ink-soft);opacity:.55;}
+  .navlinks.open{display:flex;}
+  .navlinks a{color:var(--ink-soft);}
+  .navlinks a.active{color:var(--ink);}
+  .navlinks a.active::after{background:var(--stamp);}
+  .navtoggle{display:flex !important;}
+}
+
+/* ---- TABLET ---- */
+@media(max-width:900px){
+  header{padding:0 24px;}
+  .hero-content{padding:0 24px 60px;}
+  .hero-bottom{left:24px;right:24px;}
+  .about-grid{grid-template-columns:1fr;gap:48px;}
+  .about-right{order:-1;}
+  .about-img-placeholder{aspect-ratio:16/9;}
+  .about-badge{bottom:-14px;left:14px;}
+  .project-grid{grid-template-columns:1fr 1fr;}
+  .travel-grid{grid-template-columns:1fr;gap:40px;}
+  .blog-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:repeat(3,1fr);grid-template-rows:160px 140px;}
+  .social-float{right:14px;}
+  .wrap{padding:0 24px;}
+  .section{padding:72px 0;}
+}
+
+/* ---- MOBILE ---- */
+@media(max-width:480px){
+  .wrap{padding:0 18px;}
+  .section{padding:60px 0;}
+  header{padding:0 18px;}
+  .hero h1{font-size:clamp(40px,12vw,60px);}
+  .hero-content{padding:0 18px 52px;}
+  .hero-bottom{left:18px;right:18px;bottom:24px;}
+  .hero-actions{flex-direction:column;gap:10px;}
+  .hero-actions a{width:100%;justify-content:center;text-align:center;}
+  .hero-counter{display:none;}
+  .about-img-placeholder{aspect-ratio:1/1;}
+  .about-badge{display:none;}
+  .project-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(4,120px);}
   .gallery-tile.wide{grid-column:span 2;}
-
-  /* ---------- BLOG ---------- */
-  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .blog-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--paper);}
-  .blog-thumb{
-    aspect-ratio:16/10;background:var(--paper-alt);display:flex;align-items:center;justify-content:center;
-    border-bottom:1px solid var(--line);
-  }
-  .blog-thumb svg{width:22px;height:22px;color:var(--ink-soft);opacity:.6;}
-  .blog-body{padding:22px;}
-  .blog-body h3{font-family:'Inter',sans-serif;font-weight:600;font-size:16px;margin-bottom:8px;}
-  .blog-body p{font-size:13.5px;color:var(--ink-soft);margin-bottom:16px;}
-
-  /* ---------- CONTACT ---------- */
-  .contact-wrap{display:flex;flex-direction:column;align-items:flex-start;gap:36px;}
-  .contact-wrap h2{font-size:clamp(30px,4vw,44px);max-width:600px;}
-  .social-row{display:flex;flex-wrap:wrap;gap:14px;}
-  .social-pill{
-    display:flex;align-items:center;gap:10px;
-    border:1px solid var(--line);padding:14px 20px;border-radius:var(--radius);
-    font-family:'JetBrains Mono',monospace;font-size:13px;
-    transition:border-color .15s ease, transform .15s ease, color .15s ease;
-  }
-  .social-pill svg{width:17px;height:17px;color:var(--navy);}
-  .social-pill:hover{border-color:var(--stamp);transform:translateY(-2px);color:var(--stamp);}
-  .social-pill:hover svg{color:var(--stamp);}
-
-  /* ---------- FOOTER ---------- */
-  footer{padding:28px 0;}
-  .foot-wrap{display:flex;justify-content:space-between;align-items:center;}
-  .foot-wrap p{font-size:13px;color:var(--ink-soft);}
-  .top-btn{
-    width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--paper);
-    display:flex;align-items:center;justify-content:center;transition:background .15s ease;
-  }
-  .top-btn:hover{background:var(--stamp);}
-  .top-btn svg{width:16px;height:16px;}
-
-  /* ---------- FLOATING SOCIAL ---------- */
-  .social-float{
-    position:fixed;right:18px;top:50%;transform:translateY(-50%);
-    display:flex;flex-direction:column;gap:10px;z-index:49;
-  }
-  .social-float a{
-    width:46px;height:46px;border-radius:50%;
-    background:var(--navy);color:var(--paper);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 4px 14px rgba(27,26,23,0.18);
-    transition:transform .18s ease, background .18s ease;
-    position:relative;
-  }
-  .social-float a:hover{transform:scale(1.12);background:var(--stamp);}
-  .social-float a svg{width:20px;height:20px;}
-  .social-float a .tooltip{
-    position:absolute;right:54px;
-    background:var(--ink);color:var(--paper);
-    font-family:'JetBrains Mono',monospace;font-size:11px;
-    padding:5px 10px;border-radius:var(--radius);white-space:nowrap;
-    opacity:0;pointer-events:none;
-    transition:opacity .15s ease;
-  }
-  .social-float a:hover .tooltip{opacity:1;}
-  @media (max-width:480px){
-    .social-float{right:10px;gap:8px;}
-    .social-float a{width:40px;height:40px;}
-    .social-float a svg{width:17px;height:17px;}
-    .social-float a .tooltip{display:none;}
-  }
-  [data-reveal]{
-    opacity:0;
-    transform:translateY(32px);
-    transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
-  }
-  [data-reveal].is-visible{opacity:1;transform:translateY(0);}
-  [data-reveal="left"]{transform:translateX(-32px);}
-  [data-reveal="left"].is-visible{transform:translateX(0);}
-  [data-reveal="right"]{transform:translateX(32px);}
-  [data-reveal="right"].is-visible{transform:translateX(0);}
-  [data-reveal][data-delay="1"]{transition-delay:.1s;}
-  [data-reveal][data-delay="2"]{transition-delay:.2s;}
-  [data-reveal][data-delay="3"]{transition-delay:.3s;}
-  [data-reveal][data-delay="4"]{transition-delay:.4s;}
-  [data-reveal][data-delay="5"]{transition-delay:.5s;}
-  @media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none;}}
-
-  /* ---------- TABLET (≤880px) ---------- */
-  @media (max-width:880px){
-    .wrap{padding:0 24px;}
-    .section{padding:72px 0;}
-    .hero{padding:56px 0 72px;}
-
-    /* Nav */
-    .navlinks{
-      position:fixed;top:0;left:0;right:0;bottom:0;
-      background:var(--paper);
-      flex-direction:column;justify-content:center;align-items:center;
-      padding:40px 32px;gap:28px;
-      display:none;z-index:40;
-      font-size:20px;
-    }
-    .navlinks.open{display:flex;}
-    .navtoggle{display:block;z-index:51;position:relative;}
-    .navlinks a.active::after{bottom:-4px;}
-
-    /* Hero */
-    .hero-grid{grid-template-columns:1fr;gap:40px;}
-    .hero-art{
-      order:-1;
-      width:100%;max-width:100%;
-      aspect-ratio:4/3;
-      min-height:unset;
-    }
-    .hero h1{font-size:clamp(36px,8vw,52px);}
-    .stamp-badge{width:90px;height:90px;top:-12px;right:-12px;}
-    .stamp-badge svg{width:76px;height:76px;}
-
-    /* About */
-    .about-grid{grid-template-columns:1fr;gap:36px;}
-    .about-art{aspect-ratio:16/9;max-height:280px;}
-    .feature-grid{grid-template-columns:1fr 1fr;}
-
-    /* Projects */
-    .project-grid{grid-template-columns:1fr 1fr;}
-
-    /* Travel */
-    .travel-grid{grid-template-columns:1fr;gap:32px;}
-    .travel-map{aspect-ratio:16/9;}
-
-    /* Gallery */
-    .gallery-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:120px;}
-
-    /* Blog */
-    .blog-grid{grid-template-columns:1fr;}
-
-    /* Contact */
-    .social-pill{width:100%;font-size:14px;padding:16px 20px;}
-    .social-row{flex-direction:column;}
-  }
-
-  /* ---------- MOBILE (≤480px) ---------- */
-  @media (max-width:480px){
-    .wrap{padding:0 18px;}
-    .section{padding:60px 0;}
-    .hero{padding:40px 0 60px;}
-
-    /* Logo truncate */
-    .logo{font-size:12px;letter-spacing:.06em;}
-
-    /* Hero */
-    .hero-art{aspect-ratio:1/1;}
-    .hero h1{font-size:clamp(34px,10vw,46px);}
-    .hero .role{font-size:12px;}
-    .hero p.desc{font-size:15px;}
-    .hero-actions{flex-direction:column;gap:10px;}
-    .hero-actions .btn{width:100%;justify-content:center;}
-
-    /* About */
-    .about-art{aspect-ratio:1/1;max-height:260px;}
-    .feature-grid{grid-template-columns:1fr;}
-
-    /* Projects */
-    .project-grid{grid-template-columns:1fr;}
-
-    /* Gallery */
-    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:100px;}
-    .gallery-tile.wide{grid-column:span 2;}
-
-    /* Travel list */
-    .travel-list .coord{display:none;}
-
-    /* Footer */
-    .foot-wrap p{font-size:11px;}
-  }
-  @media (prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto;}
-    *{transition:none !important;}
-  }
-  :focus-visible{outline:2px solid var(--stamp);outline-offset:2px;}
+  .gallery-tile.tall{grid-row:span 1;}
+  .coord{display:none;}
+  .contact-pills{flex-direction:column;align-items:stretch;}
+  .contact-pill{justify-content:center;}
+  .social-float{right:10px;}
+  .social-float a{width:38px;height:38px;}
+  .social-float a svg{width:17px;height:17px;}
+  .social-float .tooltip{display:none;}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <nav class="wrap">
-    <a class="logo" href="#home"><span class="dot"></span>LE MINH HIEU OFFICIAL</a>
-    <div class="navlinks" id="navlinks">
+<!-- HEADER -->
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="#home">
+      <span class="dot"></span>LE MINH HIEU OFFICIAL
+    </a>
+    <nav class="navlinks" id="navlinks">
       <a href="#home" class="active">Home</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
@@ -387,84 +437,103 @@
       <a href="#gallery">Gallery</a>
       <a href="#blog">Blog</a>
       <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-btns">
+      <button class="navtoggle" id="navtoggle" aria-label="Menu">
+        <svg id="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
-    <button class="navtoggle" id="navtoggle" aria-label="Mở menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-  </nav>
+  </div>
 </header>
+
+<!-- FLOATING SOCIAL -->
+<div class="social-float" id="socialFloat">
+  <a href="https://zalo.me/0918050556" target="_blank" rel="noopener" aria-label="Zalo">
+    <span class="tooltip">Zalo</span>
+    <svg viewBox="0 0 48 48" fill="currentColor">
+      <path d="M24 4C12.95 4 4 12.95 4 24c0 4.08 1.17 7.88 3.18 11.09L4 44l9.18-3.1A19.88 19.88 0 0 0 24 44c11.05 0 20-8.95 20-20S35.05 4 24 4zm.6 28.3l-3.6-3.87-7.02 3.87 7.7-8.2 3.6 3.86 6.98-3.86-7.66 8.2zm5.14-12.46a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zm-11.48 0a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/>
+    </svg>
+  </a>
+  <a href="https://www.tiktok.com/@leminhhieu.official" target="_blank" rel="noopener" aria-label="TikTok">
+    <span class="tooltip">TikTok</span>
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+    </svg>
+  </a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="role" data-reveal data-delay="1">SALES ADMIN <span>·</span> TRAVEL <span>·</span> TECHNOLOGY</div>
-      <h1 data-reveal data-delay="2">Le Minh<br>Hieu</h1>
-      <p class="desc" style="margin-top:22px;" data-reveal data-delay="3">Tôi xây dựng hệ thống, chia sẻ hành trình và tạo ra những trải nghiệm số đơn giản.</p>
-      <div class="hero-actions" data-reveal data-delay="4">
-        <a href="#projects" class="btn btn-primary">KHÁM PHÁ</a>
-        <a href="#contact" class="btn btn-ghost">LIÊN HỆ</a>
-      </div>
+  <div class="hero-bg">
+    <img src="IMG1.jpg" alt="Le Minh Hieu">
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      SALES ADMIN <span>·</span> TRAVEL <span>·</span> TECHNOLOGY
     </div>
-    <div class="hero-art" data-reveal="right">
-      <div class="frame">
-         <img src="IMG1.jpeg" alt="Le Minh Hieu" style="width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="stamp-badge">
-        <svg viewBox="0 0 100 100">
-          <defs>
-            <path id="circlePath" d="M 50,50 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0"/>
-          </defs>
-          <text font-family="JetBrains Mono, monospace" font-size="6.3" letter-spacing="2" fill="#B34632">
-            <textPath href="#circlePath" startOffset="0%">SALES ADMIN • TRAVELER • BUILDER •</textPath>
-          </text>
-          <circle cx="50" cy="50" r="20" fill="none" stroke="#2C3A54" stroke-width="1"/>
-          <text x="50" y="47" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-weight="600" fill="#1B1A17">HIEU</text>
-          <text x="50" y="58" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="5" fill="#6E6A5E">EST. 2026</text>
-        </svg>
-      </div>
+    <h1>Le Minh<br>Hieu</h1>
+    <p class="hero-desc">Tôi xây dựng hệ thống, chia sẻ hành trình và tạo ra những trải nghiệm đáng nhớ.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-hero-primary">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        KHÁM PHÁ HÀNH TRÌNH
+      </a>
+      <a href="#contact" class="btn-hero-ghost">LIÊN HỆ VỚI TÔI</a>
     </div>
+  </div>
+  <div class="hero-bottom">
+    <div class="scroll-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="9" y="2" width="6" height="13" rx="3"/>
+        <line x1="12" y1="7" x2="12" y2="10"/>
+        <path d="M5 17a7 7 0 0 0 14 0"/>
+      </svg>
+      Scroll để khám phá
+    </div>
+    <div class="hero-counter"><strong>01</strong> / 05</div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section class="section" id="about">
   <div class="wrap about-grid">
-    <div class="about-art" data-reveal="left">
-      <svg viewBox="0 0 200 220" width="60%" fill="none" stroke="#2C3A54" stroke-width="1">
-        <rect x="30" y="20" width="140" height="180" rx="2" opacity=".4"/>
-        <line x1="50" y1="60" x2="150" y2="60" opacity=".35"/>
-        <line x1="50" y1="90" x2="150" y2="90" opacity=".35"/>
-        <line x1="50" y1="120" x2="120" y2="120" opacity=".35"/>
-        <circle cx="100" cy="160" r="18" opacity=".5"/>
-        <path d="M92 160 l6 6 l12 -14" stroke="#B34632" opacity=".8"/>
-      </svg>
-    </div>
-    <div class="about" data-reveal="right">
-      <div class="eyebrow">ABOUT</div>
-      <h2>Xin chào, mình là Hiếu.</h2>
-      <p class="lead">Hiện đang làm Sales Admin, đồng thời yêu thích công nghệ, du lịch và xây dựng các hệ thống giúp công việc trở nên đơn giản hơn.</p>
-      <div class="feature-grid">
-        <div class="feature">
+    <div class="about-left" data-reveal="left">
+      <div class="eyebrow">ABOUT ME</div>
+      <h2 class="section-title">Xin chào,<br>mình là Hiếu.</h2>
+      <p>Hiện đang làm Sales Admin, đồng thời yêu thích công nghệ, du lịch và sáng tạo nội dung. Tôi tin rằng mỗi hành trình đều mang đến những bài học và trải nghiệm quý giá.</p>
+      <p>Mình xây dựng trang này để chia sẻ những gì mình trải qua — từ công việc, những chuyến đi, đến các dự án công nghệ nhỏ.</p>
+      <div class="about-tags">
+        <div class="about-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          <h3>Kinh nghiệm</h3>
-          <p>Quản lý dữ liệu, báo cáo và tối ưu quy trình.</p>
+          Sales Admin
         </div>
-        <div class="feature">
+        <div class="about-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          Traveler
+        </div>
+        <div class="about-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          <h3>Công nghệ</h3>
-          <p>Website, tự động hóa và các công cụ No-code.</p>
+          Content Creator
         </div>
-        <div class="feature">
+        <div class="about-tag">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg>
-          <h3>Đam mê</h3>
-          <p>Du lịch, khám phá và chia sẻ trải nghiệm.</p>
+          Tech Enthusiast
         </div>
       </div>
-      <a href="#" class="btn btn-primary cv-btn">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
-        DOWNLOAD CV
+      <a href="#" class="btn-outline">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg>
+        TÌM HIỂU THÊM
       </a>
+    </div>
+    <div class="about-right" data-reveal="right">
+      <div class="about-img-placeholder" id="aboutImgWrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg>
+        <p>about.jpg</p>
+      </div>
+      <div class="about-badge">
+        <p>CHUYẾN ĐI</p>
+        <strong>5+</strong>
+      </div>
     </div>
   </div>
 </section>
@@ -472,43 +541,41 @@
 <!-- PROJECTS -->
 <section class="section section-alt" id="projects">
   <div class="wrap">
-    <div class="section-head" data-reveal>
-      <div>
-        <div class="eyebrow">PROJECTS</div>
-        <h2>Dự án nổi bật</h2>
-      </div>
+    <div data-reveal>
+      <div class="eyebrow">PROJECTS</div>
+      <h2 class="section-title" style="margin-bottom:48px;">Dự án nổi bật</h2>
     </div>
     <div class="project-grid">
       <div class="project-card" data-reveal data-delay="1">
-        <span class="idx">01</span>
+        <span class="project-num">01</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
         <h3>Travel Manager</h3>
         <p>Quản lý kế hoạch, chi phí và lịch trình du lịch.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
       <div class="project-card" data-reveal data-delay="2">
-        <span class="idx">02</span>
+        <span class="project-num">02</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         <h3>Personal Website</h3>
-        <p>Website cá nhân được xây dựng với NextJS &amp; Tailwind.</p>
+        <p>Website cá nhân xây dựng với NextJS &amp; Tailwind.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
       <div class="project-card" data-reveal data-delay="3">
-        <span class="idx">03</span>
+        <span class="project-num">03</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
         <h3>Movie Library</h3>
         <p>Quản lý danh sách phim đã xem và muốn xem.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
       <div class="project-card" data-reveal data-delay="1">
-        <span class="idx">04</span>
+        <span class="project-num">04</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="10" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <h3>Password Manager</h3>
         <p>Lưu trữ và quản lý mật khẩu an toàn, mã hóa.</p>
         <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
       <div class="project-card" data-reveal data-delay="2">
-        <span class="idx">05</span>
+        <span class="project-num">05</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         <h3>Expense Tracker</h3>
         <p>Theo dõi chi tiêu cá nhân đơn giản, trực quan.</p>
@@ -520,89 +587,53 @@
 
 <!-- TRAVEL -->
 <section class="section" id="travel">
-  <div class="wrap travel-grid">
-    <div data-reveal="left">
+  <div class="wrap">
+    <div data-reveal style="margin-bottom:48px;">
       <div class="eyebrow">TRAVEL</div>
-      <h2 style="font-size:clamp(28px,3.4vw,38px);margin-bottom:28px;">Những nơi mình đã đi qua</h2>
-      <div class="travel-map">
+      <h2 class="section-title">Những nơi mình đã đi qua</h2>
+    </div>
+    <div class="travel-grid">
+      <div class="travel-map" data-reveal="left">
         <svg viewBox="0 0 400 250">
           <line x1="20" y1="200" x2="20" y2="20" stroke="#D8D3C5"/>
           <line x1="20" y1="200" x2="380" y2="200" stroke="#D8D3C5"/>
           <path d="M120 60 L210 40 L260 90 L120 190 Z" fill="none" stroke="#D8D3C5" stroke-width="1"/>
           <path d="M60 60 Q90 130 60 190" fill="none" stroke="#D8D3C5" stroke-width="1"/>
-          <!-- flight path -->
           <path d="M110 170 Q150 60 200 60 Q230 60 250 90 Q265 120 320 60" fill="none" stroke="#2C3A54" stroke-width="1" stroke-dasharray="3 4" opacity=".7"/>
-          <!-- pins -->
-          <g fill="#B34632">
-            <circle cx="110" cy="170" r="4"/>
-            <circle cx="140" cy="150" r="4"/>
-            <circle cx="200" cy="60" r="4"/>
-            <circle cx="250" cy="90" r="4"/>
-            <circle cx="320" cy="60" r="4"/>
+          <g fill="#C04B2A">
+            <circle cx="110" cy="170" r="4"/><circle cx="140" cy="150" r="4"/>
+            <circle cx="200" cy="60" r="4"/><circle cx="250" cy="90" r="4"/><circle cx="320" cy="60" r="4"/>
           </g>
-          <g font-family="JetBrains Mono, monospace" font-size="9" fill="#6E6A5E">
-            <text x="98" y="185">VN</text>
-            <text x="128" y="165">PH</text>
-            <text x="190" y="50">SG</text>
-            <text x="240" y="105">TH</text>
-            <text x="308" y="50">JP</text>
+          <g font-family="JetBrains Mono,monospace" font-size="9" fill="#6E6A5E">
+            <text x="98" y="185">VN</text><text x="128" y="165">PH</text>
+            <text x="190" y="50">SG</text><text x="240" y="105">TH</text><text x="308" y="50">JP</text>
           </g>
         </svg>
       </div>
+      <ul class="travel-list" data-reveal="right">
+        <li><span class="city-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Việt Nam</span><span class="coord">14.06°N, 108.28°E</span></li>
+        <li><span class="city-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Philippines</span><span class="coord">12.88°N, 121.77°E</span></li>
+        <li><span class="city-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Singapore</span><span class="coord">1.35°N, 103.82°E</span></li>
+        <li><span class="city-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Thailand</span><span class="coord">15.87°N, 100.99°E</span></li>
+        <li><span class="city-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Japan</span><span class="coord">36.20°N, 138.25°E</span></li>
+      </ul>
     </div>
-    <ul class="travel-list" data-reveal="right">
-      <li>
-        <span class="city">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          Việt Nam
-        </span>
-        <span class="coord">14.06°N, 108.28°E</span>
-      </li>
-      <li>
-        <span class="city">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          Philippines
-        </span>
-        <span class="coord">12.88°N, 121.77°E</span>
-      </li>
-      <li>
-        <span class="city">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          Singapore
-        </span>
-        <span class="coord">1.35°N, 103.82°E</span>
-      </li>
-      <li>
-        <span class="city">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          Thailand
-        </span>
-        <span class="coord">15.87°N, 100.99°E</span>
-      </li>
-      <li>
-        <span class="city">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          Japan
-        </span>
-        <span class="coord">36.20°N, 138.25°E</span>
-      </li>
-    </ul>
   </div>
 </section>
 
 <!-- GALLERY -->
 <section class="section section-alt" id="gallery">
   <div class="wrap">
-    <div class="eyebrow">GALLERY</div>
-    <h2 style="font-size:clamp(28px,3.4vw,38px);margin-bottom:36px;">Khoảnh khắc</h2>
-    <div class="gallery-grid">
-      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
-      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
-      <div class="gallery-tile wide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
-      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
-      <div class="gallery-tile wide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
-      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
-      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
+    <div data-reveal style="margin-bottom:36px;">
+      <div class="eyebrow">GALLERY</div>
+      <h2 class="section-title">Khoảnh khắc</h2>
+    </div>
+    <div class="gallery-grid" data-reveal>
+      <div class="gallery-tile tall wide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
+      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
+      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
+      <div class="gallery-tile wide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
+      <div class="gallery-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg></div>
     </div>
   </div>
 </section>
@@ -610,28 +641,33 @@
 <!-- BLOG -->
 <section class="section" id="blog">
   <div class="wrap">
-    <div class="eyebrow" data-reveal>BLOG</div>
-    <h2 style="font-size:clamp(28px,3.4vw,38px);margin-bottom:36px;" data-reveal data-delay="1">Bài viết mới nhất</h2>
+    <div data-reveal style="margin-bottom:44px;">
+      <div class="eyebrow">BLOG</div>
+      <h2 class="section-title">Bài viết mới nhất</h2>
+    </div>
     <div class="blog-grid">
       <div class="blog-card" data-reveal data-delay="1">
-        <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="blog-body">
+          <div class="blog-date">08 / 2026</div>
           <h3>Kinh nghiệm du lịch tự túc</h3>
           <p>Những lưu ý và kinh nghiệm khi đi du lịch tự túc lần đầu.</p>
           <a href="#" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
       <div class="blog-card" data-reveal data-delay="2">
-        <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="blog-body">
+          <div class="blog-date">07 / 2026</div>
           <h3>Xây website với NextJS</h3>
           <p>Hướng dẫn xây dựng website cá nhân với NextJS &amp; Tailwind.</p>
           <a href="#" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
       <div class="blog-card" data-reveal data-delay="3">
-        <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="blog-body">
+          <div class="blog-date">06 / 2026</div>
           <h3>Quản lý công việc với Notion</h3>
           <p>Cách mình quản lý công việc và dự án bằng Notion.</p>
           <a href="#" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
@@ -643,42 +679,44 @@
 
 <!-- CONTACT -->
 <section class="section section-alt" id="contact">
-  <div class="wrap contact-wrap">
-    <div data-reveal>
-      <div class="eyebrow">CONTACT</div>
-      <h2>Kết nối với mình</h2>
-    </div>
-    <div class="social-row" data-reveal data-delay="2">
-      <a class="social-pill" href="mailto:hieulm.contact@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
-        hieulm.contact@gmail.com
-      </a>
-      <a class="social-pill" href="tel:+84918050556">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.7a2 2 0 0 1-.4 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2z"/></svg>
-        0918 05 05 56
-      </a>
-      <a class="social-pill" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        Facebook
-      </a>
-      <a class="social-pill" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-        Instagram
-      </a>
-      <a class="social-pill" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-        GitHub
-      </a>
-      <a class="social-pill" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="11" x2="8" y2="16"/><circle cx="8" cy="8" r="1"/><path d="M12 16v-5h1.5a2.5 2.5 0 0 1 2.5 2.5V16"/></svg>
-        LinkedIn
-      </a>
+  <div class="wrap">
+    <div class="contact-inner" data-reveal>
+      <div class="eyebrow" style="justify-content:center;">CONTACT</div>
+      <h2 class="section-title">Kết nối với mình</h2>
+      <p>Mình luôn sẵn sàng trò chuyện, hợp tác hoặc chỉ đơn giản là cùng chia sẻ những câu chuyện thú vị.</p>
+      <div class="contact-pills">
+        <a class="contact-pill" href="mailto:hieulm.contact@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
+          hieulm.contact@gmail.com
+        </a>
+        <a class="contact-pill" href="tel:+84918050556">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.7a2 2 0 0 1-.4 2.1L8.1 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2z"/></svg>
+          0918 05 05 56
+        </a>
+        <a class="contact-pill" href="https://zalo.me/0918050556" target="_blank">
+          <svg viewBox="0 0 48 48" width="16" height="16" fill="currentColor"><path d="M24 4C12.95 4 4 12.95 4 24c0 4.08 1.17 7.88 3.18 11.09L4 44l9.18-3.1A19.88 19.88 0 0 0 24 44c11.05 0 20-8.95 20-20S35.05 4 24 4zm.6 28.3l-3.6-3.87-7.02 3.87 7.7-8.2 3.6 3.86 6.98-3.86-7.66 8.2zm5.14-12.46a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zm-11.48 0a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2z"/></svg>
+          Zalo
+        </a>
+        <a class="contact-pill" href="https://www.tiktok.com/@leminhhieu.official" target="_blank">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+          TikTok
+        </a>
+        <a class="contact-pill" href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a class="contact-pill" href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          Instagram
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="wrap foot-wrap">
+  <div class="wrap foot-inner">
     <p>© 2026 LE MINH HIEU. All rights reserved.</p>
     <a href="#home" class="top-btn" aria-label="Lên đầu trang">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
@@ -686,58 +724,50 @@
   </div>
 </footer>
 
-<!-- FLOATING SOCIAL -->
-<div class="social-float">
-  <a href="https://zalo.me/0918050556" target="_blank" rel="noopener" aria-label="Zalo">
-    <span class="tooltip">Zalo</span>
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C6.48 2 2 6.03 2 11c0 2.7 1.22 5.12 3.17 6.8L4 22l4.37-1.45A10.45 10.45 0 0 0 12 21c5.52 0 10-4.03 10-9S17.52 2 12 2zm1.41 12.41l-1.79-1.93-3.5 1.93 3.84-4.09 1.8 1.93 3.48-1.93-3.83 4.09z"/>
-    </svg>
-  </a>
-  <a href="https://www.tiktok.com/@leminhhieu.official" target="_blank" rel="noopener" aria-label="TikTok">
-    <span class="tooltip">TikTok</span>
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
-    </svg>
-  </a>
-</div>
-
 <script>
-  // ---------- SCROLL REVEAL ----------
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+// Header scroll effect
+const header = document.getElementById('header');
+const socialFloat = document.getElementById('socialFloat');
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 60){
+    header.classList.add('scrolled');
+    socialFloat.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+    socialFloat.classList.remove('scrolled');
+  }
+});
 
-  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+// Mobile nav
+const navtoggle = document.getElementById('navtoggle');
+const navlinks = document.getElementById('navlinks');
+navtoggle.addEventListener('click', () => {
+  navlinks.classList.toggle('open');
+});
+navlinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navlinks.classList.remove('open'));
+});
 
-  // Hero items visible immediately on load
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.hero [data-reveal]').forEach(el => {
-      setTimeout(() => el.classList.add('is-visible'), parseInt(el.dataset.delay || 0) * 120);
-    });
+// Active nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.navlinks a');
+const setActive = () => {
+  let current = sections[0].id;
+  sections.forEach(sec => {
+    if(window.scrollY >= sec.offsetTop - 120) current = sec.id;
   });
+  navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+};
+window.addEventListener('scroll', setActive);
+setActive();
 
-  const navtoggle = document.getElementById('navtoggle');
-  const navlinks = document.getElementById('navlinks');
-  navtoggle.addEventListener('click', () => navlinks.classList.toggle('open'));
-
-  const links = document.querySelectorAll('.navlinks a');
-  const sections = document.querySelectorAll('section[id]');
-  const setActive = () => {
-    let current = sections[0].id;
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
-    });
-    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
-  };
-  window.addEventListener('scroll', setActive);
-  links.forEach(l => l.addEventListener('click', () => navlinks.classList.remove('open')));
-  setActive();
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('is-visible'); observer.unobserve(e.target); }
+  });
+}, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
