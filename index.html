@@ -156,6 +156,23 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 .foot-stamp{position:absolute;right:44px;bottom:26px;width:88px;height:88px;}
 .foot-stamp svg{width:100%;height:100%;}
 
+/* ---- BACK TO TOP ---- */
+.back-to-top{
+  position:fixed;right:24px;bottom:24px;z-index:90;
+  width:46px;height:46px;border-radius:50%;
+  background:var(--ink);color:var(--white);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 24px rgba(0,0,0,.22);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s ease,background .2s ease;
+}
+.back-to-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+.back-to-top:hover{background:var(--stamp);}
+.back-to-top svg{width:18px;height:18px;}
+@media(max-width:520px){
+  .back-to-top{right:16px;bottom:16px;width:42px;height:42px;}
+}
+
 /* ---- SCROLL REVEAL ---- */
 [data-reveal]{opacity:0;transition:opacity .6s ease;}
 [data-reveal].is-visible{opacity:1;}
@@ -337,7 +354,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
           <div class="polaroid-caption"></div>
         </div>
         <div class="polaroid" data-i="1">
-          <img src="about1.jpeg" alt="Minh Hiếu trong một chuyến đi">
+          <img src="https://picsum.photos/seed/hieutravel2/500/625" alt="Minh Hiếu trong một chuyến đi">
           <div class="polaroid-caption"></div>
         </div>
         <div class="polaroid" data-i="2">
@@ -399,7 +416,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
     </div>
     <div class="journey-grid" data-reveal>
       <div class="journey-tile"><img src="https://picsum.photos/seed/lakehiker3/500/650" alt="Đứng bên hồ núi"></div>
-      <div class="journey-tile"><img src="Journey1.jpeg" alt="Đi bộ trong rừng thông"></div>
+      <div class="journey-tile"><img src="https://picsum.photos/seed/forestwalk9/500/650" alt="Đi bộ trong rừng thông"></div>
       <div class="journey-tile"><img src="https://picsum.photos/seed/mtnroadvan4/500/650" alt="Xe trên đường đèo"></div>
       <div class="journey-tile"><img src="https://picsum.photos/seed/balloonssky8/500/650" alt="Khinh khí cầu buổi sáng"></div>
     </div>
@@ -505,6 +522,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   </div>
 </footer>
 
+<button class="back-to-top" id="backToTop" aria-label="Về đầu trang" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -570,6 +591,14 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  backToTop.classList.toggle('show', window.scrollY > window.innerHeight * 0.8);
+});
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 const navtoggle = document.getElementById('navtoggle');
