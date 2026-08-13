@@ -216,10 +216,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   background:rgba(15,13,10,.72);
   display:flex;align-items:center;justify-content:center;
   padding:24px;
-  opacity:0;pointer-events:none;
-  transition:opacity .35s ease;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .35s ease,visibility 0s linear .35s;
 }
-.promo-overlay.show{opacity:1;pointer-events:all;}
+.promo-overlay.show{opacity:1;visibility:visible;pointer-events:all;transition:opacity .35s ease,visibility 0s linear 0s;}
 .promo-modal{
   position:relative;width:100%;max-width:420px;
   background:var(--paper);border-radius:6px;overflow:hidden;
