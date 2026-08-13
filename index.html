@@ -34,6 +34,10 @@ header{
   position:fixed;top:0;left:0;right:0;z-index:100;
   height:var(--header-h);display:flex;align-items:center;padding:0 40px;
   transition:background .3s ease, box-shadow .3s ease;
+  transform:translateZ(0);
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
 }
 header.scrolled{background:rgba(245,242,236,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line-dark);}
 header.scrolled .logo{color:var(--ink);}
