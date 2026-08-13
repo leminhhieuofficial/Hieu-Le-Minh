@@ -34,11 +34,6 @@ header{
   position:fixed;top:0;left:0;right:0;z-index:100;
   height:var(--header-h);display:flex;align-items:center;padding:0 40px;
   transition:background .3s ease, box-shadow .3s ease;
-  transform:translateZ(0);
-  will-change:transform;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  background:linear-gradient(to bottom,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 70%,rgba(0,0,0,0) 100%);
 }
 header.scrolled{background:rgba(245,242,236,.98);box-shadow:0 1px 0 var(--line-dark);}
 header.scrolled .logo{color:var(--ink);}
@@ -535,8 +530,10 @@ window.addEventListener('scroll', () => {
 const navtoggle = document.getElementById('navtoggle');
 const navlinks = document.getElementById('navlinks');
 let savedScrollY = 0;
+const isMobileNav = () => window.matchMedia('(max-width:900px)').matches;
 
 function syncNavHeight(){
+  if (!isMobileNav()) { navlinks.style.height = ''; return; }
   const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
   navlinks.style.height = vh + 'px';
 }
