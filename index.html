@@ -59,8 +59,12 @@ header.scrolled .nav-btns button:hover{background:var(--paper-alt);}
 .hero{position:relative;height:100vh;height:100svh;min-height:560px;display:flex;align-items:flex-end;overflow:hidden;background:#1c1c1c;}
 @supports (height:100dvh){.hero{height:100dvh;}}
 .hero-bg{position:absolute;inset:0;}
-.hero-bg img,.hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;}
-.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,8,8,.5) 0%,rgba(8,8,8,.15) 32%,rgba(8,8,8,.55) 68%,rgba(6,6,6,.92) 100%);}
+.hero-bg img,.hero-bg video{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;transition:opacity .18s ease;}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,8,8,.5) 0%,rgba(8,8,8,.15) 32%,rgba(8,8,8,.55) 68%,rgba(6,6,6,.92) 100%);z-index:1;}
+.shatter-grid{position:absolute;inset:0;z-index:0;opacity:0;pointer-events:none;}
+.shatter-grid.active{opacity:1;}
+.shard{position:absolute;overflow:hidden;will-change:transform,opacity;}
+.shard img{position:absolute;top:0;left:0;object-fit:cover;object-position:center 30%;display:block;max-width:none;}
 .hero-content{position:relative;z-index:2;width:100%;padding:0 40px 64px;}
 .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:12px;margin-bottom:22px;}
 .hero-eyebrow span{color:var(--stamp);}
@@ -548,6 +552,98 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// ---- HERO VIDEO SHATTER-ON-SCROLL ----
+(function(){
+  const heroBg = document.querySelector('.hero-bg');
+  const video = heroBg ? heroBg.querySelector('video') : null;
+  const hero = document.getElementById('home');
+  if(!heroBg || !video || !hero) return;
+
+  const COLS = 7, ROWS = 5;
+  const posterUrl = video.getAttribute('poster');
+  const grid = document.createElement('div');
+  grid.className = 'shatter-grid';
+  heroBg.insertBefore(grid, video);
+
+  const shards = [];
+  const cx = (COLS-1)/2, cy = (ROWS-1)/2;
+  for(let r=0;r<ROWS;r++){
+    for(let c=0;c<COLS;c++){
+      const shard = document.createElement('div');
+      shard.className = 'shard';
+      shard.style.left = (c*100/COLS)+'%';
+      shard.style.top = (r*100/ROWS)+'%';
+      shard.style.width = (100/COLS)+'%';
+      shard.style.height = (100/ROWS)+'%';
+
+      const img = document.createElement('img');
+      img.src = posterUrl;
+      img.style.width = (COLS*100)+'%';
+      img.style.height = (ROWS*100)+'%';
+      img.style.left = (-c*100)+'%';
+      img.style.top = (-r*100)+'%';
+      shard.appendChild(img);
+      grid.appendChild(shard);
+
+      let vx = (c-cx), vy = (r-cy);
+      const len = Math.sqrt(vx*vx+vy*vy) || 1;
+      vx/=len; vy/=len;
+      vx += (Math.random()-0.5)*0.7;
+      vy += (Math.random()-0.5)*0.7;
+
+      shards.push({
+        el: shard,
+        vx, vy,
+        rot: (Math.random()-0.5)*2,
+        delay: Math.random()*0.12,
+        fall: 0.3+Math.random()*0.6
+      });
+    }
+  }
+
+  const MAX_DIST = 520;
+  const MAX_ROT = 80;
+  let ticking = false;
+
+  function update(){
+    ticking = false;
+    const heroHeight = hero.offsetHeight;
+    const scrollY = window.scrollY || window.pageYOffset;
+    let progress = scrollY / (heroHeight * 0.6);
+    progress = Math.max(0, Math.min(1, progress));
+
+    if(progress <= 0.001){
+      grid.classList.remove('active');
+      video.style.opacity = 1;
+      return;
+    }
+
+    grid.classList.add('active');
+    video.style.opacity = 0;
+
+    shards.forEach(s=>{
+      const p = Math.max(0, Math.min(1, (progress - s.delay) / (1 - s.delay)));
+      const eased = p*p;
+      const dx = s.vx * MAX_DIST * eased;
+      const dy = s.vy * MAX_DIST * eased + eased*eased*140*s.fall;
+      const rot = s.rot * MAX_ROT * eased;
+      s.el.style.transform = `translate3d(${dx}px, ${dy}px, 0) rotate(${rot}deg)`;
+      s.el.style.opacity = 1 - eased;
+    });
+  }
+
+  function onScroll(){
+    if(!ticking){
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+})();
 
 // ---- POLAROID PHOTO STACK (auto-rotate) ----
 (function(){
