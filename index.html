@@ -561,9 +561,9 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ---- GATE: chỉ hiện Hero, bấm bất kỳ liên kết nào trỏ xuống mới mở phần còn lại ----
+// ---- GATE: Hero là trang bìa. Bấm bất kỳ nút/liên kết nào cũng "nhảy" ra trang chủ (mở toàn bộ giao diện, luôn bắt đầu từ đầu) ----
 (function(){
-  const heroTarget = document.getElementById('about');
+  const homeStart = document.getElementById('about'); // điểm bắt đầu của "trang chủ"
 
   document.addEventListener('click', function(e){
     if(!document.body.classList.contains('locked')) return;
@@ -575,10 +575,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
     e.preventDefault();
     document.body.classList.remove('locked');
 
-    const dest = document.querySelector(hash) || heroTarget;
+    // luôn mở ra đúng điểm bắt đầu của trang chủ, thống nhất cho mọi nút bấm
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{
-        if(dest) dest.scrollIntoView({ behavior:'smooth', block:'start' });
+        if(homeStart) homeStart.scrollIntoView({ behavior:'smooth', block:'start' });
       });
     });
   });
