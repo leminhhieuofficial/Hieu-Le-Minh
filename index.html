@@ -282,14 +282,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
     <div class="promo-media">
       <img src="https://picsum.photos/seed/holidaypromo1/700/860" alt="Thông báo sự kiện">
       <div class="promo-media-text">
-        <div class="promo-eyebrow">MỪNG QUỐC KHÁNH 2/9</div>
-        <h3>Hành trình mới,<br>câu chuyện mới</h3>
-        <p>Cùng đón chào những chặng đường sắp tới</p>
+        <div class="promo-eyebrow" data-i18n="promoEyebrow">MỪNG QUỐC KHÁNH 2/9</div>
+        <h3 data-i18n-html="promoHeadline">Hành trình mới,<br>câu chuyện mới</h3>
+        <p data-i18n="promoSub">Cùng đón chào những chặng đường sắp tới</p>
       </div>
     </div>
     <div class="promo-body">
-      <p>Nhân dịp lễ, mình vừa cập nhật thêm vài trải nghiệm và dự án mới trên trang. Ghé qua xem nhé!</p>
-      <a href="#journey" class="btn-solid" id="promoAction">XEM NGAY <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <p data-i18n="promoBody">Nhân dịp lễ, mình vừa cập nhật thêm vài trải nghiệm và dự án mới trên trang. Ghé qua xem nhé!</p>
+      <a href="#journey" class="btn-solid" id="promoAction"><span data-i18n="promoActionText">XEM NGAY</span> <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
   </div>
 </div>
@@ -309,8 +309,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
       <button class="navtoggle" id="navtoggle" aria-label="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <button aria-label="Chuyển giao diện" id="themeToggle">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <button aria-label="Switch language / Chuyển ngôn ngữ" id="langToggle">
+        <span id="langLabel" style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.04em;">EN</span>
       </button>
       <a href="mailto:hello@leminhhieu.com" aria-label="Email">
         <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg></button>
@@ -327,14 +327,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   <div class="hero-content">
     <div class="hero-eyebrow">SALES ADMIN <span>&bull;</span> TRAVEL <span>&bull;</span> TECHNOLOGY</div>
     <h1>Le Minh Hieu</h1>
-    <p class="hero-desc">Sales Admin chuyên nghiệp với niềm đam mê du lịch và công nghệ. Tôi kết nối con người, dữ liệu và trải nghiệm để tạo ra giá trị thực.</p>
+    <p class="hero-desc" data-i18n="heroDesc">Sales Admin chuyên nghiệp với niềm đam mê du lịch và công nghệ. Tôi kết nối con người, dữ liệu và trải nghiệm để tạo ra giá trị thực.</p>
     <div class="hero-actions">
       <a href="#journey" class="btn-hero-primary">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
-        KHÁM PHÁ HÀNH TRÌNH
+        <span data-i18n="heroPrimaryBtn">KHÁM PHÁ HÀNH TRÌNH</span>
       </a>
       <a href="#contact" class="btn-hero-ghost">
-        LIÊN HỆ VỚI TÔI
+        <span data-i18n="getInTouch">LIÊN HỆ VỚI TÔI</span>
         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
@@ -376,11 +376,11 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
       </div>
     </div>
     <div class="about-right" data-reveal="right">
-      <div class="eyebrow">VỀ TÔI</div>
-      <h2 class="section-title">Kết nối. Khám phá. Phát triển.</h2>
-      <p>Tôi là một Sales Admin với nền tảng vững chắc về quản trị bán hàng, phân tích dữ liệu và tối ưu quy trình.</p>
-      <p>Ngoài công việc, tôi là một người đam mê du lịch và công nghệ, luôn tìm kiếm những hành trình mới và giải pháp sáng tạo.</p>
-      <a href="#do" class="more-link">TÌM HIỂU THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+      <div class="eyebrow" data-i18n="aboutEyebrow">VỀ TÔI</div>
+      <h2 class="section-title" data-i18n="aboutTitle">Kết nối. Khám phá. Phát triển.</h2>
+      <p data-i18n="aboutP1">Tôi là một Sales Admin với nền tảng vững chắc về quản trị bán hàng, phân tích dữ liệu và tối ưu quy trình.</p>
+      <p data-i18n="aboutP2">Ngoài công việc, tôi là một người đam mê du lịch và công nghệ, luôn tìm kiếm những hành trình mới và giải pháp sáng tạo.</p>
+      <a href="#do" class="more-link"><span data-i18n="aboutMoreLink">TÌM HIỂU THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
     </div>
   </div>
 </section>
@@ -389,27 +389,27 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 <section class="section section-alt" id="do">
   <div class="wrap">
     <div data-reveal style="margin-bottom:48px;text-align:center;">
-      <div class="eyebrow" style="justify-content:center;">LĨNH VỰC HOẠT ĐỘNG</div>
-      <h2 class="section-title">Tôi làm gì</h2>
+      <div class="eyebrow" style="justify-content:center;" data-i18n="doEyebrow">LĨNH VỰC HOẠT ĐỘNG</div>
+      <h2 class="section-title" data-i18n="doTitle">Tôi làm gì</h2>
     </div>
     <div class="do-grid">
       <div class="do-card" data-reveal data-delay="1">
         <div class="do-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="20" x2="4" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="20" y1="20" x2="20" y2="14"/></svg></div>
         <h3>SALES ADMIN</h3>
-        <p>Quản lý đơn hàng, báo cáo doanh số, phân tích dữ liệu và tối ưu quy trình bán hàng.</p>
-        <a href="pages/sales-admin.html" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+        <p data-i18n="doCard1Desc">Quản lý đơn hàng, báo cáo doanh số, phân tích dữ liệu và tối ưu quy trình bán hàng.</p>
+        <a href="pages/sales-admin.html" class="more-link"><span data-i18n="learnMore">XEM THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
       <div class="do-card" data-reveal data-delay="2">
         <div class="do-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
         <h3>TRAVEL</h3>
-        <p>Khám phá những vùng đất mới, trải nghiệm văn hóa và lưu giữ khoảnh khắc đáng nhớ.</p>
-        <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+        <p data-i18n="doCard2Desc">Khám phá những vùng đất mới, trải nghiệm văn hóa và lưu giữ khoảnh khắc đáng nhớ.</p>
+        <a href="#" class="more-link"><span data-i18n="learnMore">XEM THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
       <div class="do-card" data-reveal data-delay="3">
         <div class="do-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
         <h3>TECHNOLOGY</h3>
-        <p>Ứng dụng công nghệ để giải quyết vấn đề và nâng cao hiệu suất công việc.</p>
-        <a href="#" class="more-link">XEM THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+        <p data-i18n="doCard3Desc">Ứng dụng công nghệ để giải quyết vấn đề và nâng cao hiệu suất công việc.</p>
+        <a href="#" class="more-link"><span data-i18n="learnMore">XEM THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
     </div>
   </div>
@@ -419,8 +419,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 <section class="section" id="journey">
   <div class="wrap">
     <div data-reveal style="margin-bottom:40px;text-align:center;">
-      <div class="eyebrow" style="justify-content:center;">HÀNH TRÌNH</div>
-      <h2 class="section-title">Những chặng đường đáng nhớ</h2>
+      <div class="eyebrow" style="justify-content:center;" data-i18n="journeyEyebrow">HÀNH TRÌNH</div>
+      <h2 class="section-title" data-i18n="journeyTitle">Những chặng đường đáng nhớ</h2>
     </div>
     <div class="journey-carousel-wrap" data-reveal>
       <div class="journey-carousel">
@@ -439,7 +439,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
       <button class="carousel-nav next" id="journeyNext" aria-label="Ảnh tiếp theo" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
     <div class="journey-cta" data-reveal>
-      <a href="#journey" class="more-link">XEM TẤT CẢ HÀNH TRÌNH <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+      <a href="#journey" class="more-link"><span data-i18n="journeyCta">XEM TẤT CẢ HÀNH TRÌNH</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
     </div>
   </div>
 </section>
@@ -448,32 +448,32 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 <section class="section section-alt" id="blog">
   <div class="wrap">
     <div data-reveal style="margin-bottom:44px;text-align:center;">
-      <div class="eyebrow" style="justify-content:center;">BÀI VIẾT MỚI NHẤT</div>
-      <h2 class="section-title">Chia sẻ &amp; cảm hứng</h2>
+      <div class="eyebrow" style="justify-content:center;" data-i18n="blogEyebrow">BÀI VIẾT MỚI NHẤT</div>
+      <h2 class="section-title" data-i18n="blogTitle">Chia sẻ &amp; cảm hứng</h2>
     </div>
     <div class="blog-grid">
       <div class="blog-card" data-reveal data-delay="1">
         <div class="blog-thumb"><img src="https://picsum.photos/seed/deskcoffee5/620/400" alt="Bàn làm việc với laptop và cà phê"></div>
         <div class="blog-body">
           <div class="blog-meta"><span class="tag">SALES ADMIN</span><span class="date">12 MAR 2024</span></div>
-          <h3>Tối ưu quy trình bán hàng hiệu quả với dữ liệu</h3>
-          <a href="#" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+          <h3 data-i18n="blogCard1Title">Tối ưu quy trình bán hàng hiệu quả với dữ liệu</h3>
+          <a href="#" class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
       <div class="blog-card" data-reveal data-delay="2">
         <div class="blog-thumb"><img src="https://picsum.photos/seed/swisslake6/620/400" alt="Hồ núi Thụy Sĩ"></div>
         <div class="blog-body">
           <div class="blog-meta"><span class="tag">TRAVEL</span><span class="date">08 MAR 2024</span></div>
-          <h3>Hành trình đến Thụy Sĩ – trải nghiệm không thể quên</h3>
-          <a href="pages/hanh-trinh-thuy-si.html" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+          <h3 data-i18n="blogCard2Title">Hành trình đến Thụy Sĩ – trải nghiệm không thể quên</h3>
+          <a href="pages/hanh-trinh-thuy-si.html" class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
       <div class="blog-card" data-reveal data-delay="3">
         <div class="blog-thumb"><img src="https://picsum.photos/seed/monitorcode2/620/400" alt="Màn hình máy tính với code"></div>
         <div class="blog-body">
           <div class="blog-meta"><span class="tag">TECHNOLOGY</span><span class="date">05 MAR 2024</span></div>
-          <h3>5 công cụ giúp tôi nâng cao năng suất mỗi ngày</h3>
-          <a href="pages/5-cong-cu-nang-suat.html" class="more-link">ĐỌC THÊM <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+          <h3 data-i18n="blogCard3Title">5 công cụ giúp tôi nâng cao năng suất mỗi ngày</h3>
+          <a href="pages/5-cong-cu-nang-suat.html" class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
     </div>
@@ -486,11 +486,11 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
     <div class="cta-left">
       <div class="cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
       <div>
-        <h3>Sẵn sàng cho hành trình tiếp theo?</h3>
-        <p>Cùng kết nối và tạo ra những giá trị tuyệt vời.</p>
+        <h3 data-i18n="ctaTitle">Sẵn sàng cho hành trình tiếp theo?</h3>
+        <p data-i18n="ctaDesc">Cùng kết nối và tạo ra những giá trị tuyệt vời.</p>
       </div>
     </div>
-    <a href="#contact" class="btn-solid">LIÊN HỆ VỚI TÔI <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <a href="#contact" class="btn-solid"><span data-i18n="getInTouch">LIÊN HỆ VỚI TÔI</span> <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   </div>
 </section>
 
@@ -665,11 +665,129 @@ const setActive = () => {
 window.addEventListener('scroll', setActive);
 setActive();
 
-let dark = false;
-document.getElementById('themeToggle').addEventListener('click', () => {
-  dark = !dark;
-  document.documentElement.style.filter = dark ? 'invert(1) hue-rotate(180deg)' : 'none';
-});
+/* ---- I18N: chuyển đổi ngôn ngữ VN / EN ---- */
+const translations = {
+  vi: {
+    promoEyebrow: "MỪNG QUỐC KHÁNH 2/9",
+    promoSub: "Cùng đón chào những chặng đường sắp tới",
+    promoBody: "Nhân dịp lễ, mình vừa cập nhật thêm vài trải nghiệm và dự án mới trên trang. Ghé qua xem nhé!",
+    promoActionText: "XEM NGAY",
+    heroDesc: "Sales Admin chuyên nghiệp với niềm đam mê du lịch và công nghệ. Tôi kết nối con người, dữ liệu và trải nghiệm để tạo ra giá trị thực.",
+    heroPrimaryBtn: "KHÁM PHÁ HÀNH TRÌNH",
+    getInTouch: "LIÊN HỆ VỚI TÔI",
+    aboutEyebrow: "VỀ TÔI",
+    aboutTitle: "Kết nối. Khám phá. Phát triển.",
+    aboutP1: "Tôi là một Sales Admin với nền tảng vững chắc về quản trị bán hàng, phân tích dữ liệu và tối ưu quy trình.",
+    aboutP2: "Ngoài công việc, tôi là một người đam mê du lịch và công nghệ, luôn tìm kiếm những hành trình mới và giải pháp sáng tạo.",
+    aboutMoreLink: "TÌM HIỂU THÊM",
+    doEyebrow: "LĨNH VỰC HOẠT ĐỘNG",
+    doTitle: "Tôi làm gì",
+    doCard1Desc: "Quản lý đơn hàng, báo cáo doanh số, phân tích dữ liệu và tối ưu quy trình bán hàng.",
+    doCard2Desc: "Khám phá những vùng đất mới, trải nghiệm văn hóa và lưu giữ khoảnh khắc đáng nhớ.",
+    doCard3Desc: "Ứng dụng công nghệ để giải quyết vấn đề và nâng cao hiệu suất công việc.",
+    learnMore: "XEM THÊM",
+    journeyEyebrow: "HÀNH TRÌNH",
+    journeyTitle: "Những chặng đường đáng nhớ",
+    journeyCta: "XEM TẤT CẢ HÀNH TRÌNH",
+    blogEyebrow: "BÀI VIẾT MỚI NHẤT",
+    blogTitle: "Chia sẻ & cảm hứng",
+    blogCard1Title: "Tối ưu quy trình bán hàng hiệu quả với dữ liệu",
+    blogCard2Title: "Hành trình đến Thụy Sĩ – trải nghiệm không thể quên",
+    blogCard3Title: "5 công cụ giúp tôi nâng cao năng suất mỗi ngày",
+    readMore: "ĐỌC THÊM",
+    ctaTitle: "Sẵn sàng cho hành trình tiếp theo?",
+    ctaDesc: "Cùng kết nối và tạo ra những giá trị tuyệt vời.",
+    promoCloseAria: "Đóng",
+    backToTopAria: "Về đầu trang",
+    journeyPrevAria: "Ảnh trước",
+    journeyNextAria: "Ảnh tiếp theo"
+  },
+  en: {
+    promoEyebrow: "HAPPY NATIONAL DAY (SEP 2)",
+    promoSub: "Join me in welcoming the roads ahead",
+    promoBody: "To mark the holiday, I've just added a few new experiences and projects to the site. Come take a look!",
+    promoActionText: "VIEW NOW",
+    heroDesc: "A professional Sales Admin with a passion for travel and technology. I connect people, data, and experiences to create real value.",
+    heroPrimaryBtn: "EXPLORE THE JOURNEY",
+    getInTouch: "GET IN TOUCH",
+    aboutEyebrow: "ABOUT ME",
+    aboutTitle: "Connect. Explore. Grow.",
+    aboutP1: "I'm a Sales Admin with a solid foundation in sales management, data analysis, and process optimization.",
+    aboutP2: "Outside of work, I'm passionate about travel and technology, always seeking new journeys and creative solutions.",
+    aboutMoreLink: "LEARN MORE",
+    doEyebrow: "AREAS OF FOCUS",
+    doTitle: "What I Do",
+    doCard1Desc: "Managing orders, sales reporting, data analysis, and optimizing the sales process.",
+    doCard2Desc: "Exploring new places, experiencing different cultures, and capturing memorable moments.",
+    doCard3Desc: "Applying technology to solve problems and improve work efficiency.",
+    learnMore: "LEARN MORE",
+    journeyEyebrow: "JOURNEY",
+    journeyTitle: "Memorable Journeys",
+    journeyCta: "VIEW ALL JOURNEYS",
+    blogEyebrow: "LATEST POSTS",
+    blogTitle: "Stories & Inspiration",
+    blogCard1Title: "Optimizing the Sales Process Effectively with Data",
+    blogCard2Title: "A Journey to Switzerland – An Unforgettable Experience",
+    blogCard3Title: "5 Tools That Help Me Boost My Productivity Every Day",
+    readMore: "READ MORE",
+    ctaTitle: "Ready for the next journey?",
+    ctaDesc: "Let's connect and create something great together.",
+    promoCloseAria: "Close",
+    backToTopAria: "Back to top",
+    journeyPrevAria: "Previous image",
+    journeyNextAria: "Next image"
+  }
+};
+
+const translationsHTML = {
+  vi: { promoHeadline: "Hành trình mới,<br>câu chuyện mới" },
+  en: { promoHeadline: "New journeys,<br>new stories" }
+};
+
+const ariaMap = {
+  promoClose: "promoCloseAria",
+  backToTop: "backToTopAria",
+  journeyPrev: "journeyPrevAria",
+  journeyNext: "journeyNextAria"
+};
+
+let currentLang = 'vi';
+try {
+  const savedLang = localStorage.getItem('siteLang');
+  if (savedLang === 'en' || savedLang === 'vi') currentLang = savedLang;
+} catch(e) {}
+
+function applyLang(lang){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (translationsHTML[lang][key] !== undefined) el.innerHTML = translationsHTML[lang][key];
+  });
+  Object.keys(ariaMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const key = ariaMap[id];
+      if (translations[lang][key] !== undefined) el.setAttribute('aria-label', translations[lang][key]);
+    }
+  });
+  const langLabel = document.getElementById('langLabel');
+  if (langLabel) langLabel.textContent = lang === 'vi' ? 'EN' : 'VI';
+}
+
+applyLang(currentLang);
+
+const langToggleBtn = document.getElementById('langToggle');
+if (langToggleBtn) {
+  langToggleBtn.addEventListener('click', () => {
+    currentLang = currentLang === 'vi' ? 'en' : 'vi';
+    try { localStorage.setItem('siteLang', currentLang); } catch(e) {}
+    applyLang(currentLang);
+  });
+}
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
