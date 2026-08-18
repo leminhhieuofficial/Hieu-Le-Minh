@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>VIDEO X — Le Minh Hieu</title>
+<!-- Cho phép chạy full màn hình (không thanh Safari) khi thêm vào Màn hình chính -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0B0B0C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -22,7 +27,8 @@
 html{width:100%;}
 body{
   background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;
-  -webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;overflow-x:hidden;
+  overscroll-behavior-y:none;
 }
 a{color:inherit;text-decoration:none;}
 button{font-family:inherit;cursor:pointer;}
@@ -30,8 +36,9 @@ img{display:block;max-width:100%;}
 
 /* ---- HEADER ---- */
 header{
-  position:fixed;top:0;left:0;right:0;z-index:60;height:68px;display:flex;align-items:center;
-  padding:0 44px;transition:background .3s ease, box-shadow .3s ease;
+  position:fixed;top:0;left:0;right:0;z-index:60;height:calc(68px + env(safe-area-inset-top));
+  display:flex;align-items:flex-end;padding:0 44px 12px;padding-top:env(safe-area-inset-top);
+  transition:background .3s ease, box-shadow .3s ease;
 }
 header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
 .hdr-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
@@ -181,11 +188,11 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
 .player-close svg{width:16px;height:16px;}
 
 @media(max-width:720px){
-  header{padding:0 16px;height:60px;}
+  header{padding:0 16px 10px;padding-top:env(safe-area-inset-top);height:calc(56px + env(safe-area-inset-top));}
   .hdr-left{gap:16px;}
   .hdr-logo{font-size:11px;}
   .hdr-back{font-size:10px;}
-  .hero{height:auto;min-height:0;max-height:none;padding-top:60px;}
+  .hero{height:auto;min-height:0;max-height:none;padding-top:calc(56px + env(safe-area-inset-top));}
   .hero-inner{padding:34px 18px 32px;max-width:100%;}
   .hero-badge{font-size:10px;margin-bottom:12px;flex-wrap:wrap;}
   .hero h1{font-size:clamp(28px,9vw,40px);margin-bottom:12px;}
