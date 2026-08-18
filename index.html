@@ -434,6 +434,11 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
           <a class="journey-tile" href="pages/duong-deo.html"><img src="https://picsum.photos/seed/mtnroadvan4/500/650" alt="Xe trên đường đèo"></a>
           <a class="journey-tile" href="pages/khinh-khi-cau.html"><img src="https://picsum.photos/seed/balloonssky8/500/650" alt="Khinh khí cầu buổi sáng"></a>
           <a class="journey-tile" href="pages/hanh-trinh-thuy-si.html"><img src="https://picsum.photos/seed/swisslake6/500/650" alt="Hồ núi Thụy Sĩ"></a>
+          <a class="journey-tile clone-tile" href="pages/ho-nui.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/lakehiker3/500/650" alt="" aria-hidden="true"></a>
+          <a class="journey-tile clone-tile" href="pages/rung-thong.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/forestwalk9/500/650" alt="" aria-hidden="true"></a>
+          <a class="journey-tile clone-tile" href="pages/duong-deo.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/mtnroadvan4/500/650" alt="" aria-hidden="true"></a>
+          <a class="journey-tile clone-tile" href="pages/khinh-khi-cau.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/balloonssky8/500/650" alt="" aria-hidden="true"></a>
+          <a class="journey-tile clone-tile" href="pages/hanh-trinh-thuy-si.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/swisslake6/500/650" alt="" aria-hidden="true"></a>
         </div>
       </div>
     </div>
@@ -911,30 +916,60 @@ document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
 (function(){
   const carousel = document.getElementById('journeyCarousel');
   if (!carousel) return;
+  const track = carousel.querySelector('.journey-track');
+  const firstClone = track.querySelector('.clone-tile');
 
   let isDown = false;
   let startX = 0;
   let startScroll = 0;
   let moved = false;
   let timer;
+  let scrollDebounce;
+
+  function tileStep(){
+    const tile = track.querySelector('.journey-tile');
+    const styles = getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+    return tile.getBoundingClientRect().width + gap;
+  }
+
+  // Vị trí (px) nơi phần ảnh nhân bản bắt đầu = tổng độ rộng dải ảnh gốc
+  function wrapPoint(){ return firstClone ? firstClone.offsetLeft : 0; }
+
+  // Khi cuộn tới/qua phần ảnh nhân bản, "nhảy" tức thời (không hiệu ứng)
+  // về đúng vị trí tương ứng ở đầu dải ảnh gốc -> tạo cảm giác trôi vô hạn liền mạch
+  function loopIfNeeded(){
+    const wrap = wrapPoint();
+    if (!wrap) return;
+    if (carousel.scrollLeft >= wrap - 1){
+      const prevSnap = carousel.style.scrollSnapType;
+      carousel.style.scrollSnapType = 'none';
+      carousel.scrollLeft -= wrap;
+      // ép trình duyệt áp dụng ngay lập tức trước khi bật lại snap
+      void carousel.offsetWidth;
+      carousel.style.scrollSnapType = prevSnap || '';
+    }
+  }
 
   function start(){ timer = setInterval(autoScroll, 3200); }
   function stop(){ clearInterval(timer); }
   function restart(){ stop(); start(); }
 
   function autoScroll(){
-    const tile = carousel.querySelector('.journey-tile');
-    if (!tile) return;
-    const styles = getComputedStyle(carousel.querySelector('.journey-track'));
-    const gap = parseFloat(styles.columnGap || styles.gap) || 0;
-    const step = tile.getBoundingClientRect().width + gap;
-    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-    const next = carousel.scrollLeft + step >= maxScroll - 2 ? 0 : carousel.scrollLeft + step;
-    carousel.scrollTo({ left: next, behavior: 'smooth' });
+    carousel.scrollBy({ left: tileStep(), behavior: 'smooth' });
   }
 
-  // Chuột: kéo để cuộn (drag-to-scroll)
+  // Theo dõi khi cuộn "dừng lại" (dù do autoplay, kéo chuột hay vuốt tay)
+  // để kiểm tra và xử lý loop đúng lúc, mượt, không giật
+  carousel.addEventListener('scroll', () => {
+    clearTimeout(scrollDebounce);
+    scrollDebounce = setTimeout(loopIfNeeded, 120);
+  }, { passive: true });
+
+  // Chuột: kéo để cuộn (drag-to-scroll) — chỉ áp dụng cho chuột/bút,
+  // để tránh xung đột với cuộn cảm ứng gốc của trình duyệt trên di động
   carousel.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') return;
     isDown = true;
     moved = false;
     carousel.classList.add('dragging');
@@ -960,7 +995,7 @@ document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
   // Ngăn click mở link khi vừa kéo (không phải click thật)
   carousel.addEventListener('click', (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
 
-  // Cảm ứng (mobile): dùng scroll cuộn chạm tự nhiên của trình duyệt, chỉ cần tạm dừng autoplay khi chạm
+  // Cảm ứng (mobile): để trình duyệt tự xử lý vuốt tự nhiên, chỉ tạm dừng autoplay khi chạm
   carousel.addEventListener('touchstart', stop, { passive: true });
   carousel.addEventListener('touchend', restart, { passive: true });
 
