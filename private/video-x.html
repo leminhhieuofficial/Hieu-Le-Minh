@@ -186,6 +186,11 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
   .hdr-logo{font-size:11px;}
   .hdr-back{font-size:10px;}
   .hero{height:auto;min-height:0;max-height:none;padding-top:60px;}
+  .hero::before{
+    background:
+      radial-gradient(ellipse 95% 55% at 50% 12%, rgba(193,85,47,.24), transparent 72%),
+      linear-gradient(to top, var(--bg) 0%, rgba(11,11,12,.35) 45%, rgba(11,11,12,.15) 70%);
+  }
   .hero-inner{padding:34px 18px 32px;max-width:100%;}
   .hero-badge{font-size:10px;margin-bottom:12px;flex-wrap:wrap;}
   .hero h1{font-size:clamp(28px,9vw,40px);margin-bottom:12px;}
@@ -308,7 +313,7 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
   Thêm bao nhiêu video tùy ý bằng cách copy 1 khối {..} và dán link/ID thật vào.
 */
 const VIDEOS = [
-  { title: "Video 01", desc: "Mô tả ngắn cho video 01.", driveId: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link", thumbnail: "" },
+  { title: "Video 01", desc: "Mô tả ngắn cho video 01.", driveId: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link", thumbnail: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link" },
   { title: "Video 02", desc: "Mô tả ngắn cho video 02.", driveId: "PASTE_GOOGLE_DRIVE_LINK_OR_ID_2", thumbnail: "" },
   { title: "Video 03", desc: "Mô tả ngắn cho video 03.", driveId: "PASTE_GOOGLE_DRIVE_LINK_OR_ID_3", thumbnail: "" },
   { title: "Video 04", desc: "Mô tả ngắn cho video 04.", driveId: "PASTE_GOOGLE_DRIVE_LINK_OR_ID_4", thumbnail: "" },
