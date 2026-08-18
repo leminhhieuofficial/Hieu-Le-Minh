@@ -258,14 +258,7 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
   </div>
 </section>
 
-<div class="rows">
-  <div class="row">
-    <div class="row-head">
-      <div class="row-title">Mới thêm</div>
-      <div class="row-count" id="countAll"></div>
-    </div>
-    <div class="row-track" id="trackAll"></div>
-  </div>
+<div class="rows" id="rowsContainer">
 
   <div class="setup-note">
     <h4>Cách thêm video & ảnh bìa của bạn</h4>
@@ -274,7 +267,9 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
       2) Sao chép nguyên link chia sẻ đó, ví dụ
       <code>https://drive.google.com/file/d/1AbCDefGhIJklMNo/view?usp=drive_link</code>.<br>
       3) Mở file <code>video-x.html</code>, tìm mảng <code>VIDEOS</code> ở cuối trang, dán <b>nguyên link</b> vào trường <code>driveId</code> cho từng video (không cần tách ID thủ công), kèm tiêu đề và mô tả.<br>
-      4) Muốn thêm <b>ảnh bìa</b>: dán link ảnh vào trường <code>thumbnail</code> — có thể là link ảnh thường, hoặc link chia sẻ ảnh từ Google Drive (cũng nhớ để "Bất kỳ ai có đường liên kết"). Để trống nếu chưa có ảnh.
+      4) Muốn thêm <b>ảnh bìa</b>: dán link ảnh vào trường <code>thumbnail</code> — có thể là link ảnh thường, hoặc link chia sẻ ảnh từ Google Drive (cũng nhớ để "Bất kỳ ai có đường liên kết"). Để trống nếu chưa có ảnh.<br>
+      5) Trang này hiện có <b>10 ô video</b> sẵn (Video 01 → Video 10). 6 ô cuối đang để trống <code>driveId: ""</code> — chỉ cần dán link Drive thật vào là card sẽ hoạt động ngay, không cần thêm khối mới.<br>
+      6) Video được xếp tự động <b>5 video / hàng</b> theo đúng thứ tự trong mảng <code>VIDEOS</code>. Thêm video 11, 12... thì hàng thứ 3 sẽ tự xuất hiện, mỗi hàng vẫn giữ đúng 5 video.
     </p>
   </div>
 </div>
@@ -310,13 +305,20 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
        + Link chia sẻ ảnh từ Google Drive (giống driveId ở trên) — nhớ để chế độ
          chia sẻ "Bất kỳ ai có đường liên kết" cho ảnh đó.
      Để trống "" nếu chưa có ảnh, card sẽ hiện nền gradient mặc định.
-  Thêm bao nhiêu video tùy ý bằng cách copy 1 khối {..} và dán link/ID thật vào.
+  Trang này có sẵn 10 ô (Video 01 → Video 10). Với các ô còn để trống driveId: "",
+  chỉ cần dán link Drive thật vào là dùng được ngay. Muốn thêm nữa thì copy 1 khối {..}.
 */
 const VIDEOS = [
   { title: "Video 01", desc: "Mô tả ngắn cho video 01.", driveId: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link", thumbnail: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link" },
   { title: "Video 02", desc: "Mô tả ngắn cho video 02.", driveId: "https://drive.google.com/file/d/16eY8LqApYbb-OGD9PwY3pV7OfbQtBKIg/view?usp=drivesdk", thumbnail: "https://drive.google.com/file/d/16eY8LqApYbb-OGD9PwY3pV7OfbQtBKIg/view?usp=drivesdk" },
   { title: "Video 03", desc: "Mô tả ngắn cho video 03.", driveId: "https://drive.google.com/file/d/1B9K9httfFavJBnOQlxpcjwwli-ouGFbx/view?usp=drivesdk", thumbnail: "https://drive.google.com/file/d/1B9K9httfFavJBnOQlxpcjwwli-ouGFbx/view?usp=drivesdk" },
   { title: "Video 04", desc: "Mô tả ngắn cho video 04.", driveId: "https://drive.google.com/file/d/1Zw0Gdg26_Np8W5HfMoO10tmvKhW_U0Z3/view?usp=drivesdk", thumbnail: "https://drive.google.com/file/d/1Zw0Gdg26_Np8W5HfMoO10tmvKhW_U0Z3/view?usp=drivesdk" },
+  { title: "Video 05", desc: "Mô tả ngắn cho video 05.", driveId: "", thumbnail: "" },
+  { title: "Video 06", desc: "Mô tả ngắn cho video 06.", driveId: "", thumbnail: "" },
+  { title: "Video 07", desc: "Mô tả ngắn cho video 07.", driveId: "", thumbnail: "" },
+  { title: "Video 08", desc: "Mô tả ngắn cho video 08.", driveId: "", thumbnail: "" },
+  { title: "Video 09", desc: "Mô tả ngắn cho video 09.", driveId: "", thumbnail: "" },
+  { title: "Video 10", desc: "Mô tả ngắn cho video 10.", driveId: "", thumbnail: "" },
 ];
 
 function extractDriveId(raw){
@@ -343,22 +345,21 @@ function resolveImageUrl(raw){
   return raw.trim();
 }
 
-const trackAll = document.getElementById('trackAll');
-const countAll = document.getElementById('countAll');
-countAll.textContent = VIDEOS.length + ' video';
+const rowsContainer = document.getElementById('rowsContainer');
+const setupNote = document.querySelector('.setup-note');
 
-VIDEOS.forEach((v, i) => {
+function makeCard(v, globalIndex){
   const card = document.createElement('div');
   card.className = 'vcard';
   const imgUrl = resolveImageUrl(v.thumbnail);
   const thumbHtml = imgUrl
     ? `<div class="vcard-thumb has-img">
          <img src="${imgUrl}" alt="${v.title}" loading="lazy" onerror="this.parentElement.classList.remove('has-img'); this.remove();">
-         <span class="vcard-num">${String(i+1).padStart(2,'0')}</span>
+         <span class="vcard-num">${String(globalIndex+1).padStart(2,'0')}</span>
          <span class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
        </div>`
     : `<div class="vcard-thumb">
-         <span class="vcard-num">${String(i+1).padStart(2,'0')}</span>
+         <span class="vcard-num">${String(globalIndex+1).padStart(2,'0')}</span>
          <span class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
        </div>`;
   card.innerHTML = `
@@ -369,8 +370,30 @@ VIDEOS.forEach((v, i) => {
     </div>
   `;
   card.addEventListener('click', () => openPlayer(v));
-  trackAll.appendChild(card);
-});
+  return card;
+}
+
+// Split videos into rows of 5.
+const ROW_SIZE = 5;
+const rowLabels = ['Mới thêm', 'Xem thêm'];
+for (let start = 0; start < VIDEOS.length; start += ROW_SIZE) {
+  const items = VIDEOS.slice(start, start + ROW_SIZE).map((v, k) => ({ v, i: start + k }));
+  const rowIndex = start / ROW_SIZE;
+  const label = rowLabels[rowIndex] || `Hàng ${rowIndex + 1}`;
+
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = `
+    <div class="row-head">
+      <div class="row-title">${label}</div>
+      <div class="row-count">${items.length} video</div>
+    </div>
+    <div class="row-track"></div>
+  `;
+  const track = row.querySelector('.row-track');
+  items.forEach(({v, i}) => track.appendChild(makeCard(v, i)));
+  rowsContainer.insertBefore(row, setupNote);
+}
 
 const heroTitle = document.getElementById('heroTitle');
 const heroDesc = document.getElementById('heroDesc');
