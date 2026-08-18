@@ -221,9 +221,9 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
     <h4>Cách thêm video của bạn</h4>
     <p>
       1) Tải video lên Google Drive → nhấn Chia sẻ → chọn "Bất kỳ ai có đường liên kết" (Anyone with the link).<br>
-      2) Sao chép ID file trong link, ví dụ với link
-      <code>https://drive.google.com/file/d/<b>1AbCDefGhIJklMNo</b>/view</code> thì ID là phần in đậm.<br>
-      3) Mở file <code>video-x.html</code>, tìm mảng <code>VIDEOS</code> ở cuối trang, dán ID vào trường <code>driveId</code> cho từng video, kèm tiêu đề và mô tả.
+      2) Sao chép nguyên link chia sẻ đó, ví dụ
+      <code>https://drive.google.com/file/d/1AbCDefGhIJklMNo/view?usp=drive_link</code>.<br>
+      3) Mở file <code>video-x.html</code>, tìm mảng <code>VIDEOS</code> ở cuối trang, dán <b>nguyên link</b> vào trường <code>driveId</code> cho từng video (không cần tách ID thủ công), kèm tiêu đề và mô tả.
     </p>
   </div>
 </div>
@@ -251,17 +251,33 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
   Mỗi video cần:
    - title: tiêu đề hiển thị
    - desc: mô tả ngắn
-   - driveId: ID file Google Drive (lấy từ link chia sẻ, xem hướng dẫn phía trên trang)
-  Thêm bao nhiêu video tùy ý bằng cách copy 1 khối {..} và dán ID thật vào.
+   - driveId: dán NGUYÊN link chia sẻ Google Drive vào đây (ví dụ:
+     "https://drive.google.com/file/d/1AbCDefGhIJklMNo/view?usp=drive_link")
+     — hoặc chỉ dán riêng phần ID cũng được, code sẽ tự nhận diện cả hai.
+  Thêm bao nhiêu video tùy ý bằng cách copy 1 khối {..} và dán link/ID thật vào.
 */
 const VIDEOS = [
-  { title: "Video 01", desc: "Mô tả ngắn cho video 01.", driveId: "https://drive.google.com/file/d/1YBChK1Ik2q_byM0if5IdT0t1LeD6Tgu8/view?usp=drive_link" },
-  { title: "Video 02", desc: "Mô tả ngắn cho video 02.", driveId: "PASTE_GOOGLE_DRIVE_FILE_ID_2" },
-  { title: "Video 03", desc: "Mô tả ngắn cho video 03.", driveId: "PASTE_GOOGLE_DRIVE_FILE_ID_3" },
-  { title: "Video 04", desc: "Mô tả ngắn cho video 04.", driveId: "PASTE_GOOGLE_DRIVE_FILE_ID_4" },
+  { title: "Video 01", desc: "Mô tả ngắn cho video 01.", driveId: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link" },
+  { title: "Video 02", desc: "Mô tả ngắn cho video 02.", driveId: "PASTE_GOOGLE_DRIVE_LINK_OR_ID_2" },
+  { title: "Video 03", desc: "Mô tả ngắn cho video 03.", driveId: "PASTE_GOOGLE_DRIVE_LINK_OR_ID_3" },
+  { title: "Video 04", desc: "Mô tả ngắn cho video 04.", driveId: "PASTE_GOOGLE_DRIVE_LINK_OR_ID_4" },
 ];
 
-function driveEmbedUrl(id){
+function extractDriveId(raw){
+  if (!raw) return "";
+  // Đã là ID thuần (không chứa "/" hay "http")
+  if (!raw.includes("/") && !raw.includes("http")) return raw.trim();
+  // Dạng .../file/d/ID/...
+  let m = raw.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  // Dạng ...?id=ID hoặc &id=ID
+  m = raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  return raw.trim();
+}
+
+function driveEmbedUrl(raw){
+  const id = extractDriveId(raw);
   return "https://drive.google.com/file/d/" + id + "/preview";
 }
 
