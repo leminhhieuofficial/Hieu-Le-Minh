@@ -182,6 +182,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
         Vị trí hiện tại
       </div>
+      <div class="art-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span id="viewCount">–– lượt xem</span>
+      </div>
     </div>
   </div>
 </section>
@@ -300,6 +304,23 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Đếm lượt xem bài viết (dùng CountAPI - dịch vụ đếm miễn phí, không cần server)
+(function(){
+  const viewEl = document.getElementById('viewCount');
+  const counterKey = 'leminhhieu_softdreams_salesadmin_article';
+  fetch('https://countapi.mileshilliard.com/api/v1/hit/' + counterKey)
+    .then(res => res.json())
+    .then(data => {
+      const val = data && data.value !== undefined ? parseInt(data.value, 10) : null;
+      if (val !== null && !isNaN(val)) {
+        viewEl.textContent = val.toLocaleString('vi-VN') + ' lượt xem';
+      } else {
+        viewEl.textContent = 'Lượt xem';
+      }
+    })
+    .catch(() => { viewEl.textContent = 'Lượt xem'; });
+})();
 const backToTop = document.getElementById('backToTop');
 window.addEventListener('scroll', () => { backToTop.classList.toggle('show', window.scrollY > window.innerHeight * 0.8); });
 backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
