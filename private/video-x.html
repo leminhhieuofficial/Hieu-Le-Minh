@@ -213,6 +213,40 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
     background:rgba(0,0,0,.65);
   }
 }
+
+/* ---- PHONE LANDSCAPE FIX (short viewport height, any width) ----
+   The 720px width breakpoint above misses phones rotated sideways,
+   since landscape width is usually > 720px. That left .player-box
+   using the desktop sizing (80vh cap + info block taking vertical
+   space), squeezing the Google Drive player until its own controls
+   got cut off. This targets by height instead of width, gives the
+   video frame the FULL viewport, and hides the text info block so
+   the Drive player has room to lay out its controls normally. */
+@media (orientation:landscape) and (max-height:520px){
+  .player-overlay{padding:0;align-items:stretch;justify-content:stretch;}
+  .player-box{
+    max-width:100%;
+    width:100%;
+    height:100vh;
+    height:100dvh;
+    border-radius:0;
+    margin:0;
+    display:flex;
+  }
+  .player-frame-wrap{
+    aspect-ratio:auto;
+    max-height:none;
+    flex:1 1 auto;
+    height:100%;
+  }
+  .player-info{display:none;}
+  .player-close{
+    top:max(10px, env(safe-area-inset-top));
+    right:max(10px, env(safe-area-inset-right));
+    width:38px;height:38px;
+    background:rgba(0,0,0,.65);
+  }
+}
 </style>
 </head>
 <body>
