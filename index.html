@@ -118,15 +118,66 @@ header.scrolled .nav-btns button:hover{background:var(--paper-alt);}
 .do-card h3{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.1em;margin-bottom:12px;}
 .do-card p{color:var(--ink-soft);font-size:14.5px;line-height:1.7;margin-bottom:18px;min-height:66px;}
 
-/* ---- JOURNEY GALLERY ---- */
-.journey-carousel-wrap{position:relative;}
-.journey-carousel{overflow-x:auto;overflow-y:hidden;position:relative;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;}
-.journey-carousel::-webkit-scrollbar{display:none;}
-.journey-carousel.dragging{cursor:grabbing;scroll-snap-type:none;}
-.journey-track{display:flex;gap:6px;width:max-content;}
-.journey-tile{flex:0 0 auto;width:280px;aspect-ratio:3/4;overflow:hidden;border-radius:2px;position:relative;display:block;cursor:pointer;scroll-snap-align:start;-webkit-user-drag:none;}
-.journey-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;pointer-events:none;}
-.journey-tile:hover img{transform:scale(1.06);}
+/* ---- JOURNEY BENTO GRID ---- */
+.journey-bento{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(2,240px);
+  gap:14px;
+  perspective:1400px;
+}
+.journey-tile{
+  position:relative;overflow:hidden;border-radius:3px;display:block;
+  grid-column:span 1;grid-row:span 1;
+  background:#1c1c1c;
+  transition:box-shadow .45s ease;
+  box-shadow:0 0 0 rgba(20,15,5,0);
+}
+.journey-tile.is-featured{grid-column:span 2;grid-row:span 2;}
+.journey-tile:hover{box-shadow:0 24px 50px rgba(20,15,5,.28);z-index:2;}
+.journey-tile .tile-media{position:absolute;inset:0;overflow:hidden;}
+.journey-tile img{width:100%;height:100%;object-fit:cover;transform:scale(1.001);transition:transform .8s cubic-bezier(.22,1,.36,1);pointer-events:none;}
+.journey-tile:hover img{transform:scale(1.09);}
+.journey-tile::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,8,5,.82) 0%,rgba(10,8,5,.15) 42%,rgba(10,8,5,0) 62%);
+  transition:opacity .4s ease;z-index:1;
+}
+.journey-tile:hover::after{opacity:1;}
+.tile-caption{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:20px 22px;
+  transform:translateY(14px);
+  opacity:.92;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.journey-tile:hover .tile-caption{transform:translateY(0);opacity:1;}
+.tile-date{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px;display:block;}
+.tile-name{font-family:'Fraunces',serif;color:var(--white);font-weight:600;line-height:1.2;font-size:16px;}
+.journey-tile.is-featured .tile-caption{padding:30px 32px;}
+.journey-tile.is-featured .tile-date{font-size:11.5px;margin-bottom:9px;}
+.journey-tile.is-featured .tile-name{font-size:27px;}
+.tile-arrow{
+  position:absolute;top:16px;right:16px;z-index:2;
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.4);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translate(-6px,6px) rotate(-45deg);
+  transition:opacity .35s ease,transform .35s cubic-bezier(.22,1,.36,1);
+}
+.journey-tile:hover .tile-arrow{opacity:1;transform:translate(0,0) rotate(0deg);}
+.tile-arrow svg{width:14px;height:14px;color:var(--white);}
+.journey-postmark{
+  position:absolute;top:18px;left:18px;z-index:2;
+  width:64px;height:64px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.55);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  transform:rotate(-9deg);
+  font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.85);
+  background:rgba(20,17,12,.15);
+}
+.journey-postmark .n{font-size:16px;font-weight:600;line-height:1;}
+.journey-postmark .t{font-size:7px;letter-spacing:.12em;text-transform:uppercase;margin-top:3px;}
 .journey-cta{text-align:center;margin-top:36px;}
 
 
@@ -183,11 +234,11 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
 }
 
 /* ---- SCROLL REVEAL ---- */
-[data-reveal]{opacity:0;transition:opacity .6s ease;}
-[data-reveal].is-visible{opacity:1;}
-[data-reveal][data-delay="1"]{transition-delay:.1s;}
-[data-reveal][data-delay="2"]{transition-delay:.2s;}
-[data-reveal][data-delay="3"]{transition-delay:.3s;}
+[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+[data-reveal].is-visible{opacity:1;transform:translateY(0);}
+[data-reveal][data-delay="1"]{transition-delay:.08s;}
+[data-reveal][data-delay="2"]{transition-delay:.16s;}
+[data-reveal][data-delay="3"]{transition-delay:.24s;}
 @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none;}}
 
 /* ---- MOBILE NAV ---- */
@@ -205,7 +256,10 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   .polaroid-stamp{right:6px;}
   .do-grid{grid-template-columns:1fr;gap:0;}
   .do-card,.do-card:not(:first-child){border-left:none;border-bottom:1px solid var(--line-dark);padding:32px 0;}
-  .journey-tile{width:220px;}
+  .journey-bento{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,200px);gap:10px;}
+  .journey-tile.is-featured{grid-column:span 2;grid-row:span 1;}
+  .journey-tile.is-featured .tile-caption{padding:20px 22px;}
+  .journey-tile.is-featured .tile-name{font-size:19px;}
   .blog-grid{grid-template-columns:1fr;gap:24px;}
   .foot-grid{grid-template-columns:1fr 1fr;}
   .wrap{padding:0 24px;}
@@ -226,8 +280,12 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   .scroll-hint{font-size:10px;}
   .hero-actions{flex-direction:column;gap:10px;}
   .hero-actions a{justify-content:center;padding:14px 22px;}
-  .journey-tile{width:78vw;max-width:300px;}
-  .journey-track{gap:10px;}
+  .journey-bento{grid-template-columns:1fr;grid-template-rows:none;gap:12px;}
+  .journey-tile,.journey-tile.is-featured{grid-column:span 1;aspect-ratio:4/3;height:auto;}
+  .journey-tile .tile-caption{transform:translateY(0);opacity:1;}
+  .journey-tile::after{opacity:1;}
+  .journey-tile.is-featured .tile-name{font-size:22px;}
+  .journey-postmark{width:52px;height:52px;}
   .foot-grid{grid-template-columns:1fr;gap:32px;}
   .foot-bottom{flex-direction:column;gap:10px;align-items:flex-start;}
   .passport-stamp{display:none;}
@@ -426,21 +484,33 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
       <div class="eyebrow" style="justify-content:center;" data-i18n="journeyEyebrow">HÀNH TRÌNH</div>
       <h2 class="section-title" data-i18n="journeyTitle">Những chặng đường đáng nhớ</h2>
     </div>
-    <div class="journey-carousel-wrap" data-reveal>
-      <div class="journey-carousel" id="journeyCarousel">
-        <div class="journey-track">
-          <a class="journey-tile" href="pages/ho-nui.html"><img src="https://picsum.photos/seed/lakehiker3/500/650" alt="Đứng bên hồ núi"></a>
-          <a class="journey-tile" href="pages/rung-thong.html"><img src="https://picsum.photos/seed/forestwalk9/500/650" alt="Đi bộ trong rừng thông"></a>
-          <a class="journey-tile" href="pages/duong-deo.html"><img src="https://picsum.photos/seed/mtnroadvan4/500/650" alt="Xe trên đường đèo"></a>
-          <a class="journey-tile" href="pages/khinh-khi-cau.html"><img src="https://picsum.photos/seed/balloonssky8/500/650" alt="Khinh khí cầu buổi sáng"></a>
-          <a class="journey-tile" href="pages/hanh-trinh-thuy-si.html"><img src="https://picsum.photos/seed/swisslake6/500/650" alt="Hồ núi Thụy Sĩ"></a>
-          <a class="journey-tile clone-tile" href="pages/ho-nui.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/lakehiker3/500/650" alt="" aria-hidden="true"></a>
-          <a class="journey-tile clone-tile" href="pages/rung-thong.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/forestwalk9/500/650" alt="" aria-hidden="true"></a>
-          <a class="journey-tile clone-tile" href="pages/duong-deo.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/mtnroadvan4/500/650" alt="" aria-hidden="true"></a>
-          <a class="journey-tile clone-tile" href="pages/khinh-khi-cau.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/balloonssky8/500/650" alt="" aria-hidden="true"></a>
-          <a class="journey-tile clone-tile" href="pages/hanh-trinh-thuy-si.html" aria-hidden="true" tabindex="-1"><img src="https://picsum.photos/seed/swisslake6/500/650" alt="" aria-hidden="true"></a>
-        </div>
-      </div>
+    <div class="journey-bento">
+      <a class="journey-tile is-featured" href="pages/ho-nui.html" data-reveal>
+        <span class="tile-media"><img src="https://picsum.photos/seed/lakehiker3/700/700" alt="Đứng bên hồ núi"></span>
+        <span class="journey-postmark"><span class="n">01</span><span class="t" data-i18n="j1Stamp">HT</span></span>
+        <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        <span class="tile-caption"><span class="tile-date" data-i18n="j1Date">THÁNG 3 · 2024</span><span class="tile-name" data-i18n="j1Name">Hồ núi tĩnh lặng</span></span>
+      </a>
+      <a class="journey-tile" href="pages/rung-thong.html" data-reveal data-delay="1">
+        <span class="tile-media"><img src="https://picsum.photos/seed/forestwalk9/500/500" alt="Đi bộ trong rừng thông"></span>
+        <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        <span class="tile-caption"><span class="tile-date" data-i18n="j2Date">THÁNG 6 · 2024</span><span class="tile-name" data-i18n="j2Name">Rừng thông sương sớm</span></span>
+      </a>
+      <a class="journey-tile" href="pages/duong-deo.html" data-reveal data-delay="2">
+        <span class="tile-media"><img src="https://picsum.photos/seed/mtnroadvan4/500/500" alt="Xe trên đường đèo"></span>
+        <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        <span class="tile-caption"><span class="tile-date" data-i18n="j3Date">THÁNG 8 · 2024</span><span class="tile-name" data-i18n="j3Name">Đường đèo quanh co</span></span>
+      </a>
+      <a class="journey-tile" href="pages/khinh-khi-cau.html" data-reveal data-delay="3">
+        <span class="tile-media"><img src="https://picsum.photos/seed/balloonssky8/500/500" alt="Khinh khí cầu buổi sáng"></span>
+        <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        <span class="tile-caption"><span class="tile-date" data-i18n="j4Date">THÁNG 10 · 2024</span><span class="tile-name" data-i18n="j4Name">Khinh khí cầu bình minh</span></span>
+      </a>
+      <a class="journey-tile" href="pages/hanh-trinh-thuy-si.html" data-reveal data-delay="1">
+        <span class="tile-media"><img src="https://picsum.photos/seed/swisslake6/500/500" alt="Hồ núi Thụy Sĩ"></span>
+        <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        <span class="tile-caption"><span class="tile-date" data-i18n="j5Date">THÁNG 12 · 2024</span><span class="tile-name" data-i18n="j5Name">Hồ núi Thụy Sĩ</span></span>
+      </a>
     </div>
     <div class="journey-cta" data-reveal>
       <a href="#journey" class="more-link"><span data-i18n="journeyCta">XEM TẤT CẢ HÀNH TRÌNH</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
@@ -813,6 +883,11 @@ const translations = {
     journeyEyebrow: "HÀNH TRÌNH",
     journeyTitle: "Những chặng đường đáng nhớ",
     journeyCta: "XEM TẤT CẢ HÀNH TRÌNH",
+    j1Stamp: "HT", j1Date: "THÁNG 3 · 2024", j1Name: "Hồ núi tĩnh lặng",
+    j2Date: "THÁNG 6 · 2024", j2Name: "Rừng thông sương sớm",
+    j3Date: "THÁNG 8 · 2024", j3Name: "Đường đèo quanh co",
+    j4Date: "THÁNG 10 · 2024", j4Name: "Khinh khí cầu bình minh",
+    j5Date: "THÁNG 12 · 2024", j5Name: "Hồ núi Thụy Sĩ",
     blogEyebrow: "BÀI VIẾT MỚI NHẤT",
     blogTitle: "Chia sẻ & cảm hứng",
     blogCard1Title: "Tối ưu quy trình bán hàng hiệu quả với dữ liệu",
@@ -846,6 +921,11 @@ const translations = {
     journeyEyebrow: "JOURNEY",
     journeyTitle: "Memorable Journeys",
     journeyCta: "VIEW ALL JOURNEYS",
+    j1Stamp: "JRN", j1Date: "MARCH · 2024", j1Name: "A quiet mountain lake",
+    j2Date: "JUNE · 2024", j2Name: "Morning mist in the pines",
+    j3Date: "AUGUST · 2024", j3Name: "Winding mountain pass",
+    j4Date: "OCTOBER · 2024", j4Name: "Sunrise over the balloons",
+    j5Date: "DECEMBER · 2024", j5Name: "A Swiss mountain lake",
     blogEyebrow: "LATEST POSTS",
     blogTitle: "Stories & Inspiration",
     blogCard1Title: "Optimizing the Sales Process Effectively with Data",
@@ -911,99 +991,6 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
-
-/* Journey carousel: kéo/vuốt trực tiếp (chuột + cảm ứng), tự trượt nhẹ khi không tương tác */
-(function(){
-  const carousel = document.getElementById('journeyCarousel');
-  if (!carousel) return;
-  const track = carousel.querySelector('.journey-track');
-  const firstClone = track.querySelector('.clone-tile');
-
-  let isDown = false;
-  let startX = 0;
-  let startScroll = 0;
-  let moved = false;
-  let timer;
-  let scrollDebounce;
-
-  function tileStep(){
-    const tile = track.querySelector('.journey-tile');
-    const styles = getComputedStyle(track);
-    const gap = parseFloat(styles.columnGap || styles.gap) || 0;
-    return tile.getBoundingClientRect().width + gap;
-  }
-
-  // Vị trí (px) nơi phần ảnh nhân bản bắt đầu = tổng độ rộng dải ảnh gốc
-  function wrapPoint(){ return firstClone ? firstClone.offsetLeft : 0; }
-
-  // Khi cuộn tới/qua phần ảnh nhân bản, "nhảy" tức thời (không hiệu ứng)
-  // về đúng vị trí tương ứng ở đầu dải ảnh gốc -> tạo cảm giác trôi vô hạn liền mạch
-  function loopIfNeeded(){
-    const wrap = wrapPoint();
-    if (!wrap) return;
-    if (carousel.scrollLeft >= wrap - 1){
-      const prevSnap = carousel.style.scrollSnapType;
-      carousel.style.scrollSnapType = 'none';
-      carousel.scrollLeft -= wrap;
-      // ép trình duyệt áp dụng ngay lập tức trước khi bật lại snap
-      void carousel.offsetWidth;
-      carousel.style.scrollSnapType = prevSnap || '';
-    }
-  }
-
-  function start(){ timer = setInterval(autoScroll, 3200); }
-  function stop(){ clearInterval(timer); }
-  function restart(){ stop(); start(); }
-
-  function autoScroll(){
-    carousel.scrollBy({ left: tileStep(), behavior: 'smooth' });
-  }
-
-  // Theo dõi khi cuộn "dừng lại" (dù do autoplay, kéo chuột hay vuốt tay)
-  // để kiểm tra và xử lý loop đúng lúc, mượt, không giật
-  carousel.addEventListener('scroll', () => {
-    clearTimeout(scrollDebounce);
-    scrollDebounce = setTimeout(loopIfNeeded, 120);
-  }, { passive: true });
-
-  // Chuột: kéo để cuộn (drag-to-scroll) — chỉ áp dụng cho chuột/bút,
-  // để tránh xung đột với cuộn cảm ứng gốc của trình duyệt trên di động
-  carousel.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') return;
-    isDown = true;
-    moved = false;
-    carousel.classList.add('dragging');
-    startX = e.clientX;
-    startScroll = carousel.scrollLeft;
-    stop();
-  });
-  carousel.addEventListener('pointermove', (e) => {
-    if (!isDown) return;
-    const dx = e.clientX - startX;
-    if (Math.abs(dx) > 4) moved = true;
-    carousel.scrollLeft = startScroll - dx;
-  });
-  function endDrag(){
-    if (!isDown) return;
-    isDown = false;
-    carousel.classList.remove('dragging');
-    restart();
-  }
-  carousel.addEventListener('pointerup', endDrag);
-  carousel.addEventListener('pointerleave', endDrag);
-  carousel.addEventListener('pointercancel', endDrag);
-  // Ngăn click mở link khi vừa kéo (không phải click thật)
-  carousel.addEventListener('click', (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
-
-  // Cảm ứng (mobile): để trình duyệt tự xử lý vuốt tự nhiên, chỉ tạm dừng autoplay khi chạm
-  carousel.addEventListener('touchstart', stop, { passive: true });
-  carousel.addEventListener('touchend', restart, { passive: true });
-
-  carousel.addEventListener('mouseenter', stop);
-  carousel.addEventListener('mouseleave', () => { if (!isDown) restart(); });
-
-  start();
-})();
 
 </script>
 </body>
