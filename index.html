@@ -194,6 +194,71 @@ header.scrolled .nav-btns button:hover{background:var(--paper-alt);}
 .blog-meta .date{color:var(--ink-soft);}
 .blog-body h3{font-size:16.5px;font-weight:600;line-height:1.4;margin-bottom:16px;}
 
+/* ---- GALLERY ---- */
+.gallery-panel{
+  background:#15130F;border-radius:18px;padding:34px 34px 40px;
+  box-shadow:0 30px 70px rgba(15,12,6,.28);
+}
+.gallery-topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px;}
+.gallery-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.16em;color:var(--white);display:flex;align-items:center;gap:9px;}
+.gallery-logo .dot{width:7px;height:7px;background:var(--stamp);border-radius:50%;flex-shrink:0;}
+.gallery-filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:rgba(255,255,255,.04);padding:5px;border-radius:99px;}
+.gfilter{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(255,255,255,.55);padding:9px 16px;border-radius:99px;border:none;background:transparent;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;}
+.gfilter:hover{color:rgba(255,255,255,.85);}
+.gfilter.active{background:var(--white);color:var(--ink);font-weight:500;}
+.gallery-sort{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);background:transparent;border:none;cursor:pointer;padding:9px 4px;transition:color .2s;position:relative;}
+.gallery-sort:hover{color:rgba(255,255,255,.9);}
+.gallery-sort svg{width:13px;height:13px;transition:transform .2s;}
+.gallery-sort.open svg{transform:rotate(180deg);}
+.gallery-sort-menu{position:absolute;top:calc(100% + 8px);right:0;background:#1D1B16;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:6px;min-width:150px;box-shadow:0 16px 34px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s;z-index:5;}
+.gallery-sort.open .gallery-sort-menu{opacity:1;visibility:visible;transform:translateY(0);}
+.gallery-sort-menu button{display:block;width:100%;text-align:left;background:none;border:none;color:rgba(255,255,255,.7);font-family:'Inter',sans-serif;font-size:13px;padding:9px 10px;border-radius:5px;cursor:pointer;transition:background .15s,color .15s;}
+.gallery-sort-menu button:hover{background:rgba(255,255,255,.06);color:var(--white);}
+.gallery-sort-menu button.active{color:var(--stamp);}
+.gallery-masonry{column-count:4;column-gap:14px;}
+.gallery-item{break-inside:avoid;margin-bottom:14px;border-radius:10px;overflow:hidden;position:relative;cursor:pointer;background:#1c1a15;opacity:0;transform:translateY(10px);animation:gfade .5s ease forwards;}
+@keyframes gfade{to{opacity:1;transform:translateY(0);}}
+.gallery-item.gallery-hidden{display:none;}
+.gallery-item img{width:100%;display:block;transition:transform .55s cubic-bezier(.22,1,.36,1);}
+.gallery-item:hover img{transform:scale(1.045);}
+.gallery-item::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,4,.55) 0%,rgba(8,6,4,0) 45%);opacity:0;transition:opacity .3s ease;}
+.gallery-item:hover::after{opacity:1;}
+.gallery-zoom{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(20,17,12,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.85);transition:opacity .25s ease,transform .25s ease;}
+.gallery-item:hover .gallery-zoom{opacity:1;transform:scale(1);}
+.gallery-zoom svg{width:14px;height:14px;color:var(--white);}
+@media(max-width:1024px){.gallery-masonry{column-count:3;}}
+@media(max-width:700px){.gallery-masonry{column-count:2;column-gap:10px;}.gallery-item{margin-bottom:10px;}.gallery-panel{padding:22px 16px 26px;border-radius:14px;}.gallery-topbar{margin-bottom:18px;}.gallery-filters{width:100%;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;}.gallery-filters::-webkit-scrollbar{display:none;}}
+@media(max-width:420px){.gallery-masonry{column-count:1;}}
+
+/* ---- LIGHTBOX ---- */
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(8,7,5,.94);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease;}
+.lightbox.show{opacity:1;visibility:visible;}
+.lb-stage{position:relative;max-width:min(920px,86vw);max-height:78vh;}
+.lb-stage img{max-width:min(920px,86vw);max-height:78vh;width:auto;height:auto;display:block;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.5);opacity:0;transform:scale(.97);transition:opacity .25s ease,transform .25s ease;}
+.lb-stage img.loaded{opacity:1;transform:scale(1);}
+.lb-stage img{cursor:zoom-in;}
+.lb-stage img.zoomed{max-width:96vw;max-height:92vh;cursor:zoom-out;}
+.lb-close{position:absolute;top:22px;right:24px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;z-index:2;}
+.lb-close:hover{background:rgba(255,255,255,.2);transform:rotate(90deg);}
+.lb-close svg{width:16px;height:16px;}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .2s;z-index:2;}
+.lb-nav:hover{background:rgba(255,255,255,.2);}
+.lb-prev{left:-58px;}
+.lb-next{right:-58px;}
+.lb-nav svg{width:17px;height:17px;}
+.lb-footer{position:absolute;left:0;right:0;bottom:-46px;display:flex;align-items:center;justify-content:space-between;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.7);font-size:12.5px;letter-spacing:.06em;}
+.lb-actions{display:flex;gap:8px;}
+.lb-actions button{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:none;color:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.lb-actions button:hover{background:rgba(255,255,255,.18);}
+.lb-actions svg{width:14px;height:14px;}
+@media(max-width:900px){
+  .lb-prev{left:8px;}
+  .lb-next{right:8px;}
+  .lb-stage{max-width:92vw;}
+  .lb-stage img{max-width:92vw;max-height:66vh;}
+  .lb-footer{bottom:-40px;}
+}
+
 /* ---- CTA ---- */
 .cta{background:var(--paper-warm);padding:56px 0;}
 .cta-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
@@ -363,6 +428,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
       <a href="#about" class="active">About</a>
       <a href="#do">Experience</a>
       <a href="#journey">Journey</a>
+      <a href="#gallery">Gallery</a>
       <a href="#blog">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -519,6 +585,91 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   </div>
 </section>
 
+<!-- GALLERY -->
+<section class="section" id="gallery">
+  <div class="wrap">
+    <div data-reveal style="margin-bottom:40px;text-align:center;">
+      <div class="eyebrow" style="justify-content:center;" data-i18n="galleryEyebrow">BỘ SƯU TẬP ẢNH</div>
+      <h2 class="section-title" data-i18n="galleryTitle">Những khung hình trên mỗi hành trình</h2>
+    </div>
+    <div class="gallery-panel" data-reveal>
+      <div class="gallery-topbar">
+        <div class="gallery-logo"><span class="dot"></span>GALLERY</div>
+        <div class="gallery-filters" id="galleryFilters">
+          <button class="gfilter active" data-filter="all" data-i18n="gAll">Tất cả</button>
+          <button class="gfilter" data-filter="vietnam">Việt Nam</button>
+          <button class="gfilter" data-filter="philippines">Philippines</button>
+          <button class="gfilter" data-filter="singapore">Singapore</button>
+          <button class="gfilter" data-filter="thailand">Thailand</button>
+          <button class="gfilter" data-filter="japan">Japan</button>
+        </div>
+        <div class="gallery-sort" id="gallerySort">
+          <span data-i18n="gSort">SẮP XẾP</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <div class="gallery-sort-menu">
+            <button class="active" data-sort="default" data-i18n="gSortDefault">Mặc định</button>
+            <button data-sort="newest" data-i18n="gSortNewest">Mới nhất</button>
+            <button data-sort="oldest" data-i18n="gSortOldest">Cũ nhất</button>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-masonry" id="galleryMasonry">
+        <div class="gallery-item" data-filter="japan"><img src="https://picsum.photos/seed/fujimountain1/600/760" alt="Núi Phú Sĩ phủ tuyết"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="vietnam"><img src="https://picsum.photos/seed/hanoitemple2/600/500" alt="Chùa cổ ở Hà Nội"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="japan"><img src="https://picsum.photos/seed/toriigate3/600/650" alt="Cổng torii trên mặt nước"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="vietnam"><img src="https://picsum.photos/seed/halongboat4/600/420" alt="Thuyền trên vịnh Hạ Long"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="thailand"><img src="https://picsum.photos/seed/bangkoktemple5/600/560" alt="Đền chùa ở Bangkok"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="singapore"><img src="https://picsum.photos/seed/marinabay6/600/760" alt="Vịnh Marina Bay về đêm"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="philippines"><img src="https://picsum.photos/seed/elnidolagoon7/600/480" alt="Đầm phá El Nido"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="japan"><img src="https://picsum.photos/seed/kyototemple8/600/700" alt="Đền cổ ở Kyoto"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="thailand"><img src="https://picsum.photos/seed/phuketbeach9/600/440" alt="Bãi biển Phuket"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="vietnam"><img src="https://picsum.photos/seed/hoianlantern10/600/600" alt="Phố cổ Hội An về đêm"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="singapore"><img src="https://picsum.photos/seed/gardensbay11/600/520" alt="Gardens by the Bay"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="philippines"><img src="https://picsum.photos/seed/boracaysunset12/600/680" alt="Hoàng hôn ở Boracay"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="japan"><img src="https://picsum.photos/seed/teafields13/600/460" alt="Đồi trà xanh Nhật Bản"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="vietnam"><img src="https://picsum.photos/seed/sapaterrace14/600/620" alt="Ruộng bậc thang Sa Pa"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="thailand"><img src="https://picsum.photos/seed/krabicliff15/600/740" alt="Vách đá Krabi"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="japan"><img src="https://picsum.photos/seed/sakuratemple16/600/560" alt="Hoa anh đào bên đền cổ"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="singapore"><img src="https://picsum.photos/seed/sentosabeach17/600/440" alt="Bãi biển Sentosa"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="philippines"><img src="https://picsum.photos/seed/palawancliff18/600/700" alt="Đảo đá vôi Palawan"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="vietnam"><img src="https://picsum.photos/seed/danangbridge19/600/500" alt="Cầu Vàng Đà Nẵng"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="thailand"><img src="https://picsum.photos/seed/chiangmailantern20/600/620" alt="Lễ hội đèn lồng Chiang Mai"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="japan"><img src="https://picsum.photos/seed/hakonelake21/600/480" alt="Hồ Hakone và núi Phú Sĩ"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="singapore"><img src="https://picsum.photos/seed/cbdskyline22/600/680" alt="Skyline trung tâm Singapore"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="vietnam"><img src="https://picsum.photos/seed/huecitadel23/600/560" alt="Kinh thành Huế"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+        <div class="gallery-item" data-filter="philippines"><img src="https://picsum.photos/seed/cebuwaterfall24/600/440" alt="Thác nước Cebu"><span class="gallery-zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Đóng">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="lb-stage">
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Ảnh trước">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <img id="lbImage" src="" alt="">
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Ảnh tiếp theo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lb-footer">
+      <span class="lb-counter" id="lbCounter">1 / 1</span>
+      <div class="lb-actions">
+        <button id="lbZoom" aria-label="Phóng to">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button id="lbFullscreen" aria-label="Toàn màn hình">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- BLOG -->
 <section class="section section-alt" id="blog">
   <div class="wrap">
@@ -582,6 +733,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
         <a href="#about">About</a>
         <a href="#do">Experience</a>
         <a href="#journey">Journey</a>
+        <a href="#gallery">Gallery</a>
         <a href="#blog">Projects</a>
         <a href="#contact">Contact</a>
       </div>
@@ -776,6 +928,119 @@ document.getElementById('year').textContent = new Date().getFullYear();
   stack.addEventListener('mouseleave', () => { timer = setInterval(next, 3200); });
 })();
 
+// ---- GALLERY: FILTER + SORT + LIGHTBOX ----
+(function(){
+  const masonry = document.getElementById('galleryMasonry');
+  if (!masonry) return;
+  const filterBar = document.getElementById('galleryFilters');
+  const sortBox = document.getElementById('gallerySort');
+  const allItems = Array.from(masonry.querySelectorAll('.gallery-item'));
+  const originalOrder = allItems.slice();
+
+  // ---- FILTER ----
+  let currentFilter = 'all';
+  function applyFilter(filter){
+    currentFilter = filter;
+    allItems.forEach(item => {
+      const match = filter === 'all' || item.dataset.filter === filter;
+      item.classList.toggle('gallery-hidden', !match);
+    });
+    refreshVisible();
+  }
+  filterBar.addEventListener('click', (e) => {
+    const btn = e.target.closest('.gfilter');
+    if (!btn) return;
+    filterBar.querySelectorAll('.gfilter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter(btn.dataset.filter);
+  });
+
+  // ---- SORT ----
+  sortBox.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-sort]');
+    if (btn){
+      sortBox.querySelectorAll('.gallery-sort-menu button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      let ordered;
+      if (btn.dataset.sort === 'newest') ordered = originalOrder.slice().reverse();
+      else if (btn.dataset.sort === 'oldest') ordered = originalOrder.slice();
+      else ordered = originalOrder.slice();
+      ordered.forEach(item => masonry.appendChild(item));
+      refreshVisible();
+      sortBox.classList.remove('open');
+      return;
+    }
+    sortBox.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!sortBox.contains(e.target)) sortBox.classList.remove('open');
+  });
+
+  // ---- LIGHTBOX ----
+  const lightbox = document.getElementById('lightbox');
+  const lbImage = document.getElementById('lbImage');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+  const lbZoom = document.getElementById('lbZoom');
+  const lbFullscreen = document.getElementById('lbFullscreen');
+  let visibleItems = allItems.slice();
+  let currentIndex = 0;
+
+  function refreshVisible(){
+    visibleItems = allItems.filter(item => !item.classList.contains('gallery-hidden'));
+  }
+  refreshVisible();
+
+  function openLightbox(item){
+    refreshVisible();
+    currentIndex = visibleItems.indexOf(item);
+    if (currentIndex < 0) currentIndex = 0;
+    showImage();
+    lightbox.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+  function showImage(){
+    const item = visibleItems[currentIndex];
+    if (!item) return;
+    const img = item.querySelector('img');
+    lbImage.classList.remove('loaded', 'zoomed');
+    lbImage.src = img.src;
+    lbImage.alt = img.alt || '';
+    lbImage.onload = () => lbImage.classList.add('loaded');
+    lbCounter.textContent = (currentIndex + 1) + ' / ' + visibleItems.length;
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+  function showPrev(){ currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; showImage(); }
+  function showNext(){ currentIndex = (currentIndex + 1) % visibleItems.length; showImage(); }
+
+  masonry.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item');
+    if (!item || item.classList.contains('gallery-hidden')) return;
+    openLightbox(item);
+  });
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', showPrev);
+  lbNext.addEventListener('click', showNext);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  lbZoom.addEventListener('click', () => lbImage.classList.toggle('zoomed'));
+  lbImage.addEventListener('click', () => lbImage.classList.toggle('zoomed'));
+  lbFullscreen.addEventListener('click', () => {
+    if (!document.fullscreenElement) lightbox.requestFullscreen && lightbox.requestFullscreen();
+    else document.exitFullscreen && document.exitFullscreen();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('show')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
+})();
+
 // ---- PROMO POPUP ----
 // Đổi PROMO_KEY mỗi khi đổi sang dịp lễ mới, để popup hiện lại cho người đã từng đóng bản cũ.
 (function(){
@@ -884,6 +1149,13 @@ const translations = {
     journeyEyebrow: "HÀNH TRÌNH",
     journeyTitle: "Những chặng đường đáng nhớ",
     journeyCta: "XEM TẤT CẢ HÀNH TRÌNH",
+    galleryEyebrow: "BỘ SƯU TẬP ẢNH",
+    galleryTitle: "Những khung hình trên mỗi hành trình",
+    gAll: "Tất cả",
+    gSort: "SẮP XẾP",
+    gSortDefault: "Mặc định",
+    gSortNewest: "Mới nhất",
+    gSortOldest: "Cũ nhất",
     j1Stamp: "HT", j1Date: "THÁNG 3 · 2024", j1Name: "Hồ núi tĩnh lặng",
     j2Date: "THÁNG 6 · 2024", j2Name: "Rừng thông sương sớm",
     j3Date: "THÁNG 8 · 2024", j3Name: "Đường đèo quanh co",
@@ -922,6 +1194,13 @@ const translations = {
     journeyEyebrow: "JOURNEY",
     journeyTitle: "Memorable Journeys",
     journeyCta: "VIEW ALL JOURNEYS",
+    galleryEyebrow: "PHOTO GALLERY",
+    galleryTitle: "Frames from every journey",
+    gAll: "All",
+    gSort: "SORT",
+    gSortDefault: "Default",
+    gSortNewest: "Newest",
+    gSortOldest: "Oldest",
     j1Stamp: "JRN", j1Date: "MARCH · 2024", j1Name: "A quiet mountain lake",
     j2Date: "JUNE · 2024", j2Name: "Morning mist in the pines",
     j3Date: "AUGUST · 2024", j3Name: "Winding mountain pass",
