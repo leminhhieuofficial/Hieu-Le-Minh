@@ -120,17 +120,15 @@ header.scrolled .nav-btns button:hover{background:var(--paper-alt);}
 
 /* ---- JOURNEY GALLERY ---- */
 .journey-carousel-wrap{position:relative;}
-.journey-carousel{overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 40px,#000 calc(100% - 40px),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 40px,#000 calc(100% - 40px),transparent 100%);}
-.journey-track{display:flex;gap:6px;width:max-content;will-change:transform;}
-.journey-tile{flex:0 0 auto;width:280px;aspect-ratio:3/4;overflow:hidden;border-radius:2px;position:relative;display:block;cursor:pointer;}
-.carousel-nav{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:var(--white);border:1px solid var(--line-dark);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;box-shadow:0 6px 16px rgba(0,0,0,.1);color:var(--ink);transition:background .2s,border-color .2s,color .2s;}
-.carousel-nav:hover{background:var(--stamp);border-color:var(--stamp);color:var(--white);}
-.carousel-nav svg{width:17px;height:17px;}
-.carousel-nav.prev{left:-6px;}
-.carousel-nav.next{right:-6px;}
-.journey-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.journey-carousel{overflow-x:auto;overflow-y:hidden;position:relative;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 40px,#000 calc(100% - 40px),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 40px,#000 calc(100% - 40px),transparent 100%);}
+.journey-carousel::-webkit-scrollbar{display:none;}
+.journey-carousel.dragging{cursor:grabbing;scroll-snap-type:none;}
+.journey-track{display:flex;gap:6px;width:max-content;}
+.journey-tile{flex:0 0 auto;width:280px;aspect-ratio:3/4;overflow:hidden;border-radius:2px;position:relative;display:block;cursor:pointer;scroll-snap-align:start;-webkit-user-drag:none;}
+.journey-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;pointer-events:none;}
 .journey-tile:hover img{transform:scale(1.06);}
 .journey-cta{text-align:center;margin-top:36px;}
+
 
 /* ---- BLOG ---- */
 .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
@@ -429,20 +427,14 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
       <h2 class="section-title" data-i18n="journeyTitle">Những chặng đường đáng nhớ</h2>
     </div>
     <div class="journey-carousel-wrap" data-reveal>
-      <div class="journey-carousel">
+      <div class="journey-carousel" id="journeyCarousel">
         <div class="journey-track">
-          <a class="journey-tile" href="pages/ho-nui.html"><img src="https://picsum.photos/seed/lakehiker3/500/650" alt="Đứng bên hồ núi"></a>
-          <a class="journey-tile" href="pages/rung-thong.html"><img src="https://picsum.photos/seed/forestwalk9/500/650" alt="Đi bộ trong rừng thông"></a>
-          <a class="journey-tile" href="pages/duong-deo.html"><img src="https://picsum.photos/seed/mtnroadvan4/500/650" alt="Xe trên đường đèo"></a>
-          <a class="journey-tile" href="pages/khinh-khi-cau.html"><img src="https://picsum.photos/seed/balloonssky8/500/650" alt="Khinh khí cầu buổi sáng"></a>
           <a class="journey-tile" href="pages/ho-nui.html"><img src="https://picsum.photos/seed/lakehiker3/500/650" alt="Đứng bên hồ núi"></a>
           <a class="journey-tile" href="pages/rung-thong.html"><img src="https://picsum.photos/seed/forestwalk9/500/650" alt="Đi bộ trong rừng thông"></a>
           <a class="journey-tile" href="pages/duong-deo.html"><img src="https://picsum.photos/seed/mtnroadvan4/500/650" alt="Xe trên đường đèo"></a>
           <a class="journey-tile" href="pages/khinh-khi-cau.html"><img src="https://picsum.photos/seed/balloonssky8/500/650" alt="Khinh khí cầu buổi sáng"></a>
         </div>
       </div>
-      <button class="carousel-nav prev" id="journeyPrev" aria-label="Ảnh trước" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <button class="carousel-nav next" id="journeyNext" aria-label="Ảnh tiếp theo" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
     <div class="journey-cta" data-reveal>
       <a href="#journey" class="more-link"><span data-i18n="journeyCta">XEM TẤT CẢ HÀNH TRÌNH</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
@@ -824,9 +816,7 @@ const translations = {
     ctaTitle: "Sẵn sàng cho hành trình tiếp theo?",
     ctaDesc: "Cùng kết nối và tạo ra những giá trị tuyệt vời.",
     promoCloseAria: "Đóng",
-    backToTopAria: "Về đầu trang",
-    journeyPrevAria: "Ảnh trước",
-    journeyNextAria: "Ảnh tiếp theo"
+    backToTopAria: "Về đầu trang"
   },
   en: {
     promoEyebrow: "HAPPY NATIONAL DAY (SEP 2)",
@@ -859,9 +849,7 @@ const translations = {
     ctaTitle: "Ready for the next journey?",
     ctaDesc: "Let's connect and create something great together.",
     promoCloseAria: "Close",
-    backToTopAria: "Back to top",
-    journeyPrevAria: "Previous image",
-    journeyNextAria: "Next image"
+    backToTopAria: "Back to top"
   }
 };
 
@@ -872,9 +860,7 @@ const translationsHTML = {
 
 const ariaMap = {
   promoClose: "promoCloseAria",
-  backToTop: "backToTopAria",
-  journeyPrev: "journeyPrevAria",
-  journeyNext: "journeyNextAria"
+  backToTop: "backToTopAria"
 };
 
 let currentLang = 'vi';
@@ -920,70 +906,69 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
 
-/* Journey carousel: đứng im, tự chuyển từng bước sang bài kế tiếp */
+/* Journey carousel: kéo/vuốt trực tiếp (chuột + cảm ứng), tự trượt nhẹ khi không tương tác */
 (function(){
-  const carousel = document.querySelector('.journey-carousel');
-  const track = document.querySelector('.journey-track');
-  const btnPrev = document.getElementById('journeyPrev');
-  const btnNext = document.getElementById('journeyNext');
-  if (!carousel || !track) return;
-  const originalCount = 4;
-  let index = 0;
+  const carousel = document.getElementById('journeyCarousel');
+  if (!carousel) return;
+
+  let isDown = false;
+  let startX = 0;
+  let startScroll = 0;
+  let moved = false;
   let timer;
-  let animating = false;
 
-  function tileStep(){
-    const tile = track.children[0];
-    const styles = getComputedStyle(track);
-    const gap = parseFloat(styles.columnGap || styles.gap) || 0;
-    return tile.getBoundingClientRect().width + gap;
-  }
-
-  function goNext(){
-    if (animating) return;
-    animating = true;
-    index++;
-    track.style.transition = 'transform .85s cubic-bezier(.65,0,.35,1)';
-    track.style.transform = `translateX(-${tileStep() * index}px)`;
-    setTimeout(() => {
-      if (index === originalCount){
-        track.style.transition = 'none';
-        index = 0;
-        track.style.transform = 'translateX(0px)';
-      }
-      animating = false;
-    }, 860);
-  }
-
-  function goPrev(){
-    if (animating) return;
-    animating = true;
-    if (index === 0){
-      track.style.transition = 'none';
-      index = originalCount;
-      track.style.transform = `translateX(-${tileStep() * index}px)`;
-      void track.offsetWidth;
-    }
-    index--;
-    track.style.transition = 'transform .85s cubic-bezier(.65,0,.35,1)';
-    track.style.transform = `translateX(-${tileStep() * index}px)`;
-    setTimeout(() => { animating = false; }, 860);
-  }
-
-  function start(){ timer = setInterval(goNext, 3200); }
+  function start(){ timer = setInterval(autoScroll, 3200); }
   function stop(){ clearInterval(timer); }
   function restart(){ stop(); start(); }
 
-  start();
-  carousel.addEventListener('mouseenter', stop);
-  carousel.addEventListener('mouseleave', start);
-  if (btnNext) btnNext.addEventListener('click', () => { goNext(); restart(); });
-  if (btnPrev) btnPrev.addEventListener('click', () => { goPrev(); restart(); });
-  window.addEventListener('resize', () => {
-    track.style.transition = 'none';
-    track.style.transform = `translateX(-${tileStep() * index}px)`;
+  function autoScroll(){
+    const tile = carousel.querySelector('.journey-tile');
+    if (!tile) return;
+    const styles = getComputedStyle(carousel.querySelector('.journey-track'));
+    const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+    const step = tile.getBoundingClientRect().width + gap;
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    const next = carousel.scrollLeft + step >= maxScroll - 2 ? 0 : carousel.scrollLeft + step;
+    carousel.scrollTo({ left: next, behavior: 'smooth' });
+  }
+
+  // Chuột: kéo để cuộn (drag-to-scroll)
+  carousel.addEventListener('pointerdown', (e) => {
+    isDown = true;
+    moved = false;
+    carousel.classList.add('dragging');
+    startX = e.clientX;
+    startScroll = carousel.scrollLeft;
+    stop();
   });
+  carousel.addEventListener('pointermove', (e) => {
+    if (!isDown) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    carousel.scrollLeft = startScroll - dx;
+  });
+  function endDrag(){
+    if (!isDown) return;
+    isDown = false;
+    carousel.classList.remove('dragging');
+    restart();
+  }
+  carousel.addEventListener('pointerup', endDrag);
+  carousel.addEventListener('pointerleave', endDrag);
+  carousel.addEventListener('pointercancel', endDrag);
+  // Ngăn click mở link khi vừa kéo (không phải click thật)
+  carousel.addEventListener('click', (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
+
+  // Cảm ứng (mobile): dùng scroll cuộn chạm tự nhiên của trình duyệt, chỉ cần tạm dừng autoplay khi chạm
+  carousel.addEventListener('touchstart', stop, { passive: true });
+  carousel.addEventListener('touchend', restart, { passive: true });
+
+  carousel.addEventListener('mouseenter', stop);
+  carousel.addEventListener('mouseleave', () => { if (!isDown) restart(); });
+
+  start();
 })();
+
 </script>
 </body>
 </html>
