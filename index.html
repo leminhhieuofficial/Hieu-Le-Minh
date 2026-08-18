@@ -134,6 +134,9 @@ header.scrolled .nav-btns button:hover{background:var(--paper-alt);}
   box-shadow:0 0 0 rgba(20,15,5,0);
 }
 .journey-tile.is-featured{grid-column:span 2;grid-row:span 2;}
+.journey-tile.pos-mid-top{grid-column:3;grid-row:1;}
+.journey-tile.pos-mid-bottom{grid-column:3;grid-row:2;}
+.journey-tile.is-tall{grid-column:4;grid-row:1 / span 2;}
 .journey-tile:hover{box-shadow:0 24px 50px rgba(20,15,5,.28);z-index:2;}
 .journey-tile .tile-media{position:absolute;inset:0;overflow:hidden;}
 .journey-tile img{width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none;}
@@ -283,6 +286,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   .do-card,.do-card:not(:first-child){border-left:none;border-bottom:1px solid var(--line-dark);padding:32px 0;}
   .journey-bento{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,200px);gap:10px;}
   .journey-tile.is-featured{grid-column:span 2;grid-row:span 1;}
+  .journey-tile.pos-mid-top,.journey-tile.pos-mid-bottom{grid-column:auto;grid-row:auto;}
+  .journey-tile.is-tall{grid-column:span 2;grid-row:span 1;}
   .journey-tile.is-featured .tile-caption{padding:20px 22px;}
   .journey-tile.is-featured .tile-name{font-size:19px;}
   .blog-layout{grid-template-columns:1fr;gap:24px;}
@@ -306,7 +311,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   .hero-actions{flex-direction:column;gap:10px;}
   .hero-actions a{justify-content:center;padding:14px 22px;}
   .journey-bento{grid-template-columns:1fr;grid-template-rows:none;gap:12px;}
-  .journey-tile,.journey-tile.is-featured{grid-column:span 1;aspect-ratio:4/3;height:auto;}
+  .journey-tile,.journey-tile.is-featured,.journey-tile.pos-mid-top,.journey-tile.pos-mid-bottom,.journey-tile.is-tall{grid-column:span 1;grid-row:auto;aspect-ratio:4/3;height:auto;}
   .journey-tile .tile-caption{transform:translateY(0);opacity:1;}
   .journey-tile::after{opacity:1;}
   .journey-tile.is-featured .tile-name{font-size:22px;}
@@ -516,25 +521,20 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
         <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
         <span class="tile-caption"><span class="tile-date" data-i18n="j1Date">THÁNG 3 · 2024</span><span class="tile-name" data-i18n="j1Name">Hồ núi tĩnh lặng</span></span>
       </a>
-      <a class="journey-tile" href="pages/rung-thong.html" data-reveal data-delay="1">
+      <a class="journey-tile pos-mid-top" href="pages/rung-thong.html" data-reveal data-delay="1">
         <span class="tile-media"><img src="https://picsum.photos/seed/forestwalk9/500/500" alt="Đi bộ trong rừng thông"></span>
         <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
         <span class="tile-caption"><span class="tile-date" data-i18n="j2Date">THÁNG 6 · 2024</span><span class="tile-name" data-i18n="j2Name">Rừng thông sương sớm</span></span>
       </a>
-      <a class="journey-tile" href="pages/duong-deo.html" data-reveal data-delay="2">
+      <a class="journey-tile pos-mid-bottom" href="pages/duong-deo.html" data-reveal data-delay="2">
         <span class="tile-media"><img src="https://picsum.photos/seed/mtnroadvan4/500/500" alt="Xe trên đường đèo"></span>
         <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
         <span class="tile-caption"><span class="tile-date" data-i18n="j3Date">THÁNG 8 · 2024</span><span class="tile-name" data-i18n="j3Name">Đường đèo quanh co</span></span>
       </a>
-      <a class="journey-tile" href="pages/khinh-khi-cau.html" data-reveal data-delay="3">
-        <span class="tile-media"><img src="https://picsum.photos/seed/balloonssky8/500/500" alt="Khinh khí cầu buổi sáng"></span>
+      <a class="journey-tile is-tall" href="pages/khinh-khi-cau.html" data-reveal data-delay="3">
+        <span class="tile-media"><img src="https://picsum.photos/seed/balloonssky8/500/700" alt="Khinh khí cầu buổi sáng"></span>
         <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
         <span class="tile-caption"><span class="tile-date" data-i18n="j4Date">THÁNG 10 · 2024</span><span class="tile-name" data-i18n="j4Name">Khinh khí cầu bình minh</span></span>
-      </a>
-      <a class="journey-tile" href="pages/hanh-trinh-thuy-si.html" data-reveal data-delay="1">
-        <span class="tile-media"><img src="https://picsum.photos/seed/swisslake6/500/500" alt="Hồ núi Thụy Sĩ"></span>
-        <span class="tile-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
-        <span class="tile-caption"><span class="tile-date" data-i18n="j5Date">THÁNG 12 · 2024</span><span class="tile-name" data-i18n="j5Name">Hồ núi Thụy Sĩ</span></span>
       </a>
     </div>
     <div class="journey-cta" data-reveal>
@@ -926,7 +926,6 @@ const translations = {
     j2Date: "THÁNG 6 · 2024", j2Name: "Rừng thông sương sớm",
     j3Date: "THÁNG 8 · 2024", j3Name: "Đường đèo quanh co",
     j4Date: "THÁNG 10 · 2024", j4Name: "Khinh khí cầu bình minh",
-    j5Date: "THÁNG 12 · 2024", j5Name: "Hồ núi Thụy Sĩ",
     blogEyebrow: "BÀI VIẾT MỚI NHẤT",
     blogTitle: "Chia sẻ & cảm hứng",
     blogCard1Title: "Tối ưu quy trình bán hàng hiệu quả với dữ liệu",
@@ -967,7 +966,6 @@ const translations = {
     j2Date: "JUNE · 2024", j2Name: "Morning mist in the pines",
     j3Date: "AUGUST · 2024", j3Name: "Winding mountain pass",
     j4Date: "OCTOBER · 2024", j4Name: "Sunrise over the balloons",
-    j5Date: "DECEMBER · 2024", j5Name: "A Swiss mountain lake",
     blogEyebrow: "LATEST POSTS",
     blogTitle: "Stories & Inspiration",
     blogCard1Title: "Optimizing the Sales Process Effectively with Data",
