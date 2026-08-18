@@ -175,17 +175,56 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
   box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative;margin:auto;
 }
 .player-frame-wrap{position:relative;width:100%;aspect-ratio:16/9;max-height:80vh;background:#000;}
-.player-frame-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.player-frame-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;}
 .player-info{padding:18px 22px 22px;}
 .player-info h3{font-family:'Fraunces',serif;font-size:19px;margin-bottom:6px;}
 .player-info p{font-size:13px;color:var(--ink-soft);line-height:1.6;}
 .player-close{
   position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
   background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);color:#fff;
-  display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s;
+  display:flex;align-items:center;justify-content:center;z-index:20;transition:background .2s;
 }
 .player-close:hover{background:rgba(0,0,0,.8);}
 .player-close svg{width:16px;height:16px;}
+
+/* ---- CUSTOM VIDEO CONTROLS ---- */
+.vplayer-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;
+  border-radius:50%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;z-index:8;
+  transition:opacity .2s,transform .2s;
+}
+.vplayer-center svg{width:24px;height:24px;color:#fff;margin-left:3px;}
+.vplayer-center.vhidden{opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.85);}
+.vplayer-status{
+  position:absolute;inset:0;display:none;align-items:center;justify-content:center;z-index:7;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;color:var(--ink-soft);
+  text-align:center;padding:0 30px;
+}
+.vplayer-status.vshow{display:flex;}
+.vplayer-status a{color:var(--accent);text-decoration:underline;}
+.vplayer-controls{
+  position:absolute;left:0;right:0;bottom:0;z-index:9;padding:10px 14px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,0));
+  transition:opacity .25s;
+}
+.vplayer-controls.vhidden{opacity:0;pointer-events:none;}
+.vplayer-progress{position:relative;height:16px;display:flex;align-items:center;cursor:pointer;touch-action:none;}
+.vplayer-progress::before{content:"";position:absolute;left:0;right:0;height:4px;border-radius:2px;background:rgba(255,255,255,.28);}
+.vplayer-progress-fill{position:absolute;left:0;top:6px;height:4px;border-radius:2px;background:var(--accent);width:0%;}
+.vplayer-progress-handle{
+  position:absolute;top:8px;width:11px;height:11px;border-radius:50%;background:var(--ink);left:0%;
+  transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,.5);
+}
+.vplayer-row{display:flex;align-items:center;gap:12px;margin-top:6px;}
+.vplayer-btn{background:none;border:none;color:var(--ink);display:flex;align-items:center;justify-content:center;padding:5px;}
+.vplayer-btn svg{width:19px;height:19px;}
+.vplayer-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);white-space:nowrap;}
+.vplayer-spacer{flex:1;}
+.vplayer-speed{
+  font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:5px 9px;color:var(--ink);
+}
 
 @media(max-width:720px){
   header{padding:0 16px 10px;padding-top:env(safe-area-inset-top);height:calc(56px + env(safe-area-inset-top));}
@@ -319,8 +358,38 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
     <button class="player-close" id="playerClose">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
-    <div class="player-frame-wrap">
-      <iframe id="playerFrame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <div class="player-frame-wrap" id="playerFrameWrap">
+      <video id="playerVideo" playsinline webkit-playsinline preload="metadata"></video>
+
+      <div class="vplayer-status" id="vplayerStatus"></div>
+
+      <button class="vplayer-center" id="vCenterPlay">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+
+      <div class="vplayer-controls" id="vplayerControls">
+        <div class="vplayer-progress" id="vplayerProgress">
+          <div class="vplayer-progress-fill" id="vplayerProgressFill"></div>
+          <div class="vplayer-progress-handle" id="vplayerProgressHandle"></div>
+        </div>
+        <div class="vplayer-row">
+          <button class="vplayer-btn" id="vPlayBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="vplayer-btn" id="vBackBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 15L4 12l5-3M4 12h9a5 5 0 100-10"/></svg>
+          </button>
+          <button class="vplayer-btn" id="vFwdBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l5-3-5-3M20 12h-9a5 5 0 110-10"/></svg>
+          </button>
+          <span class="vplayer-time" id="vTime">0:00 / 0:00</span>
+          <div class="vplayer-spacer"></div>
+          <button class="vplayer-btn" id="vMuteBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
+          </button>
+          <button class="vplayer-speed" id="vSpeedBtn">1x</button>
+        </div>
+      </div>
     </div>
     <div class="player-info">
       <h3 id="playerTitle"></h3>
@@ -345,6 +414,14 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
          chia sẻ "Bất kỳ ai có đường liên kết" cho ảnh đó.
      Để trống "" nếu chưa có ảnh, card sẽ hiện nền gradient mặc định.
   Thêm bao nhiêu video tùy ý bằng cách copy 1 khối {..} và dán link/ID thật vào.
+
+  LƯU Ý VỀ PLAYER: trang giờ phát video bằng thẻ <video> gốc của trình duyệt,
+  KHÔNG dùng iframe xem trước của Google Drive nữa (nên toàn bộ nút bấm là do
+  trang tự vẽ, không lo bị chồng UI của Drive/iOS nữa). Video vẫn lấy trực
+  tiếp từ file Drive qua link tải, nên với file rất lớn (trên khoảng 100MB)
+  hoặc file bị Drive giới hạn băng thông trong ngày, video có thể không phát
+  được — khi đó nên cân nhắc host video ở nơi khác (ví dụ Cloudflare Stream,
+  Bunny.net...) để ổn định hơn.
 */
 const VIDEOS = [
   { title: "Video 01", desc: "Mô tả ngắn cho video 01.", driveId: "https://drive.google.com/file/d/1enwPN3S9vaqCx7T-reJNznaatngdSfzs/view?usp=drivesdk", thumbnail: "https://drive.google.com/file/d/1enwPN3S9vaqCx7T-reJNznaatngdSfzs/view?usp=drivesdk" },
@@ -366,9 +443,16 @@ function extractDriveId(raw){
   return raw.trim();
 }
 
-function driveEmbedUrl(raw){
+// Link phát trực tiếp (dùng cho thẻ <video>), khác với link "/preview" của iframe cũ
+function driveDirectVideoUrl(raw){
   const id = extractDriveId(raw);
-  return "https://drive.google.com/file/d/" + id + "/preview";
+  return "https://drive.google.com/uc?export=download&id=" + id;
+}
+// Link mở dự phòng trong chính Google Drive, dùng khi video không phát được trực tiếp
+function driveViewUrl(raw){
+  if (raw && raw.startsWith("http")) return raw;
+  const id = extractDriveId(raw);
+  return "https://drive.google.com/file/d/" + id + "/view";
 }
 
 // Chuyển link ảnh Drive thành link hiển thị trực tiếp; giữ nguyên nếu đã là link ảnh thường
@@ -432,22 +516,145 @@ document.getElementById('heroInfoBtn').addEventListener('click', () => {
   document.querySelector('.rows').scrollIntoView({behavior:'smooth'});
 });
 
-// Player modal
+// ---- Player modal (video tự thiết kế) ----
 const playerOverlay = document.getElementById('playerOverlay');
-const playerFrame = document.getElementById('playerFrame');
+const playerFrameWrap = document.getElementById('playerFrameWrap');
 const playerTitle = document.getElementById('playerTitle');
 const playerDesc = document.getElementById('playerDesc');
 const playerClose = document.getElementById('playerClose');
 
+const vVideo = document.getElementById('playerVideo');
+const vStatus = document.getElementById('vplayerStatus');
+const vCenterPlay = document.getElementById('vCenterPlay');
+const vControls = document.getElementById('vplayerControls');
+const vProgress = document.getElementById('vplayerProgress');
+const vProgressFill = document.getElementById('vplayerProgressFill');
+const vProgressHandle = document.getElementById('vplayerProgressHandle');
+const vPlayBtn = document.getElementById('vPlayBtn');
+const vBackBtn = document.getElementById('vBackBtn');
+const vFwdBtn = document.getElementById('vFwdBtn');
+const vTimeEl = document.getElementById('vTime');
+const vMuteBtn = document.getElementById('vMuteBtn');
+const vSpeedBtn = document.getElementById('vSpeedBtn');
+
+const ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+const ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+const ICON_VOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>';
+const ICON_MUTE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg>';
+
+const SPEEDS = [1, 1.5, 2, 0.5];
+let speedIndex = 0;
+let hideTimer = null;
+
+function fmtTime(s){
+  if (!isFinite(s) || s < 0) return "0:00";
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60).toString().padStart(2, '0');
+  return m + ":" + sec;
+}
+function updatePlayIcon(){
+  const playing = !vVideo.paused && !vVideo.ended;
+  vPlayBtn.innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
+  vCenterPlay.classList.toggle('vhidden', playing);
+}
+function showControls(){
+  vControls.classList.remove('vhidden');
+  clearTimeout(hideTimer);
+  if (!vVideo.paused) {
+    hideTimer = setTimeout(() => vControls.classList.add('vhidden'), 2800);
+  }
+}
+function togglePlay(){
+  if (vVideo.paused) { vVideo.play().catch(() => {}); } else { vVideo.pause(); }
+}
+function seekFromClientX(clientX){
+  const rect = vProgress.getBoundingClientRect();
+  let pct = (clientX - rect.left) / rect.width;
+  pct = Math.min(1, Math.max(0, pct));
+  if (vVideo.duration) vVideo.currentTime = pct * vVideo.duration;
+}
+
+vVideo.addEventListener('loadedmetadata', () => {
+  vTimeEl.textContent = fmtTime(0) + ' / ' + fmtTime(vVideo.duration);
+});
+vVideo.addEventListener('timeupdate', () => {
+  if (vVideo.duration) {
+    const pct = (vVideo.currentTime / vVideo.duration) * 100;
+    vProgressFill.style.width = pct + '%';
+    vProgressHandle.style.left = pct + '%';
+  }
+  vTimeEl.textContent = fmtTime(vVideo.currentTime) + ' / ' + fmtTime(vVideo.duration);
+});
+vVideo.addEventListener('play', () => { updatePlayIcon(); showControls(); });
+vVideo.addEventListener('pause', () => { updatePlayIcon(); showControls(); });
+vVideo.addEventListener('ended', () => { updatePlayIcon(); vControls.classList.remove('vhidden'); });
+vVideo.addEventListener('waiting', () => {
+  vStatus.textContent = 'Đang tải...';
+  vStatus.classList.add('vshow');
+});
+vVideo.addEventListener('playing', () => { vStatus.classList.remove('vshow'); });
+vVideo.addEventListener('canplay', () => { vStatus.classList.remove('vshow'); });
+// Lỗi tải video (link hỏng, bị Drive giới hạn băng thông, v.v.) được xử lý
+// riêng trong openPlayer() bên dưới, nơi biết link dự phòng để mở trong Drive.
+
+vPlayBtn.addEventListener('click', togglePlay);
+vCenterPlay.addEventListener('click', togglePlay);
+vVideo.addEventListener('click', togglePlay);
+vBackBtn.addEventListener('click', () => { vVideo.currentTime = Math.max(0, vVideo.currentTime - 10); showControls(); });
+vFwdBtn.addEventListener('click', () => { vVideo.currentTime = Math.min(vVideo.duration || 1e9, vVideo.currentTime + 10); showControls(); });
+
+let seeking = false;
+vProgress.addEventListener('pointerdown', (e) => { seeking = true; seekFromClientX(e.clientX); showControls(); });
+window.addEventListener('pointermove', (e) => { if (seeking) seekFromClientX(e.clientX); });
+window.addEventListener('pointerup', () => { seeking = false; });
+
+vMuteBtn.addEventListener('click', () => {
+  vVideo.muted = !vVideo.muted;
+  vMuteBtn.innerHTML = vVideo.muted ? ICON_MUTE : ICON_VOL;
+  showControls();
+});
+vSpeedBtn.addEventListener('click', () => {
+  speedIndex = (speedIndex + 1) % SPEEDS.length;
+  vVideo.playbackRate = SPEEDS[speedIndex];
+  vSpeedBtn.textContent = SPEEDS[speedIndex] + 'x';
+  showControls();
+});
+playerFrameWrap.addEventListener('mousemove', showControls);
+playerFrameWrap.addEventListener('touchstart', showControls, { passive: true });
+
 function openPlayer(v){
-  playerFrame.src = driveEmbedUrl(v.driveId);
   playerTitle.textContent = v.title;
   playerDesc.textContent = v.desc;
+  vStatus.classList.remove('vshow');
+  vCenterPlay.classList.remove('vhidden');
+  vProgressFill.style.width = '0%';
+  vProgressHandle.style.left = '0%';
+  vTimeEl.textContent = '0:00 / 0:00';
+  speedIndex = 0;
+  vVideo.playbackRate = 1;
+  vSpeedBtn.textContent = '1x';
+  vVideo.muted = false;
+  vMuteBtn.innerHTML = ICON_VOL;
+
+  const fallbackUrl = driveViewUrl(v.driveId);
+  vVideo.onerror = () => {
+    vStatus.innerHTML = 'Không phát được video này trực tiếp.<br><a href="' + fallbackUrl + '" target="_blank" rel="noopener">Mở trong Google Drive</a>';
+    vStatus.classList.add('vshow');
+    vCenterPlay.classList.add('vhidden');
+  };
+
+  vVideo.src = driveDirectVideoUrl(v.driveId);
+  vVideo.load();
   playerOverlay.classList.add('show');
+  vControls.classList.remove('vhidden');
+  const p = vVideo.play();
+  if (p && p.catch) p.catch(() => { updatePlayIcon(); });
 }
 function closePlayer(){
   playerOverlay.classList.remove('show');
-  playerFrame.src = '';
+  vVideo.pause();
+  vVideo.removeAttribute('src');
+  vVideo.load();
 }
 playerClose.addEventListener('click', closePlayer);
 playerOverlay.addEventListener('click', (e) => { if (e.target === playerOverlay) closePlayer(); });
