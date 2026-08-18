@@ -183,16 +183,40 @@ header.scrolled .nav-btns button:hover{background:var(--paper-alt);}
 
 
 /* ---- BLOG ---- */
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
-.blog-card{background:var(--white);border-radius:4px;overflow:hidden;border:1px solid var(--line-dark);}
-.blog-thumb{aspect-ratio:16/10;overflow:hidden;}
-.blog-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
-.blog-card:hover .blog-thumb img{transform:scale(1.05);}
-.blog-body{padding:24px 24px 26px;}
-.blog-meta{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
-.blog-meta .tag{color:var(--stamp);}
-.blog-meta .date{color:var(--ink-soft);}
-.blog-body h3{font-size:16.5px;font-weight:600;line-height:1.4;margin-bottom:16px;}
+.blog-meta{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;}
+.blog-layout{display:grid;grid-template-columns:1.35fr 1fr;gap:34px;align-items:stretch;}
+.blog-featured{position:relative;border-radius:6px;overflow:hidden;background:#1c1c1c;display:flex;align-items:flex-end;min-height:460px;}
+.blog-featured img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,1,.36,1);}
+.blog-featured:hover img{transform:scale(1.04);}
+.blog-featured::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.85) 0%,rgba(8,8,8,.3) 46%,rgba(8,8,8,.05) 72%);}
+.blog-featured-body{position:relative;z-index:2;padding:40px;color:var(--white);}
+.blog-featured-body .blog-meta .tag{color:var(--stamp);}
+.blog-featured-body .blog-meta .date{color:rgba(255,255,255,.6);}
+.blog-featured-body h3{font-family:'Fraunces',serif;font-size:clamp(22px,2.4vw,30px);font-weight:600;line-height:1.25;margin-bottom:14px;max-width:420px;}
+.blog-featured-body p{color:rgba(255,255,255,.75);font-size:14px;line-height:1.7;margin-bottom:20px;max-width:420px;}
+.blog-featured-body .more-link{color:var(--white);}
+.blog-featured-body .more-link:hover{color:var(--stamp);}
+
+.blog-list{display:flex;flex-direction:column;border-top:1px solid var(--line-dark);}
+.blog-list-item{display:flex;gap:16px;padding:22px 0;border-bottom:1px solid var(--line-dark);align-items:center;}
+.blog-list-thumb{width:84px;height:84px;border-radius:5px;overflow:hidden;flex-shrink:0;}
+.blog-list-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block;}
+.blog-list-item:hover .blog-list-thumb img{transform:scale(1.08);}
+.blog-list-body{flex:1;min-width:0;}
+.blog-list-body .blog-meta{margin-bottom:8px;}
+.blog-list-body h4{font-size:14.5px;font-weight:600;line-height:1.4;margin-bottom:10px;}
+.blog-list-body .more-link{font-size:11px;}
+.blog-list-more{padding-top:26px;text-align:right;}
+@media(max-width:900px){
+  .blog-layout{grid-template-columns:1fr;gap:26px;}
+  .blog-featured{min-height:340px;}
+  .blog-list-more{text-align:left;}
+}
+@media(max-width:520px){
+  .blog-featured-body{padding:26px;}
+  .blog-list-item{gap:12px;padding:18px 0;}
+  .blog-list-thumb{width:70px;height:70px;}
+}
 
 /* ---- CTA ---- */
 .cta{background:var(--paper-warm);padding:56px 0;}
@@ -261,7 +285,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
   .journey-tile.is-featured{grid-column:span 2;grid-row:span 1;}
   .journey-tile.is-featured .tile-caption{padding:20px 22px;}
   .journey-tile.is-featured .tile-name{font-size:19px;}
-  .blog-grid{grid-template-columns:1fr;gap:24px;}
+  .blog-layout{grid-template-columns:1fr;gap:24px;}
   .foot-grid{grid-template-columns:1fr 1fr;}
   .wrap{padding:0 24px;}
   .section{padding:76px 0;}
@@ -526,29 +550,43 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:70px 0 30px;posi
       <div class="eyebrow" style="justify-content:center;" data-i18n="blogEyebrow">BÀI VIẾT MỚI NHẤT</div>
       <h2 class="section-title" data-i18n="blogTitle">Chia sẻ &amp; cảm hứng</h2>
     </div>
-    <div class="blog-grid">
-      <div class="blog-card" data-reveal data-delay="1">
-        <div class="blog-thumb"><img src="https://picsum.photos/seed/deskcoffee5/620/400" alt="Bàn làm việc với laptop và cà phê"></div>
-        <div class="blog-body">
+    <div class="blog-layout">
+      <a href="#" class="blog-featured" data-reveal="left">
+        <img src="https://picsum.photos/seed/deskcoffee5/900/900" alt="Bàn làm việc với laptop và cà phê">
+        <div class="blog-featured-body">
           <div class="blog-meta"><span class="tag">SALES ADMIN</span><span class="date">12 MAR 2024</span></div>
           <h3 data-i18n="blogCard1Title">Tối ưu quy trình bán hàng hiệu quả với dữ liệu</h3>
-          <a href="#" class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+          <p data-i18n="blogCard1Desc">Với kỹ thuật tối ưu và phân tích dữ liệu, mỗi quyết định trở nên chính xác hơn và mang lại giá trị tốt hơn.</p>
+          <span class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
         </div>
-      </div>
-      <div class="blog-card" data-reveal data-delay="2">
-        <div class="blog-thumb"><img src="https://picsum.photos/seed/swisslake6/620/400" alt="Hồ núi Thụy Sĩ"></div>
-        <div class="blog-body">
-          <div class="blog-meta"><span class="tag">TRAVEL</span><span class="date">08 MAR 2024</span></div>
-          <h3 data-i18n="blogCard2Title">Hành trình đến Thụy Sĩ – trải nghiệm không thể quên</h3>
-          <a href="pages/hanh-trinh-thuy-si.html" class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-        </div>
-      </div>
-      <div class="blog-card" data-reveal data-delay="3">
-        <div class="blog-thumb"><img src="https://picsum.photos/seed/monitorcode2/620/400" alt="Màn hình máy tính với code"></div>
-        <div class="blog-body">
-          <div class="blog-meta"><span class="tag">TECHNOLOGY</span><span class="date">05 MAR 2024</span></div>
-          <h3 data-i18n="blogCard3Title">5 công cụ giúp tôi nâng cao năng suất mỗi ngày</h3>
-          <a href="pages/5-cong-cu-nang-suat.html" class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+      </a>
+      <div class="blog-list" data-reveal="right">
+        <a href="pages/hanh-trinh-thuy-si.html" class="blog-list-item">
+          <div class="blog-list-thumb"><img src="https://picsum.photos/seed/swisslake6/200/200" alt="Hồ núi Thụy Sĩ"></div>
+          <div class="blog-list-body">
+            <div class="blog-meta"><span class="tag">TRAVEL</span><span class="date">08 MAR 2024</span></div>
+            <h4 data-i18n="blogCard2Title">Hành trình đến Thụy Sĩ – trải nghiệm không thể quên</h4>
+            <span class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </a>
+        <a href="pages/5-cong-cu-nang-suat.html" class="blog-list-item">
+          <div class="blog-list-thumb"><img src="https://picsum.photos/seed/monitorcode2/200/200" alt="Màn hình máy tính với code"></div>
+          <div class="blog-list-body">
+            <div class="blog-meta"><span class="tag">TECHNOLOGY</span><span class="date">05 MAR 2024</span></div>
+            <h4 data-i18n="blogCard3Title">5 công cụ giúp tôi nâng cao năng suất mỗi ngày</h4>
+            <span class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </a>
+        <a href="#" class="blog-list-item">
+          <div class="blog-list-thumb"><img src="https://picsum.photos/seed/morningroutine8/200/200" alt="Thói quen buổi sáng"></div>
+          <div class="blog-list-body">
+            <div class="blog-meta"><span class="tag">LIFE</span><span class="date">01 MAR 2024</span></div>
+            <h4 data-i18n="blogCard4Title">Những thói quen nhỏ giúp tôi tập trung hơn mỗi ngày</h4>
+            <span class="more-link"><span data-i18n="readMore">ĐỌC THÊM</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+          </div>
+        </a>
+        <div class="blog-list-more">
+          <a href="#blog" class="more-link"><span data-i18n="blogListMore">XEM TẤT CẢ BÀI VIẾT</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
       </div>
     </div>
@@ -892,8 +930,11 @@ const translations = {
     blogEyebrow: "BÀI VIẾT MỚI NHẤT",
     blogTitle: "Chia sẻ & cảm hứng",
     blogCard1Title: "Tối ưu quy trình bán hàng hiệu quả với dữ liệu",
+    blogCard1Desc: "Với kỹ thuật tối ưu và phân tích dữ liệu, mỗi quyết định trở nên chính xác hơn và mang lại giá trị tốt hơn.",
     blogCard2Title: "Hành trình đến Thụy Sĩ – trải nghiệm không thể quên",
     blogCard3Title: "5 công cụ giúp tôi nâng cao năng suất mỗi ngày",
+    blogCard4Title: "Những thói quen nhỏ giúp tôi tập trung hơn mỗi ngày",
+    blogListMore: "XEM TẤT CẢ BÀI VIẾT",
     readMore: "ĐỌC THÊM",
     ctaTitle: "Sẵn sàng cho hành trình tiếp theo?",
     ctaDesc: "Cùng kết nối và tạo ra những giá trị tuyệt vời.",
@@ -930,8 +971,11 @@ const translations = {
     blogEyebrow: "LATEST POSTS",
     blogTitle: "Stories & Inspiration",
     blogCard1Title: "Optimizing the Sales Process Effectively with Data",
+    blogCard1Desc: "With optimization techniques and data analysis, every decision becomes more accurate and delivers better value.",
     blogCard2Title: "A Journey to Switzerland – An Unforgettable Experience",
     blogCard3Title: "5 Tools That Help Me Boost My Productivity Every Day",
+    blogCard4Title: "Small habits that help me stay focused every day",
+    blogListMore: "VIEW ALL POSTS",
     readMore: "READ MORE",
     ctaTitle: "Ready for the next journey?",
     ctaDesc: "Let's connect and create something great together.",
