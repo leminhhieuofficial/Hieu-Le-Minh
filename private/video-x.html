@@ -142,7 +142,29 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
 .vcard-body h4{font-size:13.5px;font-weight:500;margin-bottom:4px;}
 .vcard-body p{font-size:11.5px;color:var(--ink-soft);line-height:1.5;}
 
-/* ---- EMPTY / SETUP NOTE ---- */
+.vcard-more{
+  flex:0 0 auto;width:250px;border-radius:5px;overflow:hidden;background:var(--bg-card);
+  border:1px dashed var(--line);cursor:pointer;transition:transform .28s cubic-bezier(.2,1,.3,1), border-color .25s, background .25s;
+  display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;
+}
+.vcard-more:hover{transform:translateY(-6px) scale(1.03);border-color:rgba(193,85,47,.6);background:rgba(193,85,47,.08);}
+.vcard-more-inner{display:flex;flex-direction:column;align-items:center;gap:9px;padding:16px;text-align:center;}
+.vcard-more-icon{
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;transition:border-color .25s,background .25s;
+}
+.vcard-more:hover .vcard-more-icon{border-color:rgba(193,85,47,.7);background:rgba(193,85,47,.18);}
+.vcard-more-icon svg{width:15px;height:15px;color:var(--ink-soft);}
+.vcard-more:hover .vcard-more-icon svg{color:var(--ink);}
+.vcard-more span{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.vcard-more:hover span{color:var(--ink);}
+.row-end-note{
+  padding:0 44px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;
+  color:var(--ink-soft);opacity:.6;margin:-6px 0 30px;
+}
 .setup-note{
   margin:0 44px 60px;padding:20px 22px;border:1px dashed var(--line);border-radius:5px;
   background:var(--bg-raised);
@@ -202,6 +224,12 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
   .row-title{font-size:16px;}
   .row-track{padding:4px 16px 14px;gap:10px;}
   .setup-note{margin:0 16px 40px;padding:16px 16px;}
+  .row-end-note{padding:0 16px;margin:-4px 0 24px;}
+  .vcard-more{width:150px;}
+  .vcard-more-inner{padding:10px;gap:6px;}
+  .vcard-more-icon{width:32px;height:32px;}
+  .vcard-more-icon svg{width:13px;height:13px;}
+  .vcard-more span{font-size:9.5px;}
   .vcard{width:150px;}
   .vcard-body{padding:10px 11px 12px;}
   .vcard-body h4{font-size:12px;}
@@ -269,7 +297,7 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
       3) Mở file <code>video-x.html</code>, tìm mảng <code>VIDEOS</code> ở cuối trang, dán <b>nguyên link</b> vào trường <code>driveId</code> cho từng video (không cần tách ID thủ công), kèm tiêu đề và mô tả.<br>
       4) Muốn thêm <b>ảnh bìa</b>: dán link ảnh vào trường <code>thumbnail</code> — có thể là link ảnh thường, hoặc link chia sẻ ảnh từ Google Drive (cũng nhớ để "Bất kỳ ai có đường liên kết"). Để trống nếu chưa có ảnh.<br>
       5) Trang này hiện có <b>10 ô video</b> sẵn (Video 01 → Video 10). 6 ô cuối đang để trống <code>driveId: ""</code> — chỉ cần dán link Drive thật vào là card sẽ hoạt động ngay, không cần thêm khối mới.<br>
-      6) Video được xếp tự động <b>5 video / hàng</b> theo đúng thứ tự trong mảng <code>VIDEOS</code>. Thêm video 11, 12... thì hàng thứ 3 sẽ tự xuất hiện, mỗi hàng vẫn giữ đúng 5 video.
+      6) Video được hiển thị <b>5 video mỗi hàng</b>, ban đầu chỉ hiện hàng đầu tiên. Thẻ <b>"Xem thêm"</b> nằm ngay cuối hàng (cuộn ngang tới sẽ thấy) — bấm vào để tải hàng kế tiếp (5 video/lần), cho tới khi hết video.
     </p>
   </div>
 </div>
@@ -373,25 +401,45 @@ function makeCard(v, globalIndex){
   return card;
 }
 
-// Split videos into rows of 5.
+// Videos split into rows of 5, always shown. Each row ends with a "Xem thêm"
+// tile that links to another page — set the URL for each row in ROWS below.
 const ROW_SIZE = 5;
-const rowLabels = ['Mới thêm', 'Xem thêm'];
-for (let start = 0; start < VIDEOS.length; start += ROW_SIZE) {
+const ROWS = [
+  { label: 'Mới thêm', moreLink: 'more.html' },
+  { label: 'Xem thêm', moreLink: 'more.html' },
+];
+
+function makeMoreCard(href){
+  const card = document.createElement('a');
+  card.className = 'vcard-more';
+  card.href = href;
+  card.innerHTML = `
+    <div class="vcard-more-inner">
+      <span class="vcard-more-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+      <span>Xem thêm</span>
+    </div>
+  `;
+  return card;
+}
+
+for (let start = 0, r = 0; start < VIDEOS.length; start += ROW_SIZE, r++) {
   const items = VIDEOS.slice(start, start + ROW_SIZE).map((v, k) => ({ v, i: start + k }));
-  const rowIndex = start / ROW_SIZE;
-  const label = rowLabels[rowIndex] || `Hàng ${rowIndex + 1}`;
+  const rowDef = ROWS[r] || { label: `Hàng ${r + 1}`, moreLink: 'more.html' };
 
   const row = document.createElement('div');
   row.className = 'row';
   row.innerHTML = `
     <div class="row-head">
-      <div class="row-title">${label}</div>
+      <div class="row-title">${rowDef.label}</div>
       <div class="row-count">${items.length} video</div>
     </div>
     <div class="row-track"></div>
   `;
   const track = row.querySelector('.row-track');
   items.forEach(({v, i}) => track.appendChild(makeCard(v, i)));
+  track.appendChild(makeMoreCard(rowDef.moreLink));
   rowsContainer.insertBefore(row, setupNote);
 }
 
