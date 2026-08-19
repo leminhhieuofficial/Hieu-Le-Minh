@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tất cả Video — Le Minh Hieu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0C;
+  --bg-raised:#161617;
+  --bg-card:#1C1C1E;
+  --ink:#F3F1EC;
+  --ink-soft:#A8A6A0;
+  --line:#2A2A2C;
+  --accent:#C1552F;
+  --accent-hover:#D9673D;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{width:100%;max-width:100%;overflow-x:hidden;}
+body{
+  background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;min-height:100vh;width:100%;max-width:100%;overflow-x:hidden;
+  display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+img{display:block;max-width:100%;}
+
+/* ---- HEADER ---- */
+header{
+  position:sticky;top:0;left:0;right:0;z-index:60;height:68px;display:flex;align-items:center;
+  padding:0 44px;background:var(--bg);box-shadow:0 1px 0 var(--line);width:100%;max-width:100vw;
+}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.hdr-left{display:flex;align-items:center;gap:36px;}
+.hdr-logo{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;display:flex;align-items:center;gap:8px;}
+.hdr-logo .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;}
+.hdr-back{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);display:flex;align-items:center;gap:7px;transition:color .2s;
+}
+.hdr-back:hover{color:var(--ink);}
+.hdr-back svg{width:13px;height:13px;}
+.hdr-search{
+  display:flex;align-items:center;gap:8px;background:var(--bg-card);border:1px solid var(--line);
+  border-radius:4px;padding:8px 12px;min-width:220px;
+}
+.hdr-search svg{width:14px;height:14px;color:var(--ink-soft);flex-shrink:0;}
+.hdr-search input{
+  background:none;border:none;outline:none;color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:13px;width:100%;
+}
+.hdr-search input::placeholder{color:var(--ink-soft);}
+
+/* ---- PAGE HEAD ---- */
+main{flex:1 0 auto;}
+.page-head{padding:40px 44px 8px;}
+.page-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:9px;margin-bottom:14px;
+}
+.page-eyebrow .dot{width:5px;height:5px;background:var(--accent);border-radius:50%;}
+.page-head h1{
+  font-family:'Fraunces',serif;font-weight:700;font-size:clamp(30px,4.5vw,44px);line-height:1.05;
+  letter-spacing:-.01em;margin-bottom:10px;
+}
+.page-head p{color:var(--ink-soft);font-size:14px;line-height:1.7;max-width:560px;}
+.page-count{
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);margin-top:16px;
+  letter-spacing:.04em;
+}
+.page-count b{color:var(--ink);font-weight:600;}
+
+/* ---- FILTER BAR ---- */
+.filter-bar{
+  display:flex;gap:10px;flex-wrap:wrap;padding:20px 44px 4px;
+}
+.chip{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:8px 16px;border-radius:20px;border:1px solid var(--line);color:var(--ink-soft);
+  background:var(--bg-card);transition:all .2s;
+}
+.chip:hover{border-color:rgba(193,85,47,.5);color:var(--ink);}
+.chip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* ---- GRID ---- */
+.grid-wrap{padding:24px 44px 90px;}
+.vgrid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;
+}
+.vcard{
+  border-radius:5px;overflow:hidden;background:var(--bg-card);
+  border:1px solid var(--line);cursor:pointer;transition:transform .28s cubic-bezier(.2,1,.3,1), border-color .25s;
+  position:relative;
+}
+.vcard:hover{transform:translateY(-6px) scale(1.02);border-color:rgba(193,85,47,.5);z-index:5;}
+.vcard-thumb{
+  position:relative;aspect-ratio:16/9;background:
+    linear-gradient(135deg, #241814 0%, #1a1414 60%, #171717 100%);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.vcard-thumb img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .35s cubic-bezier(.2,1,.3,1);
+}
+.vcard:hover .vcard-thumb img{transform:scale(1.06);}
+.vcard-thumb::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 30%, rgba(193,85,47,.22), transparent 60%);
+}
+.vcard-thumb.has-img::before{
+  background:linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.05) 45%, rgba(0,0,0,.15) 100%);
+}
+.vcard-thumb .play-badge{
+  position:relative;z-index:2;width:42px;height:42px;border-radius:50%;
+  background:rgba(0,0,0,.42);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;
+  transition:transform .25s, background .25s;
+}
+.vcard:hover .play-badge{transform:scale(1.15);background:rgba(193,85,47,.85);}
+.vcard-thumb svg{width:15px;height:15px;color:rgba(243,241,236,.92);position:relative;z-index:2;}
+.vcard-num{
+  position:absolute;bottom:8px;left:10px;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.1em;color:rgba(243,241,236,.55);z-index:2;
+}
+.vcard-body{padding:12px 13px 14px;}
+.vcard-body h4{font-size:13px;font-weight:500;margin-bottom:4px;}
+.vcard-body p{font-size:11px;color:var(--ink-soft);line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+
+/* ---- LOAD MORE ---- */
+.load-more-wrap{display:flex;justify-content:center;padding:36px 44px 0;}
+.btn-more{
+  background:transparent;color:var(--ink-soft);border:1px solid var(--line);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  padding:12px 28px;border-radius:3px;display:inline-flex;align-items:center;gap:8px;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.btn-more:hover{background:rgba(193,85,47,.12);border-color:rgba(193,85,47,.5);color:var(--ink);}
+.btn-more svg{width:13px;height:13px;transition:transform .2s;}
+.btn-more:hover svg{transform:translateY(2px);}
+.end-note{
+  text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);
+  opacity:.6;padding:36px 44px 0;
+}
+
+/* ---- FOOTER ---- */
+footer{
+  flex-shrink:0;border-top:1px solid var(--line);background:var(--bg-raised);padding:40px 44px 32px;
+}
+.footer-inner{
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;max-width:1200px;
+}
+.footer-brand{display:flex;flex-direction:column;gap:10px;max-width:340px;}
+.footer-logo{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;display:flex;align-items:center;gap:8px;}
+.footer-logo .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;}
+.footer-brand p{font-size:12.5px;color:var(--ink-soft);line-height:1.7;}
+.footer-links{display:flex;gap:56px;flex-wrap:wrap;}
+.footer-col h5{
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);margin-bottom:12px;
+}
+.footer-col a{
+  display:block;font-size:13px;color:var(--ink);opacity:.85;margin-bottom:9px;transition:opacity .2s;
+}
+.footer-col a:hover{opacity:1;color:var(--accent-hover);}
+.footer-bottom{
+  margin-top:32px;padding-top:20px;border-top:1px solid var(--line);
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-soft);opacity:.6;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+
+/* ---- MODAL PLAYER ---- */
+.player-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:200;display:none;
+  align-items:center;justify-content:center;padding:30px;overflow-y:auto;
+}
+.player-overlay.show{display:flex;}
+.player-box{
+  width:100%;max-width:960px;background:#000;border-radius:6px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative;margin:auto;
+}
+.player-frame-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;}
+.player-frame-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.player-info{padding:18px 22px 22px;}
+.player-info h3{font-family:'Fraunces',serif;font-size:19px;margin-bottom:6px;}
+.player-info p{font-size:13px;color:var(--ink-soft);line-height:1.6;}
+.player-close{
+  position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
+  background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);color:#fff;
+  display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s;
+}
+.player-close:hover{background:rgba(0,0,0,.8);}
+.player-close svg{width:16px;height:16px;}
+
+@media(max-width:720px){
+  header{padding:0 16px;height:60px;gap:10px;}
+  .hdr-left{gap:16px;}
+  .hdr-logo{font-size:11px;}
+  .hdr-back{font-size:10px;}
+  .hdr-search{display:none;}
+  .page-head{padding:26px 16px 6px;}
+  .page-head h1{font-size:clamp(24px,7vw,32px);}
+  .page-head p{font-size:13px;}
+  .filter-bar{padding:16px 16px 4px;}
+  .chip{padding:7px 13px;font-size:10px;}
+  .grid-wrap{padding:18px 16px 60px;}
+  .vgrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+  .vcard-body{padding:10px 11px 12px;}
+  .vcard-body h4{font-size:12px;}
+  .vcard-body p{font-size:10.5px;}
+  footer{padding:28px 16px 24px;}
+  .footer-links{gap:32px;}
+  .footer-bottom{flex-direction:column;}
+
+  .player-overlay{padding:0;align-items:flex-start;}
+  .player-box{max-width:100%;border-radius:0;margin:0;height:100vh;height:100dvh;
+    display:flex;flex-direction:column;}
+  .player-frame-wrap{flex:1 1 auto;min-height:0;aspect-ratio:auto;}
+  .player-info{padding:12px 18px max(12px, env(safe-area-inset-bottom));flex-shrink:0;max-height:22vh;overflow-y:auto;}
+  .player-info h3{font-size:16px;}
+  .player-info p{font-size:12px;}
+  .player-close{
+    top:max(12px, env(safe-area-inset-top));right:12px;width:40px;height:40px;
+    background:rgba(0,0,0,.65);
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-inner">
+    <div class="hdr-left">
+      <div class="hdr-logo"><span class="dot"></span>LE MINH HIEU</div>
+      <a href="video-x.html" class="hdr-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Quay lại
+      </a>
+    </div>
+    <div class="hdr-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Tìm video theo tên...">
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="page-head">
+    <div class="page-eyebrow"><span class="dot"></span>VIDEO X · BỘ SƯU TẬP RIÊNG TƯ</div>
+    <h1>Tất cả Video</h1>
+    <p>Toàn bộ video trong bộ sưu tập, sắp xếp mới nhất trước. Gõ vào ô tìm kiếm ở trên để lọc theo tên.</p>
+    <div class="page-count">Đang hiển thị <b id="shownCount">0</b> / <span id="totalCount">0</span> video</div>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="vgrid" id="vgrid"></div>
+    <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+      <button class="btn-more" id="btnLoadMore">
+        Tải thêm video
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+    <div class="end-note" id="endNote" style="display:none;">Đã hiển thị tất cả video</div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo"><span class="dot"></span>LE MINH HIEU</div>
+      <p>Trang lưu trữ video riêng tư. Chỉ chia sẻ đường dẫn này với người bạn tin tưởng.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h5>Điều hướng</h5>
+        <a href="video-x.html">Trang chủ Video X</a>
+        <a href="private.html">Khu vực riêng tư</a>
+        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Lên đầu trang</a>
+      </div>
+      <div class="footer-col">
+        <h5>Bộ sưu tập</h5>
+        <a href="#" id="footerCatAll">Tất cả video</a>
+        <a href="#" id="footerCatNew">Mới thêm gần đây</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Le Minh Hieu — Chỉ dành cho riêng tư</span>
+    <span id="footerCountNote"></span>
+  </div>
+</footer>
+
+<!-- Player Modal -->
+<div class="player-overlay" id="playerOverlay">
+  <div class="player-box">
+    <button class="player-close" id="playerClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="player-frame-wrap">
+      <iframe id="playerFrame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+    <div class="player-info">
+      <h3 id="playerTitle"></h3>
+      <p id="playerDesc"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  DANH SÁCH VIDEO (đầy đủ)
+  --------------------------
+  Đây là bản sao của mảng VIDEOS dùng cho trang "Tất cả video". Vì đây là 2 file
+  HTML tĩnh riêng biệt, khi bạn thêm/sửa video ở video-x.html, hãy dán lại đúng
+  các mục đó vào đây để 2 trang luôn khớp nhau.
+  Mỗi video cần:
+   - title, desc: tiêu đề và mô tả ngắn
+   - driveId: nguyên link chia sẻ Google Drive của VIDEO (chế độ "Bất kỳ ai có
+     đường liên kết"), hoặc chỉ riêng phần ID cũng được.
+   - thumbnail: link ảnh bìa (ảnh thường hoặc link chia sẻ ảnh Drive). Để trống
+     "" nếu chưa có, card sẽ hiện nền gradient mặc định.
+  Trang này tự động hiển thị theo từng đợt (mặc định 12 video/lần), có nút
+  "Tải thêm video" ở cuối để xem tiếp — không giới hạn số lượng video thêm vào.
+*/
+const VIDEOS = [
+  { title: "Video 01", desc: "Mô tả ngắn cho video 01.", driveId: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link", thumbnail: "https://drive.google.com/file/d/1YBChKlIk2q_byM0if5IdT0tlLeD6Tgu8/view?usp=drive_link" },
+  { title: "Video 02", desc: "Mô tả ngắn cho video 02.", driveId: "https://drive.google.com/file/d/16eY8LqApYbb-OGD9PwY3pV7OfbQtBKIg/view?usp=drivesdk", thumbnail: "https://drive.google.com/file/d/16eY8LqApYbb-OGD9PwY3pV7OfbQtBKIg/view?usp=drivesdk" },
+  { title: "Video 03", desc: "Mô tả ngắn cho video 03.", driveId: "https://drive.google.com/file/d/1B9K9httfFavJBnOQlxpcjwwli-ouGFbx/view?usp=drivesdk", thumbnail: "https://drive.google.com/file/d/1B9K9httfFavJBnOQlxpcjwwli-ouGFbx/view?usp=drivesdk" },
+  { title: "Video 04", desc: "Mô tả ngắn cho video 04.", driveId: "https://drive.google.com/file/d/1Zw0Gdg26_Np8W5HfMoO10tmvKhW_U0Z3/view?usp=drivesdk", thumbnail: "https://drive.google.com/file/d/1Zw0Gdg26_Np8W5HfMoO10tmvKhW_U0Z3/view?usp=drivesdk" },
+  { title: "Video 05", desc: "Mô tả ngắn cho video 05.", driveId: "", thumbnail: "" },
+  { title: "Video 06", desc: "Mô tả ngắn cho video 06.", driveId: "", thumbnail: "" },
+  { title: "Video 07", desc: "Mô tả ngắn cho video 07.", driveId: "", thumbnail: "" },
+  { title: "Video 08", desc: "Mô tả ngắn cho video 08.", driveId: "", thumbnail: "" },
+  { title: "Video 09", desc: "Mô tả ngắn cho video 09.", driveId: "", thumbnail: "" },
+  { title: "Video 10", desc: "Mô tả ngắn cho video 10.", driveId: "", thumbnail: "" },
+];
+
+const PAGE_SIZE = 12; // số video tải mỗi lần / mỗi trang
+
+function extractDriveId(raw){
+  if (!raw) return "";
+  if (!raw.includes("/") && !raw.includes("http")) return raw.trim();
+  let m = raw.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  m = raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  return raw.trim();
+}
+function driveEmbedUrl(raw){
+  const id = extractDriveId(raw);
+  return "https://drive.google.com/file/d/" + id + "/preview";
+}
+function resolveImageUrl(raw){
+  if (!raw) return "";
+  if (raw.includes("drive.google.com")) {
+    const id = extractDriveId(raw);
+    return "https://lh3.googleusercontent.com/d/" + id + "=w800";
+  }
+  return raw.trim();
+}
+
+const vgrid = document.getElementById('vgrid');
+const shownCountEl = document.getElementById('shownCount');
+const totalCountEl = document.getElementById('totalCount');
+const footerCountNote = document.getElementById('footerCountNote');
+const loadMoreWrap = document.getElementById('loadMoreWrap');
+const endNote = document.getElementById('endNote');
+const btnLoadMore = document.getElementById('btnLoadMore');
+const searchInput = document.getElementById('searchInput');
+
+let filtered = VIDEOS.map((v, i) => ({ v, i }));
+let shown = 0;
+totalCountEl.textContent = VIDEOS.length;
+footerCountNote.textContent = VIDEOS.length + ' video trong bộ sưu tập';
+
+function makeCard({v, i}){
+  const card = document.createElement('div');
+  card.className = 'vcard';
+  const imgUrl = resolveImageUrl(v.thumbnail);
+  const thumbHtml = imgUrl
+    ? `<div class="vcard-thumb has-img">
+         <img src="${imgUrl}" alt="${v.title}" loading="lazy" onerror="this.parentElement.classList.remove('has-img'); this.remove();">
+         <span class="vcard-num">${String(i+1).padStart(2,'0')}</span>
+         <span class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+       </div>`
+    : `<div class="vcard-thumb">
+         <span class="vcard-num">${String(i+1).padStart(2,'0')}</span>
+         <span class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+       </div>`;
+  card.innerHTML = `
+    ${thumbHtml}
+    <div class="vcard-body">
+      <h4>${v.title}</h4>
+      <p>${v.desc}</p>
+    </div>
+  `;
+  card.addEventListener('click', () => openPlayer(v));
+  return card;
+}
+
+function renderPage(){
+  const next = filtered.slice(shown, shown + PAGE_SIZE);
+  next.forEach(item => vgrid.appendChild(makeCard(item)));
+  shown += next.length;
+  shownCountEl.textContent = shown;
+
+  if (shown < filtered.length) {
+    loadMoreWrap.style.display = 'flex';
+    endNote.style.display = 'none';
+  } else {
+    loadMoreWrap.style.display = 'none';
+    endNote.style.display = filtered.length > 0 ? 'block' : 'none';
+  }
+}
+
+function resetGrid(){
+  vgrid.innerHTML = '';
+  shown = 0;
+  renderPage();
+}
+
+btnLoadMore.addEventListener('click', renderPage);
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  filtered = VIDEOS
+    .map((v, i) => ({ v, i }))
+    .filter(({v}) => v.title.toLowerCase().includes(q) || v.desc.toLowerCase().includes(q));
+  resetGrid();
+});
+
+resetGrid();
+
+const playerOverlay = document.getElementById('playerOverlay');
+const playerFrame = document.getElementById('playerFrame');
+const playerTitle = document.getElementById('playerTitle');
+const playerDesc = document.getElementById('playerDesc');
+const playerClose = document.getElementById('playerClose');
+
+function openPlayer(v){
+  playerFrame.src = driveEmbedUrl(v.driveId);
+  playerTitle.textContent = v.title;
+  playerDesc.textContent = v.desc;
+  playerOverlay.classList.add('show');
+}
+function closePlayer(){
+  playerOverlay.classList.remove('show');
+  playerFrame.src = '';
+}
+playerClose.addEventListener('click', closePlayer);
+playerOverlay.addEventListener('click', (e) => { if (e.target === playerOverlay) closePlayer(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePlayer(); });
+</script>
+</body>
+</html>
