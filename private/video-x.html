@@ -297,7 +297,7 @@ header.scrolled{background:var(--bg);box-shadow:0 1px 0 var(--line);}
       3) Mở file <code>video-x.html</code>, tìm mảng <code>VIDEOS</code> ở cuối trang, dán <b>nguyên link</b> vào trường <code>driveId</code> cho từng video (không cần tách ID thủ công), kèm tiêu đề và mô tả.<br>
       4) Muốn thêm <b>ảnh bìa</b>: dán link ảnh vào trường <code>thumbnail</code> — có thể là link ảnh thường, hoặc link chia sẻ ảnh từ Google Drive (cũng nhớ để "Bất kỳ ai có đường liên kết"). Để trống nếu chưa có ảnh.<br>
       5) Trang này hiện có <b>10 ô video</b> sẵn (Video 01 → Video 10). 6 ô cuối đang để trống <code>driveId: ""</code> — chỉ cần dán link Drive thật vào là card sẽ hoạt động ngay, không cần thêm khối mới.<br>
-      6) Video được hiển thị <b>5 video mỗi hàng</b>, ban đầu chỉ hiện hàng đầu tiên. Thẻ <b>"Xem thêm"</b> nằm ngay cuối hàng (cuộn ngang tới sẽ thấy) — bấm vào để tải hàng kế tiếp (5 video/lần), cho tới khi hết video.
+      6) Video được xếp <b>5 video mỗi hàng</b>, cả 2 hàng luôn hiển thị cùng lúc. Cuối mỗi hàng có thẻ <b>"Xem thêm"</b> — đây là <b>link sang trang khác</b>, chỉnh đường dẫn trong biến <code>ROWS</code> ở cuối trang (thuộc tính <code>moreLink</code> cho từng hàng, ví dụ đổi thành <code>"more.html"</code> hoặc link bất kỳ).
     </p>
   </div>
 </div>
